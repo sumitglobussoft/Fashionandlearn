@@ -1,0 +1,99 @@
+<div class="main-container">
+    <div class="padding-md">
+        <h3 class="header-text" style="margin-top: 0;">Create Coupon</h3>
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">
+                <strong class="no-margin inline-block">New Coupon</strong>
+            </div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body">
+
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <form method="POST">
+                                <div class="form-group" style="margin-top: 5%;">
+                                    <label class="col-xs-3 control-label m-top-xs">Name *</label>
+                                    <div class="input-group col-xs-9">
+                                        <input type="text" name="couponname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label m-top-xs">Coupon Code *</label>
+                                    <div class="input-group col-xs-9">
+                                        <input type="text"  name="couponcode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:flex;">
+                                    <label class="col-xs-3 control-label m-top-xs">Discount *</label>
+                                    <div class="input-group col-xs-5">
+                                        <input type="text"  name="coupondiscount" class="form-control">
+
+                                    </div>
+
+                                    <div class="input-group col-xs-3 col-xs-offset-1">
+                                        <select class="form-control" name="discount_type">
+                                            <option value="0">% OFF</option>
+                                            <option value="1">$ OFF</option>
+                                        </select>
+                                    </div>
+
+                                </div>    
+                                <div class="d-divider"></div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label m-top-xs">Subscriptions Options</label>
+                                    <div class="input-group col-xs-7">
+                                        <label class="rd1">
+                                            <input type="radio" value ="0" name="subscriptionoffers" id="rd1">
+                                            <span>Apply Discount to First Charge only </span>
+                                        </label>
+                                        <label class="rd2">
+                                            <input type="radio" value="1" name="subscriptionoffers" id="rd2">
+                                            <span>Apply Discount to All Charges</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="d-divider"></div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label m-top-xs">Restrictions</label>
+                                    <div class="input-group col-xs-9">
+                                        <div class="block row">
+                                            <label class="col-xs-3 m-top-xs">Start Date</label>
+                                            <div class="col-xs-9">
+                                                <input placeholder="Start Date" name="couponstartdate" data-provide="datepicker" class="thisdate form-control" >	
+                                            </div>
+                                        </div>
+                                        <div class="block row m-top-xs">
+                                            <label class="col-xs-3 m-top-xs">End Date</label>
+                                            <div class="col-xs-9">
+                                                <input  placeholder="End Date" name="couponenddate"  data-provide="datepicker" class="thisdate form-control">	
+                                            </div>
+                                        </div>
+                                        <div class="block row m-top-xs">
+                                            <label class="col-xs-3 m-top-xs">Limit</label>
+                                            <div class="col-xs-9">
+                                                <input type="text"  name="couponlimit" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <button  type ="submit" class="btn btn-success">Save Changes</button>
+                                <a href = "/admin/coupons" class="btn btn-danger">Cancel</a>
+                            </form>
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('.thisdate').datepicker();
+    });
+</script>

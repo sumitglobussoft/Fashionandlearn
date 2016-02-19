@@ -1,0 +1,118 @@
+<script> 
+</script>
+<div class="main-container">
+    <div class="padding-md">
+        <ul class="breadcrumb">
+            <li><span class="primary-font"><i class="icon-home"></i></span><a href="#">  <?php echo $this->translate("Classes Panel") ?> </a></li>
+            <li><?php echo $this->translate("Invitations") ?></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title header-text no-m-bottom">
+                    <?php echo $this->translate("Classes Panel") ?> 
+                </div>
+            </div>
+        </div
+        <div class="row m-top-md">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4><?php echo $this->translate("Invitations") ?> </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="unassignedclasses" class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->translate("SL no") ?></th>
+                                        <th><?php echo $this->translate("User Id") ?></th>
+                                        <th><?php echo $this->translate("Name") ?></th>
+                                        <th><?php echo $this->translate("Email") ?></th>
+                                        <th><?php echo $this->translate("Contact") ?></th>
+                                        <th><?php echo $this->translate("Porfolio") ?></th>
+                                        <th><?php echo $this->translate("experince") ?></th>
+                                        <th><?php echo $this->translate("class_idea") ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if(isset($this->invitations)){ $count = 1; foreach($this->invitations as $value){ ?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><p><?php echo $value['user_id'] ?></p></td>
+                                        <td><p><?php echo $value['user_name'] ?></p></td>
+                                        <td><p><?php echo $value['user_mail'] ?></p></td>
+                                        <td><p><?php echo $value['user_num'] ?></p></td>
+                                        <td><p><?php echo $value['porfolio'] ?></p></td>
+                                        <td><p><?php echo $value['experince'] ?></p></td>
+                                        <td><p><?php echo $value['class_idea'] ?></p></td>
+                                    </tr>
+                                    <?php $count++;} } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./padding-md -->
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+$('#Classes').addClass('active');
+$('#Classes').addClass('open');
+$('#invitationsli').addClass('active');
+$('#classesul').show();
+
+    $("#unassignedclasses").dataTable();
+    
+    $(".assign").on('click',function(){
+        $(this).prev().prev().prev().prev().show();
+        $(this).prev().prev().prev().show();
+        $(this).prev().prev().show();
+        $(this).prev().show();
+        $(this).hide();
+        $(this).next().hide();
+    });
+    
+     $(".assigneuser").on('click',function(){
+         var thisitem = $(this);
+         var mailid = $(this).prev().val();
+         var classid = $(this).attr('classid');
+         var ownerid = $(this).attr('ownerid');
+         alert(ownerid);
+         alert(mailid);
+         $.ajax({
+                url: '/admin/class-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    method:'assignuser',
+                    mailid:mailid,
+                    classid:classid,
+                    ownerid:ownerid
+                },
+                success: function (response) {
+                    if(response){
+                    thisitem.parent().parent().hide();}else{
+                    thisitem.prev().prev()[0].innerHTML = "Entered mail id is Not Exist in the user list"
+                    $(thisitem.prev().prev()[0]).css('color','red');
+                    }
+                }
+                });
+     });
+ 
+$('.cancel').on('click',function(){
+    $(this).next().next().show();
+    $(this).hide();
+    $(this).prev().hide();
+    $(this).prev().prev().hide();
+    $(this).prev().prev().prev().hide();
+    $(this).next().show();
+    console.log($(this).prev().prev().prev());
+});
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('.opennotificationGreen').fadeOut("slow");
+        }, 500);
+    });
+</script>

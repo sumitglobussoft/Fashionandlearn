@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Fashiontuts Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Bootstrap core CSS -->
+        <link href="/assets/css/admin/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link href="/assets/css/admin/font-awesome.min.css" rel="stylesheet">
+
+        <!-- ionicons -->
+        <link href="/assets/css/admin/ionicons.min.css" rel="stylesheet">
+
+        <!-- Simplify -->
+        <link href="/assets/css/admin/simplify.min.css" rel="stylesheet">
+
+    </head>
+
+    <body class="overflow-hidden light-background sign-in-bg">
+        <div class="wrapper no-navigation preload">
+            <div class="sign-in-wrapper">
+                <div class="sign-in-inner">
+                    <div class="login-brand text-center">
+                        <img src="/assets/images/logo.png" class="img-responsive" alt="Logo"/> 
+                    </div>
+
+                    <form action="" name="adminlogin" id="adminlogin" method="post" >
+                        <div id="signin">
+                            <div class="form-group m-bottom-md">
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Email Address">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            </div>
+
+
+
+                            <div class="m-top-md p-top-sm">
+                                <button class="btn btn-block btn-primary" id="adminlogin">Sign in</button>
+                                <span style="color: red; float: right;"><?php if (isset($this->error)) {
+    echo $this->error;
+} ?></span>
+
+                            </div>
+                            <a style="cursor:pointer;color:#17232c;" id ="forgotpassord"> forgot password</a>
+                        </div>
+                        <div style="display:none" id="rempassword">
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email id">
+                            </div>
+                            <div class="m-top-md p-top-sm">
+                                <button class="btn btn-block btn-primary" id="adminforgot">submit</button>
+                            </div>
+                            <div>
+                                <a style="cursor:pointer;color:#17232c;" id ="login">Admin login</a>
+                            </div>
+                        </div>
+                    </form>
+
+<?php if (isset($this->empty)) { ?>
+                        <div>
+                            <p class="glyphicons restart clrError"><i></i>Please enter your username and password ...</p>
+                        </div>
+<?php } if (isset($this->invalid)) { ?>
+                        <div>
+                            <p class="glyphicons restart clrError"><i></i>Invalid email or password</p>
+                        </div>
+<?php } ?>
+                </div>
+                <!-- ./sign-in-inner -->
+            </div><!-- ./sign-in-wrapper -->
+        </div><!-- /wrapper -->
+
+        <a href="#" id="scroll-to-top" class="hidden-print"><i class="icon-chevron-up"></i></a>
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <!-- Jquery -->
+        <script src="/assets/js/admin/jquery-1.11.1.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="/assets/js/admin/bootstrap.min.js"></script>
+
+        <!-- Slimscroll -->
+        <script src='/assets/js/admin/jquery.slimscroll.min.js'></script>
+
+        <!-- Popup Overlay -->
+        <script src='/assets/js/admin/jquery.popupoverlay.min.js'></script>
+
+        <!-- Modernizr -->
+        <script src='/assets/js/admin/modernizr.min.js'></script>
+
+        <!-- Simplify -->
+        <script src="/assets/js/admin/simplify/simplify.js"></script>
+
+    </body>
+
+</html>
+<script>
+    //dev:priyanka varanasi
+    // desc:hide and show forgot pass and admin login forms
+    $(document.body).on('click', '#forgotpassord', function() {
+        $('#rempassword').show();
+        $('#signin').hide();
+
+    });
+    $(document.body).on('click', '#login', function() {
+        $('#rempassword').hide();
+        $('#signin').show();
+    });
+
+    //dev:priyanka varanasi
+    //desc: to submit forgot password form through ajax
+
+    $('#adminforgot').on('click', function(e) {
+        e.preventDefault();
+        var emailid = $('#email').val();
+//         alert(emailid);
+        jQuery.ajax({
+            url: '/admin/reset-ajax-handler',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                method:'resetmail',
+                email: emailid,
+            },
+            beforeSend: function() {
+
+            },
+            success: function(response) {
+               
+            }
+
+        })
+    });
+</script>

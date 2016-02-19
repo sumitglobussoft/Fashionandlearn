@@ -1,0 +1,151 @@
+<head>
+    <link href="/assets/css/admin/bootstrap.min.css" rel="stylesheet">
+<script src="/assets/js/admin/jquery-1.11.1.min.js">
+</script>
+<!--         Font Awesome -->
+        <link href="/assets/css/admin/font-awesome.min.css" rel="stylesheet">
+
+<!--         ionicons -->
+        <link href="/assets/css/admin/ionicons.min.css" rel="stylesheet">
+
+<!--         Morris -->
+        <link href="/assets/css/admin/morris.css" rel="stylesheet"/>	
+
+<!--         Datepicker -->
+        <link href="/assets/css/admin/datepicker.css" rel="stylesheet"/>	
+
+<!--         Animate -->
+        <link href="/assets/css/admin/animate.min.css" rel="stylesheet">
+
+<!--         Owl Carousel -->
+        <link href="/assets/css/admin/owl.carousel.min.css" rel="stylesheet">
+        <link href="/assets/css/admin/owl.theme.default.min.css" rel="stylesheet">
+        <link href="/assets/css/admin/css/jquery.dataTables.css" rel="stylesheet">
+        <link href="/assets/css/admin/dataTables.bootstrap.css" rel="stylesheet">
+
+<!--         Simplify -->
+        <link href="/assets/css/admin/simplify.min.css" rel="stylesheet">
+
+</head>
+
+
+<div class="wrapper">
+ <div class="main-container bg-black">
+        <div class="container m-top-lg">
+            <div class="padding-md">
+     <div class="col-md-7">
+                        <div class="panel panel-default m-top-md">
+                            <div class="panel-heading" style="color:#000000">
+                               <b> Reset Password</b>															</div>
+                            <div class="panel-body">
+                                <form id="passcheck" class="form-horizontal" method="POST" name="passCheck">
+                                    <div class="cent" id="passerror" style="color: red" role="alert">
+<!--                                        <span class="help-block">hjhjhj</span>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" " for=" Password"><?php echo $this->translate("Password") ?></label>
+                                        <div class="col-lg-7">
+                                           <input type="password" placeholder=" <?php echo $this->translate("Password") ?>" value=""  name="password" id="password" class="form-control">
+                                        </div><!-- /.col -->
+                                    </div><!-- /form-group -->
+                               <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="Confirm Password">Confirm Password</label>
+                                        <div class="col-lg-7">
+                                            <input type="password" placeholder="<?php echo $this->translate("Confirm Password") ?>" value=""  name="confirmpassword" id="confirmpassword" class="form-control">
+                                        </div><!-- /.col -->
+                                    </div><!-- /form-group -->
+
+                               
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success btn-sm" type="submit"><?php echo $this->translate("Reset Password") ?></button>
+                                
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="<?php $this->baseUrl(); ?>/admin"><button class="btn btn-danger btn-sm"><?php echo $this->translate("Cancel") ?></button></a>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                          <?php if(isset($this->message)){?>  <div class="opennotificationGreen" style="background-color:#66B45E; height: 40px; padding: 3%; margin-top: 7%; text-align: center;" align="left" >
+                                                    <p><font face="verdana" id="data" color="black"><?php echo ($this->message);?></font></p>
+                                                </div>
+                          <?php }?><!-- /form-group -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./padding-md -->
+<!-- /main-container -->
+<!-- /wrapper -->
+<script src="/assets/js/admin/jquery-1.11.1.min.js"></script>
+        <script src="/assets/js/admin/jquery-1.11.0.min.js"></script>
+<!--         Bootstrap -->
+        <script src="/assets/js/admin/bootstrap.min.js"></script>
+        
+        <script src="/assets/js/admin/jquery.dataTables.min.js"></script>
+        
+        <script src="/assets/js/admin/uncompressed/dataTables.bootstrap.js"></script>
+      
+<!--
+        
+<!--
+         Slimscroll -->
+        <script src='/assets/js/admin/jquery.slimscroll.min.js'></script>
+
+<!--         Morris -->
+        <script src='/assets/js/admin/rapheal.min.js'></script>	
+        <script src='/assets/js/admin/morris.min.js'></script>	
+
+<!--         Datepicker -->
+        <script src='/assets/js/admin/uncompressed/datepicker.js'></script>
+
+<!--         Sparkline -->
+        <script src='/assets/js/admin/sparkline.min.js'></script>
+
+<!--         Skycons -->
+        <script src='/assets/js/admin/uncompressed/skycons.js'></script>
+
+<!--         Popup Overlay -->
+        <script src='/assets/js/admin/jquery.popupoverlay.min.js'></script>
+<!--
+         Easy Pie Chart -->
+       
+
+<!--         Sortable -->
+        <script src='/assets/js/admin/uncompressed/jquery.sortable.js'></script>
+
+<!--         Owl Carousel -->
+        <script src='/assets/js/admin/owl.carousel.min.js'></script>
+
+<!--         Modernizr -->
+        <script src='/assets/js/admin/modernizr.min.js'></script>
+
+<!--         Simplify -->
+        <script src="/assets/js/admin/simplify/simplify.js"></script>
+         <!--Flot -->
+         <script src='/assets/js/admin/jquery.easypiechart.min.js'></script>
+         
+         <script src='/includes/ckeditor/ckeditor.js'></script>
+         <script src='/includes/ckeditor/config.js'></script>
+         
+         <!-- inter related js files( containes exceptions)-->
+         
+<!--         <script src='/assets/js/admin/jquery.flot.min.js'></script>-->
+<!--         <script src='/assets/js/admin/jquery.flot.resize.js'></script>-->
+        
+<!--         <script src="/assets/js/admin/simplify/simplify_dashboard.js"></script>-->
+          
+         
+       
+
+
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+$(document).ready(function(){
+    setTimeout(function(){
+        $('.opennotificationGreen').fadeOut("slow");
+    },500);
+});
+</script>

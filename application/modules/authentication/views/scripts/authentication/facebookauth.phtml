@@ -1,0 +1,79 @@
+ <!-- Container -->
+     <div class="col-md-11 padding80">
+          <div class="row">
+           
+              
+            
+            <div class="col-md-6 col-md-offset-3 bgwhite border-radius">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Your mail account</h1>
+                    </div>
+                </div>
+                 <div class="row">
+                        <div class="col-md-12 margin-bot20">
+                        <p class="text-center"></p>
+                        <form method="post" name="facebookauth" id="facebookauth">
+                        <label class="font-15"><p>Email</p></label>
+                        <input type="email" class="input-lg form-control" name="email" id="email" placeholder="Email" autocomplete="off">
+                        
+                        <input  class="input-lg form-control hidden" name="username" id="username" placeholder="username" value="<?php if(isset($this->fbData['first_name'])){ echo $this->fbData['first_name']; } else echo ""; ?>" autocomplete="off">
+                        <input  class="input-lg form-control hidden" name="lastname" id="lastname" placeholder="lastname" value="<?php if(isset($this->fbData['last_name'])){ echo $this->fbData['last_name']; } else echo "";?>" autocomplete="off">
+                        <input  class="input-lg form-control hidden" name="profilepic" id="profilepic" placeholder="profilepic" value="<?php if(isset($this->fbData['user_profile_pic'])){ echo $this->fbData['user_profile_pic']; } else echo ""; ?>" autocomplete="off">
+                        <input  class="input-lg form-control hidden" name="gender" id="gender" placeholder="gender" value="<?php if(isset($this->fbData['gender'])){ echo $this->fbData['gender']; } else echo "";?>" autocomplete="off">
+                        
+                        <input  class="input-lg form-control hidden" name="password" id="password" placeholder="password" value="<?php if(isset($this->fbData['password'])){ echo $this->fbData['password']; } else echo "";?>" autocomplete="off">
+                        <input  class="input-lg form-control hidden" name="facebookrid" id="facebookrid" placeholder="facebookrid" value="<?php if(isset($this->fbData['fb_id'])){ echo $this->fbData['fb_id']; } else echo "";?>" autocomplete="off">                        
+                         <br>
+                        <input type="submit" class="col-xs-12 btn btn-color btn-load btn-lg" data-loading-text="Sign Up" value="Sign Up">
+                       
+                        </form>
+                        
+                    </div>
+                    
+             </div>
+          </div>
+          
+          </div>
+     </div>
+   <script>
+       $('#facebookauth').validate({
+            rules: {
+      
+              email: {
+                     remote: {
+                    url: "/auth-ajax-handler",
+                    type: "post",
+                    data: {
+                        email: function() {
+                            return $("#email").val();
+                        },
+                        ajaxMethod: 'validateEmail'
+                    }
+                },
+                    required: true
+                }
+            },
+    
+            messages: {      
+            
+                email:{
+                   required:"please enter valid email",
+                   remote: "Email already exists",
+                    email: "Invalid Email Format"
+                }
+           
+            }
+            
+        });
+        
+  
+   </script>
+   <style>
+       .error{
+           color:#ff3300  
+       }         
+       
+   </style>
+     <!-- / Container -->
+     

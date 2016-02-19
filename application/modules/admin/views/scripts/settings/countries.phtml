@@ -1,0 +1,73 @@
+<div id="content">
+    <h4><?php echo $this->translate("Country Details") ?></h4>
+    <div class="innerLR">
+
+        <!-- Widget -->
+        <div class="widget">
+
+            <!-- Widget heading -->
+            <div class="widget-head">
+                <h4 class="heading"><?php echo $this->translate("Country Manage") ?></h4>
+            </div>
+            <!-- // Widget heading END -->
+
+            <div class="widget-body">
+            <div class="widget-tablebody">
+
+                <!-- Table -->
+                <table class="dynamicTable table table-striped table-bordered table-condensed">
+
+                    <!-- Table heading -->
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->translate("No") ?></th>
+                            <th><?php echo $this->translate("Country Code") ?></th>
+                            <th><?php echo $this->translate("Country Name") ?></th>
+                            <th class="center"><?php echo $this->translate("Status") ?></th>
+                            <th class="center"><?php echo $this->translate("Action") ?></th>
+                            <th class="center"><?php echo $this->translate("Edit/Delete") ?></th>
+                        </tr>
+                    </thead>
+                    <!-- // Table heading END -->
+
+                    <!-- Table body -->
+                    <tbody>
+
+                        <?php if(isset($this->countries)): $row = 0; foreach($this->countries as $countriesDetails): $row ++;?>
+                        <!-- Table row -->
+                        <tr class="gradeA">
+                            <td><?php echo $row; ?></td>
+                            <td><?php echo $countriesDetails['country_code']; ?></td>
+                            <td><?php echo $countriesDetails['country_name']; ?></td>
+                            <?php if($countriesDetails['status']==1): ?>
+                            <td id="activecountry_<?php echo $countriesDetails['country_id']; ?>" class="center js-sortable-handle useractive">Active</td>
+                            <td class="center" style="width: 80px;"><a href="#" id="<?php if (isset($countriesDetails['country_id'])): echo "country_" . $countriesDetails['country_id'];endif;?>" class="countrydeactive">
+                            <span id="activeclass_<?php echo $countriesDetails['country_id']; ?>" class="label label-block label-inverse">Deactivate</span></a></td>
+                              <?php  else: ?>
+                            <td id="activecountry_<?php echo $countriesDetails['country_id']; ?>" class="center js-sortable-handle userdeactive">Suspended</td>
+                            <td class="center" style="width: 80px;"><a href="#" id="<?php if (isset($countriesDetails['country_id'])): echo "country_" . $countriesDetails['country_id']; endif;?>" class="countryactive">
+                            <span id="activeclass_<?php echo $countriesDetails['country_id']; ?>"  class="label label-block label-primary">Activate</span></a></td>
+                            <?php endif;?> 
+                            <td class="center">
+                            <a  href="edit-country/<?php echo $countriesDetails['country_id']; ?>" class="btn-action glyphicons pencil btn-success"><i></i></a>
+                            <a  href="#" id="<?php  echo "countrydelete_" . $countriesDetails['country_id'];  ?>" class="btn-action glyphicons remove_2 btn-danger-country"><i></i></a>
+                            </td>
+                        </tr>                        
+                        <!-- // Table row END -->
+                        <?php endforeach;  endif; ?>
+                    </tbody>
+                    <!-- // Table body END -->
+
+                </table>
+                <!-- // Table END -->
+
+            </div>
+            </div>
+        </div>
+    </div>	
+</div>
+<script>
+    $('#menu_components5').removeClass('collapse').addClass('in collapse');
+    $('#site_menu').removeClass('hasSubmenu glyphicons cogwheels').addClass('hasSubmenu glyphicons cogwheels active');
+    $('#country_menu').addClass('active');    
+</script>

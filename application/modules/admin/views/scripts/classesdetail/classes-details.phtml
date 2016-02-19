@@ -1,0 +1,169 @@
+<div class="main-container">
+    <div class="padding-md m-bottom-md">
+        <h3 class="header-text m-top-lg"><?php echo $this->translate("Classes Details") ?></h3>
+        <table class="table table-striped" id="dataTable" class="display">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate("S.no") ?></th>
+                    <th><?php echo $this->translate("Class Name") ?></th>
+                    <th><?php echo $this->translate("Username") ?></th>
+                    <th><?php echo $this->translate("Popularity") ?></th>
+                    <th><?php echo $this->translate("publish status") ?></th>
+                    <th><?php echo $this->translate("Class Description") ?></th>
+                    <th><?php echo $this->translate("Edit/Delete") ?></th>
+                    <th><?php echo $this->translate("Approved") ?></th>
+                    <th><?php echo $this->translate("Class reject") ?></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                if (isset($this->classes)) {
+                    $i = 1;
+                    foreach ($this->classes as $value) {
+                        ?>
+                        <tr><td><?php echo $i; ?></td>
+                            <td><a href ="/admin/class-units/<?php echo $value['class_id']; ?>" style="cursor:pointer;color:#006dcc;"><?php echo $value['class_title']; ?></a></td>
+                            <td><?php echo $value['first_name']; ?></td>
+                            <td><?php echo $value['popularity']; ?><i class="percent"></i></td>
+                            <td id="class_<?php echo $value['class_id']; ?>"><?php
+                                if ($value['publish_status'] == 0) {
+                                    echo "publish";
+                                } else if ($value['publish_status'] == 2) {
+                                    echo "pending";
+                                } else {
+                                    echo"saved in drafts";
+                                }
+                                ?></td>
+                            <td> <a class="button" href="edit-class/<?php echo $value['class_id']; ?>"><button type="button" class="btn btn-primary btn-sm">click to view</button></a>
+                            <td><a href="edit-class/<?php echo $value['class_id']; ?>"><button class="btn btn-success btn-sm">Edit</button>
+                                    <a class="remove" data-val="<?php echo $value['class_id']; ?>" id ="del_<?php echo $value['class_id']; ?>" ><button class="btn btn-danger btn-sm">Delete</button></a></td>
+                            <td class="data_<?php echo $value['class_id']; ?>"><?php if ($value['publish_status'] == 0) { ?><span class="label label-success">Approved</span><?php } else { ?><span  style="cursor:pointer"  data-value="<?php echo $value['class_id']; ?>" class="label label-danger approve"><?php echo $this->translate("Approve") ?></span><?php } ?></td>
+                            <td class="clid_<?php echo $value['class_id']; ?>"><?php if ($value['publish_status'] == 2) { ?><span class="label label-success">Rejected</span><?php } else { ?><span  style="cursor:pointer"  data-cid="<?php echo $value['class_id']; ?>" class="label label-danger rejects"><?php echo $this->translate("Class Reject") ?></span><?php } ?></td>
+                        </tr>
+                        <?php $i++; ?>  
+                        <?php
+                    }
+                }
+                ?>
+
+            </tbody>
+        </table>
+    </div><!-- ./padding-md -->
+</div><!-- /main-container -->
+
+
+<!-- /wrapper -->
+
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script type="text/javascript" language="javascript">
+$('#Classes').addClass('active');
+$('#Classes').addClass('open');
+$('#classesdetailsli').addClass('active');
+$('#classesul').show();
+    $(document).ready(function() {
+
+        $('#dataTable').dataTable({
+        });
+    });
+
+
+    //dev:priyanka varanasi
+    //desc:To approve the class
+    $(document).on('click', '.approve', function() {
+       
+        var classvalue = $(this).attr('data-value');
+      var w =$(this);
+        $.ajax({
+            url: './class-ajax-handler',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                method: 'approveclass',
+                Classeid: classvalue
+            },
+            beforeSend: function() {
+                console.log('approving class')
+            },
+            success: function(response) {
+                if (response) {
+                    var clnew = response.replace(/(\r\n|\n|\r)/gm, "");
+                    var cl = "data_" + clnew;
+                    var cln = "class_" + clnew;
+                    var dt ="clid_"+clnew;
+                    w.parent("." + cl).html('<span class="label label-success">Approved</span>');
+                    $("#" + cln).html('Published');
+                    $("." + dt).html('<span id="reject" class="label label-danger rejects" data-cid="'+clnew+'" style="cursor:pointer">Class Reject</span>');
+                }
+            }
+        });
+    });
+
+//dev:priyanka varanasi
+//desc:To delete the class
+
+    $(document.body).on('click', '.remove', function() {
+       var deleteid = $(this).attr('data-val');
+       $("#Deleteclass").modal('show');
+       $(document.body).on('click', '#delok', function(){
+          var not =  $(this).attr('data-del');
+       
+           if(not!==''){
+               $.ajax({
+                    url: './class-ajax-handler',
+                    type: 'POST',
+                    datatype: 'json',
+                    data: {
+                        method: 'classdelete',
+                        Classid: deleteid
+                    },
+                    beforeSend: function() {
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        if (response) {
+                             var clu = response.replace(/(\r\n|\n|\r)/gm, "");
+                            $("#del_"+clu).parent().parent().remove();
+                             $('#Deleteclass').modal('hide');
+                        }
+                    }
+
+                });
+           
+        }
+        });
+    });
+
+
+    $(document).on('click', '.rejects', function() {
+        var r = $(this);
+        var classvalue = $(this).attr('data-cid');
+
+        $.ajax({
+            url: './class-ajax-handler',
+            type: 'POST',
+            datatype: 'json',
+            data: {
+                method: 'Rejectclass',
+                Classeid: classvalue
+            },
+            success: function(response) {
+               
+                if (response) {
+                    var clnew = response.replace(/(\r\n|\n|\r)/gm, "");
+                    var cl = "clid_" + clnew;
+                     var dl = "data_" + clnew;
+                     var cln = "class_" + clnew;
+                    r.parent("." + cl).html('<span class="label label-success">Rejected</span>');
+                    $("#" + cln).html('saved in drafts');
+                    $("." + dl).html('<span class="label label-danger approve" data-value="'+clnew+'" style="cursor:pointer">Approve</span>');
+                }
+            }
+        });
+    });
+
+
+</script>
+
+

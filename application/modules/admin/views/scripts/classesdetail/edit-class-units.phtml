@@ -1,0 +1,61 @@
+<div class="main-container">
+				<div class="padding-md">
+					
+					<h3 class="m-left-xs header-text m-top-lg"><?php echo $this->translate("Classes Details") ?></h3>
+<div class="smart-widget m-top-lg widget-dark-blue">
+						<div class="smart-widget-header">
+							<?php echo $this->translate("Edit Class Unit Details") ?>
+							
+						</div>
+						<div class="smart-widget-inner">
+							<div class="smart-widget-hidden-section">
+								<ul class="widget-color-list clearfix">
+									<li data-color="widget-dark" style="background-color:#20232b;"></li>
+									<li data-color="widget-dark-blue" style="background-color:#4c5f70;"></li>
+									<li data-color="widget-blue" style="background-color:#23b7e5;"></li>
+									<li data-color="widget-green" style="background-color:#2baab1;"></li>
+									<li data-color="widget-yellow" style="background-color:#edbc6c;"></li>
+									<li data-color="widget-orange" style="background-color:#fbc852;"></li>
+									<li data-color="widget-red" style="background-color:#e36159;"></li>
+									<li data-color="widget-purple" style="background-color:#7266ba;"></li>
+									<li data-color="widget-light-grey" style="background-color:#f5f5f5;"></li>
+									<li data-color="reset" style="background-color:#fff;"></li>
+								</ul>
+							</div>
+							<div class="smart-widget-body">
+								<form class="form-horizontal" name="editclassunitform" method="POST" >
+                                                                    <input <?php if(isset($this->unitinfo)){?>value="<?php echo ($this->unitinfo['class_id']);}?>" readonly type="text"  class ="hidden" placeholder="<?php echo $this->translate("classid") ?>" name="classid" id="classid" class="form-control">
+									<div class="form-group">
+										<label class="col-lg-2 control-label" for="UserName"><?php echo $this->translate("UserName") ?></label>
+										<div class="col-lg-10">
+                                                                                    <input <?php if(isset($this->unitinfo['first_name'])){?>value="<?php echo ($this->unitinfo['first_name']);}?>" readonly type="text" placeholder="<?php echo $this->translate("UserName") ?>" name="UserName" id="UserName" class="form-control">
+										</div><!-- /.col -->
+									</div><!-- /form-group -->
+									<!-- /form-group -->
+                                                                        <div class="form-group">
+										<label class="col-lg-2 control-label" for="Video Title">
+                                                                                   <?php echo $this->translate("class Unit Title") ?> </label>
+										<div class="col-lg-10">
+                                                                                        <input <?php if(isset($this->unitinfo['class_unit_titile'])){?> value="<?php echo ($this->unitinfo['class_unit_titile']);}?>"type="text" name="classunittitle" placeholder="<?php echo $this->translate("ClassunitTitle") ?>" id="ClassunitTitle" class="form-control">
+										</div><!-- /.col -->
+									</div>
+								     
+									<div class="form-group">
+										<div class="col-lg-offset-2 col-lg-10">
+											<button class="btn btn-success btn-sm" type="submit"><?php echo $this->translate("Save Class") ?></button>
+                                                                                        &nbsp;&nbsp;&nbsp;
+                                                                                        <a href="/admin/class-units/<?php echo($this->unitinfo['class_id'])?>" class="btn btn-danger btn-sm"><?php echo $this->translate("Cancel") ?></a>
+										</div><!-- /.col -->
+									</div><!-- /form-group -->
+								 </form>
+							</div>
+                                                                       
+						</div><!-- ./smart-widget-inner -->
+					</div>
+		        </div><!-- ./padding-md -->
+			</div><!-- /main-container -->
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+			
+

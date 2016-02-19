@@ -1,0 +1,175 @@
+
+<div class="main-container">
+    <div class="padding-md">
+        <ul class="breadcrumb">
+            <li><span class="primary-font"><i class="icon-home"></i></span><a href="#"> <?php echo $this->translate("Gamification Panel") ?></a></li>
+            <li><?php echo $this->translate("Levels") ?></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title header-text no-m-bottom">
+                    <?php echo $this->translate("Gamification Panel") ?>
+                </div>
+            </div>
+        </div
+        <div class="row m-top-md">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4><?php echo $this->translate("Levels") ?></h4>
+                        <button class="btn btn-success btn-sm addlevel pull-right"><?php echo $this->translate("Add Level") ?></button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->translate("SL no") ?></th>
+                                        <th><?php echo $this->translate("Level") ?></th>
+                                        <th><?php echo $this->translate("Points required") ?></th>
+                                        <th><?php echo $this->translate("Edit/Delete") ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody id='tablebody'>
+                                    <?php if(isset($this->levels)){ $count = 1; foreach($this->levels as $value){?>
+                                    <tr>
+                                        <td id='<?php echo $value['levelid'] ?>'><?php echo $count; ?></td>
+                                        <td><p><?php echo $value['level'] ?></p><input type='text' hidden></td>
+                                        <td><p><?php echo $value['pointsrequired'] ?></p><input type='text' hidden></td>
+                                        <td><button class="btn btn-success savechanges" style='display:none'><?php echo $this->translate("save") ?></button> <button class="btn btn-success btn-sm editrow"><?php echo $this->translate("Edit") ?></button> <button class="btn btn-danger btn-sm deleterow" lid='<?php echo $value['levelid'] ?>'><?php echo $this->translate("Delete") ?></button><button class="btn btn-danger btn-sm Cancel" style='display:none'><?php echo $this->translate("Cancel") ?></button></td>
+                                    </tr>
+                                    <?php $count++;} } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./padding-md -->
+    <div class='insert'>
+   </div>
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+      refresh();
+    $(document).ready(function(){
+         $("#Gamificationpanalli").addClass("active");
+        $("#Gamificationpanalli").addClass("openable active open");
+        $("#gamificationpanelul").show();
+        $("#levelsli").addClass("active");
+        refresh();
+        
+    });
+
+var length =  <?php echo $count; ?>;  
+var count = length+0;
+$('.addlevel').on('click',function(){
+  var row='<tr> <td id="">'+count+'</td> <td><p></p><input type="text" ></td> <td><p></p><input type="text"></td> <td><button class="btn btn-success btn-sm savechanges" >save</button> <button class="btn btn-success btn-sm editrow" style="display:none">Edit</button> <button class="btn btn-danger btn-sm deleterow" lid="" style="display:none">Delete</button><button class="btn btn-danger btn-sm Cancelnewrow" lid="">Cancel</button></td> </tr>';
+       count ++;
+    $('#tablebody').append(row);
+    refresh();
+});
+
+   
+
+
+function refresh(){
+$(".editrow").on('click',function(){
+   var requiredpoints = $(this).parent().prev().children()['0'].innerHTML;
+   var level = $(this).parent().prev().prev().children()['0'].innerHTML;
+   $(this).parent().prev().children().hide();
+   $(this).parent().prev().children().next().show();
+   $(this).parent().prev().children().next().attr("value", requiredpoints);
+   $(this).parent().prev().prev().children().hide();
+   $(this).parent().prev().prev().children().next().show();
+   $(this).parent().prev().prev().children().next().attr("value", level);
+   $(this).next().next().show();
+   $(this).next().hide();
+   $(this).hide();
+   $(this).prev().show();
+   if($(this).next().next().hasClass("Cancel")){
+       
+   }else{
+       $(this).next().next().addClass("Cancel");
+        $(this).next().next().removeClass("Cancelnewrow");
+   }
+});
+$(".savechanges").on('click',function(){
+    var presentitem = $(this);
+    var requiredpoints = $(this).parent().prev().children().next().val();
+    var levels = $(this).parent().prev().prev().children().next().val();
+    var levelid = $(this).parent().prev().prev().prev().attr("id");
+    $.ajax({
+                url: '/admin-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    method:'levels',
+                    requiredpoints:requiredpoints,
+                    levels:levels,
+                    levelid:levelid
+                },
+                success: function (response) {
+                    if(response != 1 && response !=0){
+                       presentitem.parent().prev().prev().prev().attr("id",response);
+                       presentitem.next().next().attr("lid",response);}
+                       presentitem.parent().prev().children()['0'].innerHTML = requiredpoints;
+                       presentitem.parent().prev().prev().children()['0'].innerHTML = levels;
+                       presentitem.parent().prev().prev().children().show();
+                       presentitem.parent().prev().prev().children().next().hide();
+                       presentitem.parent().prev().children().show();
+                       presentitem.parent().prev().children().next().hide();
+                       presentitem.hide();
+                       presentitem.next().show();
+                       presentitem.next().next().show();
+                       presentitem.next().next().next().hide();
+                }
+               
+                });
+});
+ $('.deleterow').on('click',function(){
+             var presentitem = $(this);
+             var levelid = $(this).attr('lid');
+             $.ajax({
+                url: '/admin-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                   method:'levelsdelete',
+                    levelid:levelid
+                },
+                success: function (response) {
+                    if(response == 1){
+                       presentitem.parent().parent().hide();
+                       count --;
+                   }
+                }
+               
+                });
+});
+
+}
+$(document.body).on('click','.Cancel',function(){
+   $(this).parent().prev().children().show();
+   $(this).parent().prev().children().next().hide();
+   $(this).parent().prev().prev().children().show();
+   $(this).parent().prev().prev().children().next().hide();
+   $(this).hide();
+   $(this).prev().show(); 
+   $(this).prev().prev().show(); 
+   $(this).prev().prev().prev().hide(); 
+});
+$(document.body).on('click','.Cancelnewrow',function(){
+   $(this).parent().parent().hide();
+});
+
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('.opennotificationGreen').fadeOut("slow");
+        }, 500);
+    });
+</script>
