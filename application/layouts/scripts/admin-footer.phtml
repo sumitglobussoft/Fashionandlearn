@@ -1,0 +1,151 @@
+ <script src='/assets/js/admin/bootstrap-datepicker.js'></script>
+   <link href="/assets/css/admin/bootstrap-datepicker.min.css" rel="stylesheet"/>
+<div class="modal fade" class="hidden" id="Deletemembershipmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this membership") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" class="hidden" id="Deleteclassunitmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this unit from this class") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" class="hidden" id="Deletevideomodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this video from this class") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+<div class="modal fade" class="hidden" id="Deleteprojectmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this Project") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="videoplay" class="modal fade" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="col-md-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12 pull-right videoclass" style="margin-top:2%;">
+
+                        <div class="share-links col-md-12 col-sm-12">
+                            <a class="fa fa-facebook-square col-md-3 col-sm-3" href="#"> Share  <span class="arrow-right count-status">120</span></a>
+                            <a class="fa  fa-twitter col-md-2 col-sm-3" href=""> Tweet</a>
+                            <a class="fa fa-angle-double-right col-md-3 col-sm-3" href="#"> Embed</a>
+                            <a class="fa fa-anchor col-md-4 col-sm-3" href="#"> http://skl.sh/1uFLISb</a>
+                        </div>
+                     </div>
+           </div>
+    </div>
+</div>
+</div>
+                                     
+<div class="modal fade" class="hidden" id="Deleteclass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("If you once delete this class .It will delete from all tables .Are you sure you Want to Delete this class") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <button id ="delok" data-del="2" class="btn btn-success">ok</button>
+                
+                
+                
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- ----------------modal for user delete--------------------------->
+<div class="modal fade" class="hidden" id="DeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this User") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!---------------------------------------------------------------------->
+<div class="modal fade" class="hidden" id="Deletecategory">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p><?php echo $this->translate("Do You Want to Delete this Category") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <a  id ="ok"class="btn btn-success">Ok</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--<script>
+    jQuery(window).load(function() {
+
+        "use strict";
+
+        // Page Preloader
+        jQuery('#preloader').delay(11350).fadeOut(function() {
+            jQuery('body').delay(11350).css({'overflow': 'visible'});
+        });
+    });
+</script>-->
+
+</body>
+</html>

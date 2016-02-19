@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+	    <meta charset="utf-8">
+	    <title><?php echo $this->translate("Payment Details | Fashiontuts Admin") ?></title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <!-- Bootstrap core CSS -->
+	    <link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- Font Awesome -->
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+
+		<!-- ionicons -->
+		<link href="css/ionicons.min.css" rel="stylesheet">
+		
+		<!-- datatable -->
+		<link href="css/dataTables.bootstrap.css" rel="stylesheet">
+
+		<!-- Simplify -->
+		<link href="css/simplify.min.css" rel="stylesheet">
+
+  	</head>
+
+  	<body class="overflow-hidden">
+		<div class="wrapper preload">
+
+			<header class="top-nav">
+				<div class="top-nav-inner">
+					<div class="nav-header">
+						<button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleSM">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						
+						<ul class="nav-notification pull-right">
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
+								<span class="badge badge-danger bounceIn">1</span>
+								<ul class="dropdown-menu dropdown-sm pull-right user-dropdown">
+									<li class="user-avatar">
+										<img src="images/profile/profile1.jpg" alt="" class="img-circle">
+										<div class="user-content">
+											<h5 class="no-m-bottom">Jane Doe</h5>
+											<div class="m-top-xs">
+												<a href="#" class="m-right-sm"><?php echo $this->translate("Profile") ?></a>
+												<a href="signin.html"><?php echo $this->translate("Log out") ?></a>
+											</div>
+										</div>
+									</li>	  
+									<li>
+										<a href="#">
+											<?php echo $this->translate("Inbox") ?>
+											<span class="badge badge-danger bounceIn animation-delay2 pull-right">1</span>
+										</a>
+									</li>			  
+									<li>
+										<a href="#">
+											<?php echo $this->translate("Notification") ?>
+											<span class="badge badge-purple bounceIn animation-delay3 pull-right">2</span>
+										</a>
+									</li>			  
+									<li>
+										<a href="#" class="sidebarRight-toggle">
+											<?php echo $this->translate("Message") ?>
+											<span class="badge badge-success bounceIn animation-delay4 pull-right">7</span>
+										</a>
+									</li>			  	  
+									<li class="divider"></li>
+									<li>
+										<a href="#"><?php echo $this->translate("Setting") ?></a>
+									</li>			  	  
+								</ul>
+							</li>
+						</ul>
+						
+						<a href="#" class="brand">
+							
+                            <img src="images/logo -dash.png" class="img-responsive" alt="Logo"/>
+						</a>
+					</div>
+					<div class="nav-container">
+						<button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<ul class="nav-notification">	
+							<li class="search-list">
+								<div class="search-input-wrapper">
+									<div class="search-input">
+										<input type="text" class="form-control input-sm inline-block">
+										<a href="#" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="pull-right m-right-sm">
+							<div class="user-block hidden-xs">
+								<a href="#" id="userToggle" data-toggle="dropdown">
+									<img src="images/profile/profile1.jpg" alt="" class="img-circle inline-block user-profile-pic">
+									<div class="user-detail inline-block">
+										Jane Doe
+										<i class="fa fa-angle-down"></i>
+									</div>
+								</a>
+								<div class="panel border dropdown-menu user-panel">
+									<div class="panel-body paddingTB-sm">
+										<ul>
+											<li>
+												<a href="#">
+													<i class="fa fa-edit fa-lg"></i><span class="m-left-xs"><?php echo $this->translate("My Profile") ?></span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-inbox fa-lg"></i><span class="m-left-xs"><?php echo $this->translate("Inboxes") ?></span>
+													<span class="badge badge-danger bounceIn animation-delay3">2</span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-power-off fa-lg"></i><span class="m-left-xs"><?php echo $this->translate("Sign out") ?></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<ul class="nav-notification">
+								<li>
+									<a href="#" data-toggle="dropdown"><i class="fa fa-envelope fa-lg"></i></a>
+									<span class="badge badge-purple bounceIn animation-delay5 active">2</span>
+									<ul class="dropdown-menu message pull-right">
+										<li><a>You have 4 new unread messages</a></li>					  
+										<li>
+											<a class="clearfix" href="#">
+												<img src="images/profile/profile2.jpg" alt="User Avatar">
+												<div class="detail">
+													<strong>John Doe</strong>
+													<p class="no-margin">
+														Lorem ipsum dolor sit amet...
+													</p>
+													<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
+												</div>
+											</a>	
+										</li>
+										<li>
+											<a class="clearfix" href="#">
+												<img src="images/profile/profile3.jpg" alt="User Avatar">
+												<div class="detail">
+													<strong>Jane Doe</strong>
+													<p class="no-margin">
+														Lorem ipsum dolor sit amet...
+													</p>
+													<small class="text-muted"><i class="fa fa-check text-success"></i> 5hr ago</small>
+												</div>
+											</a>	
+										</li>
+										<li>
+											<a class="clearfix" href="#">
+												<img src="images/profile/profile4.jpg" alt="User Avatar">
+												<div class="detail m-left-sm">
+													<strong>Bill Doe</strong>
+													<p class="no-margin">
+														Lorem ipsum dolor sit amet...
+													</p>
+													<small class="text-muted"><i class="fa fa-reply"></i> Yesterday</small>
+												</div>
+											</a>	
+										</li>
+										<li>
+											<a class="clearfix" href="#">
+												<img src="images/profile/profile5.jpg" alt="User Avatar">
+												<div class="detail">
+													<strong>Baby Doe</strong>
+													<p class="no-margin">
+														Lorem ipsum dolor sit amet...
+													</p>
+													<small class="text-muted"><i class="fa fa-reply"></i> 9 Feb 2013</small>
+												</div>
+											</a>	
+										</li>
+										<li><a href="#">View all messages</a></li>					  
+									</ul>
+								</li>
+								<li>
+									<a href="#" data-toggle="dropdown"><i class="fa fa-bell fa-lg"></i></a>
+									<span class="badge badge-info bounceIn animation-delay6 active">4</span>
+									<ul class="dropdown-menu notification dropdown-3 pull-right">
+										<li><a href="#">You have 3 new notifications</a></li>					  
+										<li>
+											<a href="#">
+												<span class="notification-icon bg-warning">
+													<i class="fa fa-warning"></i>
+												</span>
+												<span class="m-left-xs">Server #2 not responding.</span>
+												<span class="time text-muted">Just now</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="notification-icon bg-success">
+													<i class="fa fa-plus"></i>
+												</span>
+												<span class="m-left-xs">New user registration.</span>
+												<span class="time text-muted">2m ago</span>
+											</a>
+										</li>
+										
+										<li>
+											<a href="#">
+												<span class="notification-icon bg-success">
+													<i class="fa fa-plus"></i>
+												</span>
+												<span class="m-left-xs">New user registration.</span>
+												<span class="time text-muted">1hr ago</span>
+											</a>
+										</li>
+										<li><a href="#">View all notifications</a></li>					  
+									</ul>
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div><!-- ./top-nav-inner -->	
+			</header>
+			<aside class="sidebar-menu fixed">
+				<div class="sidebar-inner scrollable-sidebar">
+					<div class="main-menu">
+						<ul class="accordion">
+							<li class="menu-header">
+								Main Menu
+							</li>
+							<li class="bg-palette1">
+								<a href="index.html">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-home fa-lg"></i></span>
+										<span class="text m-left-sm">Dashboard</span>
+									</span>
+									<span class="menu-content-hover block">
+										Home
+									</span>
+								</a>
+							</li>
+							
+							<li class="openable bg-palette3">
+								<a href="user_details.html">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-users fa-lg"></i></span>
+										<span class="text m-left-sm">Manage Users</span>
+									</span>
+									<span class="menu-content-hover block">
+										Manage Users
+									</span>
+                                    <span class="submenu-icon"></span>
+								</a>
+								<ul class="submenu">
+									<li><a href="user_details.html"><span class="submenu-label">User Details</span></a></li>
+									<li><a href="#"><span class="submenu-label">Create User</span></a></li>
+									
+								</ul>
+							</li>
+							
+							<li class="bg-palette1">
+								<a href="classes_details.html">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-book fa-lg"></i></span>
+										<span class="text m-left-sm">Classes Details</span>
+										
+									</span>
+									<span class="menu-content-hover block">
+										Classes Details
+									</span>
+                                   
+								</a>
+                              </li>
+                              <li class="bg-palette3">
+								<a href="#">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-paperclip fa-lg"></i></span>
+										<span class="text m-left-sm">Projects Details</span>
+										
+									</span>
+									<span class="menu-content-hover block">
+										Projects Details
+									</span>
+                                   
+								</a>
+                              </li>
+							<li class="bg-palette2">
+								<a href="membership_plans.html">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-support fa-lg"></i></span>
+										<span class="text m-left-sm">Membership Plans</span>
+										
+									</span>
+									<span class="menu-content-hover block">
+										Membership Plans
+									</span>
+								
+								</a>
+                             
+							</li>
+                            <li class="bg-palette2 active">
+								<a href="payment_details.html">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-dollar fa-lg"></i></span>
+										<span class="text m-left-sm">Payment Details</span>
+										
+									</span>
+									<span class="menu-content-hover block">
+										Payment Details
+									</span>
+								
+								</a>
+                             
+							</li>
+							<li class="menu-header">
+								Add Category
+							</li>
+							<li class="bg-palette3">
+								<a href="#">
+									<span class="menu-content block">
+										<span class="menu-icon"><i class="block fa fa-list fa-lg"></i></span>
+										<span class="text m-left-sm">Category Management</span>
+									</span>
+									<span class="menu-content-hover block">
+										Category Management
+									</span>
+								</a>
+								
+							</li>
+							
+						</ul>
+					</div>	
+					<div class="sidebar-fix-bottom clearfix">
+						<div class="user-dropdown dropup pull-left">
+							<a href="#" class="dropdwon-toggle font-18" data-toggle="dropdown"><i class="ion-person-add"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">
+										Inbox
+										<span class="badge badge-danger bounceIn animation-delay2 pull-right">1</span>
+									</a>
+								</li>			  
+								<li>
+									<a href="#">
+										Notification
+										<span class="badge badge-purple bounceIn animation-delay3 pull-right">2</span>
+									</a>
+								</li>			  
+								<li>
+									<a href="#" class="sidebarRight-toggle">
+										Message
+										<span class="badge badge-success bounceIn animation-delay4 pull-right">7</span>
+									</a>
+								</li>			  	  
+								<li class="divider"></li>
+								<li>
+									<a href="#">Setting</a>
+								</li>			  	  
+							</ul>
+						</div>
+						<a href="#" class="pull-right font-18"><i class="ion-log-out"></i></a>
+					</div>
+				</div><!-- sidebar-inner -->
+			</aside>
+			
+			<div class="main-container">
+				<div class="padding-md m-bottom-md">
+				
+					<h3 class="header-text m-top-lg">Teacher Payment Details</h3>
+                    
+                    <div class="row">
+                    	<div class="col-md-4 col-xs-12">
+                        	<div class="table-responsive">
+                            	<table class="table">
+                                	<thead>
+                                    	<tr>
+                                        	<th>Teacher Payment</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr>
+                                        	<td>Number total of payment students</td>
+                                            <td><?php echo $this->totalstudents; ?></td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Value of subscribe</td>
+                                            <td> 35.00</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Value total of  asset value</td>
+                                            <td><?php echo $this->totalassets?></td>
+                                        </tr>
+                                        <tr>
+                                        	<td>% to divide</td>
+                                            <td>
+										30%
+                                        </tr>
+                                        <tr>
+                                        	<td>Total value of the Commission to divide between teachers</td>
+                                            <td id='total'><?php echo round((($this->totalassets)*30)/100)?></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                        	<div class="table-responsive">
+                            	<table class="table">
+                                	<thead>
+                                    	<tr>
+                                        	<th>Weight average</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr>
+                                        	<td>Wight Average Nr. Students</td>
+                                            <td>20%</td>
+                                        </tr>
+                                    	<tr>
+                                        	<td>Wight Average Nr. Project</td>
+                                            <td>20%</td>
+                                        </tr>
+                                    	<tr>
+                                        	<td>Wight Average Videos views</td>
+                                            <td>60%</td>
+                                        </tr>
+                                    	<tr>
+                                        	<td></td>
+                                            <td id="wight_total"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                        	<div class="table-responsive">
+                            	<table class="table">
+                                	<thead>
+                                    	<tr>
+                                        	<th colspan="3" class="text-center">Array for satisfaction</th>
+                                        </tr>
+                                       	<tr>
+                                        	<th colspan="2">Array for satisfaction</th>
+                                            <th>Apply</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td>Above of</td>
+                                            <td>90%</td>
+                                            <td>100%</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Above of</td>
+                                            <td>80%</td>
+                                            <td>95%</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Above of</td>
+                                            <td>70%</td>
+                                            <td>90%</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Below of</td>
+                                            <td>70%</td>
+                                            <td>85%</td>
+                                        </tr>
+                                    </tbody>
+                                   
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-md-12 col-lg-12">
+                        	<div class="table-responsive">
+                            	<table class="table tableLarge" id="dataTableLarge">
+                                	<thead>
+                                    	<tr>
+                                        	<th>Name of teacher</th>
+                                            <th>Total courses created by teacher</th>
+                                            <th>Total number of students by teacher</th>
+                                            <th>Total number of project created by teacher class</th>
+                                            <th>Total number of video views by teacher course</th>
+                                            <th>percentageof satisfaction</th>
+                                            <th>index percentage by nr of student</th>
+                                            <th>index percentage by nr of project</th>
+                                            <th>index percentage by nr video views</th>
+                                            <th>Sum Total off all index percentage</th>
+                                            <th>Value of commission without satisfaction array</th>
+                                            <th>Value of commission with satisfaction array apply</th>
+                                            <th>Leftover</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+      <?php $teacherdetails=$this->teacherdetails;
+	  $i=0;
+	  $j=0;
+	  $k=0;
+	  $x=0;
+	 $nr_st=$this->i;
+	
+	
+	  foreach($this->finalresult as $key => $value) { 
+	 
+        	  ?>
+									<tr>
+                                        	<td><?php echo $value['first_name'] ?></td>
+                                            <td><?php echo $value['class count'] ?></td>
+                                            <td><?php echo $value['studentcount'] ?></td>
+                                            <td><?php echo $value['projectcount'] ?></td>
+                                            <td><?php echo $value['videoseencount']?></td>
+                                            <td><?php echo $value['satisfaction_per']?>%</td>
+                                            <td><?php echo $value['studentcount_per'].'%'; ?></td>
+                                            <td><?php echo $value['projectcount_per'].'%'; ?></td>
+                                            <td><?php echo $value['videoseencount_per'].'%'; ?></td>
+                                            <td><?php echo $value['total_value'].'%'?></td>
+                                            <td id="test"><?php echo $value['commission_without_sat'];?></td>
+                                            <td><?php echo $value['commission_with_sat']; ?></td>
+                                            <td><?php echo $value['left_over'];?></td>
+                                        </tr>
+									<?php }	?>
+                                       
+                                    </tbody>
+                                   <tr>
+								   <td>Total</td>
+								   <td><?php echo $this->i; ?></td>
+								   <td><?php echo $this->j; ?></td>
+								   <td><?php echo $this->k; ?></td>
+								   <td><?php echo $this->x; ?></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   <td></td>
+								   </tr>
+                                </table>
+                               
+
+                            </div>
+                        </div>
+                    	
+                    </div>
+
+					
+				</div><!-- ./padding-md -->
+			</div><!-- /main-container -->
+
+			<footer class="footer">
+				<span class="footer-brand">
+					<img src="images/logofi.png" class="img-circle" alt="logo">
+				</span>
+				<p class="no-margin">
+					&copy; 2015 <strong>Fashion Tuts Admin</strong>. ALL Rights Reserved. 
+				</p>	
+			</footer>
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+		
+	    <!-- Le javascript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+		
+		<!-- Jquery -->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		
+		<!-- Bootstrap -->
+	    <script src="js/bootstrap.min.js"></script>
+		
+		<!-- Datatable -->
+		<script src='js/jquery.dataTables.min.js'></script>
+		<script src='js/uncompressed/dataTables.bootstrap.js'></script>
+		
+		<!-- Slimscroll -->
+		<script src='js/jquery.slimscroll.min.js'></script>
+
+		<!-- Popup Overlay -->
+		<script src='js/jquery.popupoverlay.min.js'></script>
+
+		<!-- Modernizr -->
+		<script src='js/modernizr.min.js'></script>
+		
+		<!-- Simplify -->
+		<script src="js/simplify/simplify.js"></script>
+
+		<script>
+			$(function()	{
+			    $('#dataTableLarge').dataTable({
+					"bAutoWidth": false,
+					"bLengthChange": false,
+					"bFilter": false,
+					"sScrollX": "200%",
+					"bScrollCollapse": true,
+					"bSort": false,
+					"bPaginate": false
+				});
+			});
+		</script>
+		<script>
+		$('#per_divide').on('change',function(){
+		var per_divide= $( "#per_divide" ).val();
+		$.ajax({
+                                                    type: "POST",
+                                                    dataType:"html", 
+                                                    url: '/admin/get-paid-students',
+                                            
+                                                    data: {
+                                                      
+                                                        percentage:per_divide
+                                                        
+                                                    },
+                                                    success: function(response) {
+                                                     
+													 // var value=((response*total_value)/100);
+													  // $('td#test').text(value);
+													  $('td#total').text(response);
+													  
+                                                    }
+        
+                                                });});
+												
+    											
+		</script>
+		 <script>
+	/*	 $('#avg_nr_st').on('change',function(){
+		var avg_nr_st= $( "#avg_nr_st" ).val();
+		
+		$.ajax({
+                                                    type: "POST",
+                                                    dataType:"html", 
+                                                    url: '/admin/get-paid-students',
+                                                      
+                                                    data: {
+                                                      
+                                                        avg_nr_st:avg_nr_st
+                                                        
+                                                    },
+                                                    success: function(response) {
+													$('td#wight_total').text(response);
+                                                    }
+        
+                                                });});	
+		</script>
+		<script>
+		 $('#avg_nr_pr').on('change',function(){
+		var avg_nr_pr= $( "#avg_nr_pr" ).val();
+		$.ajax({
+                                                    type: "POST",
+                                                    dataType:"html", 
+                                                    url: '/admin/get-paid-students',
+                                                      
+                                                    data: {
+                                                      
+                                                        avg_nr_pr:avg_nr_pr
+                                                        
+                                                    },
+                                                    success: function(response) {
+													$('td#wight_total').text(response);
+                                                    }
+        
+                                                });});	
+		</script>
+<script>
+ $('#avg_nr_videoesviews').on('change',function(){
+		var avg_nr_videoesviews= $( "#avg_nr_videoesviews" ).val();
+		$.ajax({
+                                                    type: "POST",
+                                                    dataType:"html", 
+                                                    url: '/admin/get-paid-students',
+                                                      
+                                                    data: {
+                                                      
+                                                        avg_nr_videoesviews:avg_nr_videoesviews
+                                                        
+                                                    },
+                                                    success: function(response) {
+													$('td#wight_total').text(response);
+                                                    }
+        
+                                                });});	*/
+</script>
+	
+  	</body>
+
+</html>

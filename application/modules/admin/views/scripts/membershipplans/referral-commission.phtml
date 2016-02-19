@@ -1,0 +1,129 @@
+<div class="main-container">
+    <div class="padding-md">
+         <div class="row" id ="comupdatealertmessage" style="display:none;">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="well bg-danger caution">
+                    <h4><b>Some Error occured , please try after some time</b></h4>
+                </div>
+            </div>
+        </div>
+        <h3 class="header-text m-top-lg"><?php echo $this->translate("Referral Commission Table") ?></h3>
+
+        <div class="smart-widget">
+            <div class="smart-widget-header">
+                <?php echo $this->translate("Commissions") ?>
+
+            </div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-hidden-section">
+                    <ul class="widget-color-list clearfix">
+                        <li style="background-color:#20232b;" data-color="widget-dark"></li>
+                        <li style="background-color:#4c5f70;" data-color="widget-dark-blue"></li>
+                        <li style="background-color:#23b7e5;" data-color="widget-blue"></li>
+                        <li style="background-color:#2baab1;" data-color="widget-green"></li>
+                        <li style="background-color:#edbc6c;" data-color="widget-yellow"></li>
+                        <li style="background-color:#fbc852;" data-color="widget-orange"></li>
+                        <li style="background-color:#e36159;" data-color="widget-red"></li>
+                        <li style="background-color:#7266ba;" data-color="widget-purple"></li>
+                        <li style="background-color:#f5f5f5;" data-color="widget-light-grey"></li>
+                        <li style="background-color:#fff;" data-color="reset"></li>
+                    </ul>
+                </div>
+                <div class="smart-widget-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><?php echo $this->translate("S.No") ?></th>
+                                <th><?php echo $this->translate("Plan Type") ?></th>
+                                <th><?php echo $this->translate("Commission Value") ?></th>
+                                <th><?php echo $this->translate("Commission Type (1=%,2=$)") ?></th>
+                                <th><?php echo $this->translate("Edit") ?></th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="cleardata">
+                            <?php
+                            if (isset( $this->commissiondetails)) {
+                                $i = 1;
+                                foreach ( $this->commissiondetails as $subResultVal) {
+                                    ?>
+
+                                    <tr class="userdet">
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php if($subResultVal['plan_type_id']==1){ echo "Monthly";}else{ echo "Yearly";}?></td>
+                                        <td class="commission_val"><input class="ammount_edit" type="text" value="<?php echo $subResultVal['commission_value']; ?>" style="display:none"><a id="ammount"><?php echo $subResultVal['commission_value']; ?></a></td>
+                                        <td class="commission_type"><input type="text" class="com_type" value="<?php echo $subResultVal['commission_type']; ?>" style="display:none"><a id="val_type"><?php if($subResultVal['commission_type']==1){echo '%'; }else{ echo '$';}?></a></td>
+                                        
+                                        <td>
+                                           <a class ="edit_<?php echo $subResultVal['com_id']; ?> editcommission" data-val="<?php echo $subResultVal['com_id']; ?>"  ><button class="btn btn-info btn-sm"> <i class="fa fa-pencil"></i></button></a>
+                                           <a class="edited" data-val="<?php echo $subResultVal['com_id']; ?>" style="hover:pointer; display:none"><button class="btn btn-success btn-sm"><i class="fa fa-check"></i></button></a>
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+              
+                </div>
+            </div><!-- ./smart-widget-inner -->
+        </div><!-- ./smart-widget -->
+
+    </div><!-- ./padding-md -->
+</div><!-- /main-container -->
+
+
+
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+
+<script>
+    //script used for editing the plans /////////////////////////
+      $('.editcommission').on('click', function () {
+           $(this).css('display', 'none');
+            $(this).siblings('.edited').css('display', 'block');
+            $(this).parent().siblings('.commission_val').children('.ammount_edit').css('display', 'block');
+            $(this).parent().siblings('.commission_val').children('#ammount').css('display', 'none');
+            $(this).parent().siblings('.commission_type').children('.com_type').css('display', 'block');
+            $(this).parent().siblings('.commission_type').children('#val_type').css('display', 'none');
+     });
+            $('.edited').on('click', function () {
+             var click_this = $(this);
+             var com_value = $(this).parent().siblings('.commission_val').children('.ammount_edit').val();
+             var com_type = $(this).parent().siblings('.commission_type').children('.com_type').val();
+             var com_id = $(this).attr('data-val');
+            $.ajax({
+            url: '/admin/edit-commissionvalues',
+                    type: 'POST',
+                    data: {
+                   com_value:com_value,
+                   com_type:com_type,
+                   com_id:com_id
+                   
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (response) {
+                    if (response== 200) {
+                       location.reload();
+
+                    }else{
+                    $('#comupdatealertmessage').show();    
+                        
+                    }
+                       setTimeout(function() {
+                $('#comupdatealertmessage').fadeOut('slow');
+            }, 2500);
+                    }
+
+            });
+    });
+
+   ////////////////////////////////////////code ends ////////////////////////////////
+    </script>
+
+
+

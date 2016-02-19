@@ -1,0 +1,57 @@
+<script type="text/javascript" language="javascript" class="init">
+
+
+$(document).ready(function() {
+	$('#transTable').dataTable( {
+		columnDefs: [ {
+			targets: [ 0 ],
+			orderData: [ 0, 1 ]
+		}, {
+			targets: [ 1 ],
+			orderData: [ 1, 0 ]
+		}, {
+			targets: [ 4 ],
+			orderData: [ 4, 0 ]
+		} ]
+	} );
+} );
+
+</script>
+<section id="content"class="scrollable padder">
+           <header class="header b-b b-light">
+              <p> <?php echo $this->translate("Transactions") ?></p>
+            </header>
+    
+    <section class="panel panel-default">
+            <header class="panel-heading font-bold">  <?php echo $this->translate("Users Transaction Manage") ?> </header>
+    </section>
+   <div class="table-responsive">
+    <table id="transTable" class="display" cellspacing="0" width="100%">
+        <thead>
+                <tr>
+                <th><?php echo $this->translate("No") ?></th>
+                <th><?php echo $this->translate("User Name") ?></th>
+                <th><?php echo $this->translate("Amount") ?></th>
+                <th><?php echo $this->translate("Confirmation code") ?></th>
+                 <th><?php echo $this->translate("Description") ?></th>
+                <th><?php echo $this->translate("transaction date") ?></th>
+              
+                </tr>
+    </thead>
+    <tbody>
+        
+       <?php if(isset($this->transaction)){$row = 0; foreach($this->transaction as $transDetails){ $row ++;?>
+        <tr>
+              <td><?php echo $row ; ?></td>
+              <td><?php echo $transDetails['user_name'];?></td>
+              <td><?php echo $transDetails['transaction_amount'];?></td>
+              <td><?php echo $transDetails['confirmation_code'];?></td>
+              <td><?php echo $transDetails['description'];?></td>
+              <td><?php echo date("j F Y, h:i:s A", strtotime($transDetails['transaction_date']));?></td>
+        </tr>
+       <?php } }?>
+    </tbody>
+    </table>
+   </div>
+    </section>
+

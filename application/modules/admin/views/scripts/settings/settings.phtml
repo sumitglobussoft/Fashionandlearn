@@ -1,0 +1,147 @@
+<div class="opennotificationGreen" style="z-index: 99;">
+<span class="notification_msgGreen"><?php echo $this->translate("Setting details has been done successfully") ?>.</span>
+</div>
+<div id="content">
+	<h4><?php echo $this->translate("Settings Details") ?></h4>
+<div class="innerLR">
+
+    <?php //echo "<pre>";  print_r($this->settings); echo "</pre>";  die; ?>
+    <!-- Widget -->
+        <div class="widget">
+
+            <!-- Widget heading -->
+            <div class="widget-head">
+                <h4 class="heading"><?php echo $this->translate("Settings") ?></h4>
+            </div>
+            <!-- // Widget heading END -->
+
+            <div class="widget-body">
+                <form class="form-horizontal margin-none settingsdetailsform"  method="post">
+				<div class="tab-content pad0">
+				
+					<!-- Tab content -->
+					<div class="tab-pane active">
+					
+						<!-- Row -->
+						<div class="row-fluid">
+						
+							<!-- Column -->
+							
+                                                            
+                                                                <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Salary Cap Amount") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="salary_amount" placeholder="<?php echo $this->translate("Salary Cap Amount") ?>" class="span5" value="<?php echo  $this->settings['salary_cap_amt']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                                <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Bonus Amount Limit") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="bonus_amount" placeholder="<?php echo $this->translate("Bonus Amount Limit") ?>"  class="span5" value="<?php echo $this->settings['bonus_amt_limit']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                                
+								
+
+                                                        
+                                                      
+                                                            <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Currency CODE") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="currency_code" placeholder="<?php echo $this->translate("Currency CODE") ?>"  class="span5" value="<?php echo $this->settings['currency_code']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                                
+                                                                <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Minimum Deposit") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="min_deposit"  placeholder="<?php echo $this->translate("Minimum Deposit") ?>" class="span5" value="<?php echo $this->settings['min_deposit']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                               
+                                                                <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Contact Number") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="contact_number" placeholder="<?php echo $this->translate("Contact Number") ?>" class="span5" value="<?php echo $this->settings['contact_number']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                                
+                                                                 <!-- Group -->
+								<div class="control-group">
+									<label class="control-label"><?php echo $this->translate("Email") ?></label>
+									<div class="controls">
+                                                                            <input required="true" type="text" name="email" placeholder="<?php echo $this->translate("Email") ?>" class="span5" value="<?php echo $this->settings['email']; ?>" />
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                                
+                                                                 <!-- Group -->
+								<div class="control-group">
+									<label class="control-label">Mailing Address</label>
+									<div class="controls">
+                                                                            <textarea class="span5" name="mailing_address" placeholder="<?php echo $this->translate("Mailing Address") ?>"><?php echo $this->settings['mail_address']; ?></textarea>
+									</div>
+								</div>
+								<!-- // Group END -->
+                                                        
+						</div>
+						<!-- // Row END -->
+						
+                                                <input type="hidden" name="setting_id" value="<?php echo $this->settings['setting_id']; ?>"/>
+						<div class="separator line bottom"></div>
+						
+                                                <!-- Form actions -->
+						<div class="form-actions" class="margin-none">
+							<button type="submit" class="btn btn-icon btn-primary glyphicons circle_ok"><i></i><?php echo $this->translate("Update") ?></button>
+                                                        
+						</div>
+						<!-- // Form actions END -->
+						
+					</div>
+					<!-- // Tab content END -->
+					
+				</div>
+			</form>
+
+            </div>
+        </div>
+    
+	
+      </div>	
+ </div>
+<?php if(isset($this->success)){?>
+<!-- This script Displays the  notification when the user details are submitted on submit  -->
+<script>  
+        $('.opennotificationGreen').click(function()
+        {
+            alert('ss');
+            $('.opennotificationGreen').fadeOut("slow");
+            $('div').remove(".notification_msgGreen");
+        });
+    
+        $('.opennotificationGreen').fadeIn("slow");             
+        $('.opennotificationGreen').css('display','block');
+        
+        setTimeout(function() {
+            $('.opennotificationGreen').fadeOut("slow");
+            $('div').remove(".notification_msgGreen");
+            }, 3000); 
+             
+        
+    </script>
+    <?php } ?>
+<script>
+    $('#menu_components5').removeClass('collapse').addClass('in collapse');
+    $('#site_menu').removeClass('hasSubmenu glyphicons cogwheels').addClass('hasSubmenu glyphicons cogwheels active');
+    $('#setting_menu').addClass('active');    
+</script>

@@ -1,0 +1,99 @@
+
+
+<div class="main-container">
+				<div class="padding-md">
+					
+					<h3 class="m-left-xs header-text m-top-lg"><?php echo $this->translate("Project Details") ?></h3>
+<div class="smart-widget m-top-lg widget-dark-blue">
+						<div class="smart-widget-header">
+							<?php echo $this->translate("Edit Project Details") ?>
+							
+						</div>
+						<div class="smart-widget-inner">
+							<div class="smart-widget-hidden-section">
+								<ul class="widget-color-list clearfix">
+									<li data-color="widget-dark" style="background-color:#20232b;"></li>
+									<li data-color="widget-dark-blue" style="background-color:#4c5f70;"></li>
+									<li data-color="widget-blue" style="background-color:#23b7e5;"></li>
+									<li data-color="widget-green" style="background-color:#2baab1;"></li>
+									<li data-color="widget-yellow" style="background-color:#edbc6c;"></li>
+									<li data-color="widget-orange" style="background-color:#fbc852;"></li>
+									<li data-color="widget-red" style="background-color:#e36159;"></li>
+									<li data-color="widget-purple" style="background-color:#7266ba;"></li>
+									<li data-color="widget-light-grey" style="background-color:#f5f5f5;"></li>
+									<li data-color="reset" style="background-color:#fff;"></li>
+								</ul>
+							</div>
+							<div class="smart-widget-body">
+								<form class="form-horizontal" name="editclassform" method="POST" enctype="multipart/form-data" >
+                                                                    <input  class="hidden" <?php if(isset($this->projects)){?> name="user" value="<?php echo ($this->projects['user_id']);} ?>">
+									 <input  class="hidden" <?php if(isset($this->projects['class_id'])){ ?> name="class" value="<?php echo ($this->projects['class_id']); }?>">
+                                                                    <div class="form-group">
+										<label class="col-lg-2 control-label" for="UserName"><?php echo $this->translate("UserName") ?></label>
+										<div class="col-lg-10">
+                                                                                    <input <?php if(isset($this->projects['first_name'])){ ?> value="<?php echo ($this->projects['first_name']); }?>" type="text" placeholder="<?php echo $this->translate("UserName") ?>" readonly name="UserName" id="UserName" class="form-control">
+										</div><!-- /.col -->
+									</div><!-- /form-group -->
+									<div class="form-group">
+										<label class="col-lg-2 control-label" for="ClassTitle"><?php echo $this->translate("Class Title") ?></label>
+										<div class="col-lg-10">
+                                                                                        <input <?php if(isset($this->projects['class_title'])){?> value="<?php echo ($this->projects['class_title']);}?>"type="text" name="classtitle" readonly placeholder="<?php echo $this->translate("Class Title") ?>" id="classtitle" class="form-control">
+										</div><!-- /.col -->
+									</div>
+                                                                        <div class="form-group">
+										<label class="col-lg-2 control-label" for="Category"><?php echo $this->translate("Category name") ?></label>
+										<div class="col-lg-10">
+                                                                                        <input <?php if(isset($this->projects['category_name'])){?> value="<?php echo ($this->projects['category_name']);} ?>"type="text" name="Category" placeholder="<?php echo $this->translate("Category") ?>" readonly  id="Category" class="form-control">
+										</div><!-- /.col -->
+									</div>
+                                                                         <div class="form-group">
+										<label class="col-lg-2 control-label" for="project"><?php echo $this->translate("Project name") ?></label>
+										<div class="col-lg-10">
+                                                                                        <input <?php if(isset($this->projects['project_title'])){?> value="<?php echo ($this->projects['project_title']);}?>"type="text" name="project" placeholder="<?php echo $this->translate("project name") ?>" id="project" class="form-control">
+										</div><!-- /.col -->
+									</div><!-- /form-group -->
+                                    <div class="form-group">
+										<label class="col-lg-2 control-label" for="projectdescription"><?php echo $this->translate("project Description") ?></label>
+				                                           <div>
+    
+        <textarea id="MyToolbar6" name="MyToolbar6"><?php if(isset($this->projects['project_workspace'])){echo ($this->projects['project_workspace']);}?></textarea>
+       <script>CKEDITOR.replace( 'MyToolbar6', {
+    toolbar: 'MyToolbar6',
+    uiColor: '#9AB8F3',
+                    filebrowserBrowseUrl :'js/ckeditor/filemanager/browser/default/browser.html?Connector=http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/connector.php',
+                    filebrowserImageBrowseUrl : "",
+                    filebrowserFlashBrowseUrl :'js/ckeditor/filemanager/browser/default/browser.html?Type=Flash&amp;Connector=http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/connector.php',
+		    filebrowserUploadUrl  :'http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/upload.php?Type=File',
+		    filebrowserImageUploadUrl : 'http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/upload.php?Type=Image',
+		    filebrowserFlashUploadUrl : 'http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/upload.php?Type=Flash'
+});</script>
+<!--        <input name="submit" type="submit" value="Submit" />-->
+ 
+</div><!-- /form-group -->
+    <div class="form-group">
+                            <label class="col-lg-2 control-label" name="projectimage"for="projectimage"><?php echo $this->translate("Project Cover Image") ?></label>
+                          <div class="col-lg-10">
+                          <img src="<?php if(isset($this->projects['project_cover_image'])){ echo $this->projects['project_cover_image'];} ?>" value="<?php if(isset($this->projects['project_cover_image'])){echo $this->projects['project_cover_image']; }?>"  name="projectcover" type="image "class="img-rounded pull-left" alt="" style="width:150px;">
+                                <input type="file" class="pull-left" style="margin-left: 2%; margin-top: 9%;" name="file" value="">
+                            </div><!-- /.col -->
+                        </div>
+                           
+								     
+									<div class="form-group">
+										<div class="col-lg-offset-2 col-lg-10">
+											<button class="btn btn-success btn-sm" type="submit"><?php echo $this->translate("Save Class") ?></button>
+                                                                                         &nbsp;&nbsp;&nbsp;
+                                                                                        <a href="/admin/projectdetails" class="btn btn-danger btn-sm"><?php echo $this->translate("Cancel") ?></a>
+										</div><!-- /.col -->
+									</div><!-- /form-group -->
+								
+							</div>
+                                                                        </form>
+						</div><!-- ./smart-widget-inner -->
+					</div>
+		        </div><!-- ./padding-md -->
+			</div><!-- /main-container -->
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+			

@@ -1,0 +1,628 @@
+
+
+<html lang="en">
+    <head>
+
+
+        <meta charset="utf-8">
+        <title>Fashionlearn Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="/../assets/images/Favicon.png">
+        <!-- Bootstrap core CSS -->
+        <?php
+//        # Title
+//        echo $this->headTitle();
+//
+//        # Meta data
+//        echo $this->headMeta();
+//
+//        # CSS
+//        echo $this->headLink()                
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/bootstrap.min.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin//assets/css/font-awesome.min.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/ionicons.min.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/morris.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/owl.theme.default.min.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/owl.carousel.min.css')                
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/datepicker.css')
+//               // ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin//assets/css/jquery.dataTables.css')
+//              //  ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/dataTables.bootstrap.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/simplify.min.css')
+//                ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/animate.min.css')
+//                 ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin//assets/css/animate.css')
+//                 ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin//assets/css/bootstrap.css')
+//                 ->appendStylesheet($this->baseUrl() . $this->appSetting->assestPath . '/assets/css/admin/bootstrap.min.css');
+//      
+        ?> 
+        <!-- Bootstrap core CSS -->
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- ionicons -->
+        <link href="/assets/css/ionicons.min.css" rel="stylesheet">
+
+        <!-- Morris -->
+        <link href="/assets/css/morris.css" rel="stylesheet"/>	
+
+        <!-- Datepicker -->
+        <!--<link href="/assets/css/datepicker.css" rel="stylesheet"/>-->
+
+
+
+        <!-- Animate -->
+        <link href="/assets/css/animate.min.css" rel="stylesheet">
+        <link href="/assets/css/jquery.dataTables.css" rel="stylesheet">
+
+        <!-- Web Fonts -->
+        <link href="/assets/css/styles.css" rel="stylesheet">
+
+        <!-- Owl Carousel -->
+        <link href="/assets/css/owl.carousel.min.css" rel="stylesheet">
+        <link href="/assets/css/owl.theme.default.min.css" rel="stylesheet">
+
+
+        <link href="/assets/css/fashionlearn-admin.css" rel="stylesheet">
+        <link href="/assets/css/fashionlearn-new.css" rel="stylesheet">
+
+    </head>
+    <style>
+        .error{
+            color: red;
+        }
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e4e7ea; 
+            z-index: 10000;             
+        }
+
+        #status {
+            width: 100px;
+            height: 100px;
+            top: 37%;
+            left: 45%;
+            position: absolute;
+        }
+
+        .sidebar-admin {
+            min-width:500px;
+            margin:0 auto;
+        }
+
+        .sidebar-mini .sidebar-admin #clseecreatestatistics {
+            display: none;
+        }
+
+        .sidebar-mini .sidebar-admin #admin-icon {
+            display: block !important;
+        }
+        .sidebar-menu.sidebar-mini .main-menu li #gamificationpanelul {
+            right: -200px;
+            z-index: -1;
+        }
+    </style>
+    <body class="overflow-hidden">
+        <div id="preloader" style="display: none;">
+            <div id="status">
+                <!--<img alt="" src="<?php echo $this->baseUrl() . $this->appSetting->assestPath . '/images/loading.gif'; ?>" />-->
+                <img src="https://www.brown.edu/sites/default/themes/pawtuxet/img/loader-larger.gif" />
+            </div>
+        </div>
+        <div class="wrapper preload">
+            <header class="top-nav">
+                <div class="top-nav-inner">
+                    <div class="nav-header">
+                        <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleSM">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <ul class="nav-notification pull-right">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
+                                <span class="badge badge-danger bounceIn">1</span>
+                                <ul class="dropdown-menu dropdown-sm pull-right user-dropdown">
+                                    <li class="user-avatar">
+                                        <img src="<?php
+                                        if (isset($this->profilepic)) {
+                                            echo $this->profilepic;
+                                        } else
+                                            echo "/../assets/images/fav-icon.png";
+                                        ?>" alt="" class="img-circle">
+                                        <div class="user-content">
+                                            <h5 class="no-m-bottom"><?php echo ($this->session->storage->first_name) ?></h5>
+                                            <div class="m-top-xs">
+                                                <a href="/profile/<?php echo $this->session->storage->user_id; ?>" class="m-right-sm"><?php echo $this->translate("Profile") ?></a>
+                                                <a href="<?php echo $this->baseUrl('/logout'); ?>"><?php echo $this->translate("Log out") ?></a>
+                                            </div>
+                                        </div>
+                                    </li>	  
+
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $this->translate("Notification") ?>
+                                            <span class="badge badge-purple bounceIn animation-delay3 pull-right"><?php
+                                                if (isset($this->notificount))
+                                                    echo $this->notificount;
+                                                else
+                                                    echo '0';
+                                                ?></span>
+                                        </a>
+                                    </li>			  
+
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#"><?php echo $this->translate("Setting") ?></a>
+                                    </li>			  	  
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <a href="/dashboard/admin">
+                            <img src="/assets/images/Fashionlearn(Logo-1-png).png" class="img-responsive padding-md">
+                        </a>
+                    </div>
+
+                    <div class="nav-container">
+                        <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+                            <i><img class="img-responsive" src="/assets/images/icon-bar.png"></i>
+                        </button>
+
+                        <ul class="nav-notification">	
+                            <li class="search-list m-top-sm">
+                                <!--								<div class="search-input-wrapper">
+                                                                                                        <div class="search-input">
+                                                                                                                <input type="text" class="form-control input-sm inline-block">
+                                                                                                                <a href="#" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
+                                                                                                        </div>
+                                                                                                </div>-->
+                            </li>
+                        </ul>
+
+                        <ul class="list-inline list-unstyled pull-right padding-xs">
+                            <li>
+                                <div class="top-m10px">
+<!--                                	<a href="#" data-toggle="dropdown"><i class=" inline-block notification-icon"></i></a>
+                                        <span class="badge badge-danger bounceIn animation-delay6 active top-m20px left-m15px">4</span>
+                                        <ul class="dropdown-menu notification dropdown-3 pull-right">
+                                                <li><a href="#">You have 5 new notifications</a></li>					  
+                                                <li>
+                                                        <a href="#">
+                                                                <span class="notification-icon bg-warning">
+                                                                        <i class="fa fa-warning"></i>
+                                                                </span>
+                                                                <span class="m-left-xs">Server #2 not responding.</span>
+                                                                <span class="time text-muted">Just now</span>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                                <span class="notification-icon bg-success">
+                                                                        <i class="fa fa-plus"></i>
+                                                                </span>
+                                                                <span class="m-left-xs">New user registration.</span>
+                                                                <span class="time text-muted">2m ago</span>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                                <span class="notification-icon bg-danger">
+                                                                        <i class="fa fa-bolt"></i>
+                                                                </span>
+                                                                <span class="m-left-xs">Application error.</span>
+                                                                <span class="time text-muted">5m ago</span>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                                <span class="notification-icon bg-success">
+                                                                        <i class="fa fa-usd"></i>
+                                                                </span>
+                                                                <span class="m-left-xs">2 items sold.</span>
+                                                                <span class="time text-muted">1hr ago</span>
+                                                        </a>
+                                                </li>
+                                                <li>
+                                                        <a href="#">
+                                                                <span class="notification-icon bg-success">
+                                                                        <i class="fa fa-plus"></i>
+                                                                </span>
+                                                                <span class="m-left-xs">New user registration.</span>
+                                                                <span class="time text-muted">1hr ago</span>
+                                                        </a>
+                                                </li>
+                                                <li><a href="#">View all notifications</a></li>					  
+                                        </ul>-->
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="user-block hidden-xs p-top-xs">
+                                    <a href="#" id="userToggle" data-toggle="dropdown">
+                                        <img src="<?php
+                                        if (isset($this->profilepic)) {
+                                            echo $this->profilepic;
+                                        } else
+                                            echo "/../assets/images/fav-icon.png";
+                                        ?>" alt="" class="img-circle inline-block user-profile-pic">
+                                        <div class="user-detail inline-block">
+                                            <span class="font-16"><?php echo ($this->session->storage->first_name) ?></span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </div>
+                                    </a>
+                                    <div class="panel border dropdown-menu user-panel">
+                                        <div class="panel-body paddingTB-sm">
+                                            <ul>
+<!--                                                <li>
+                                                    <a href="profile.html">
+                                                        <i class="fa fa-edit fa-lg"></i><span class="m-left-xs"><?php echo $this->translate("My Profile") ?></span>
+                                                    </a>
+                                                </li>-->
+
+                                                <li>
+                                                    <a href="<?php echo $this->baseUrl('/logout'); ?>">
+                                                        <i class="fa fa-power-off fa-lg"></i><span class="m-left-xs"><?php echo $this->translate("Sign out") ?></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+                </div><!-- ./top-nav-inner -->	
+            </header>
+
+            <aside class="sidebar-menu">
+                <div class="sidebar-inner scrollable-sidebar sidebar-bg">
+                    <div class="main-menu">
+                        <ul class="accordion">
+                            <li class="menu-header">
+                                <?php echo $this->translate("Main Menu") ?>
+                            </li>
+                            <li id="dashboard" class="sidebar-bg">
+                                <a href="/dashboard/admin">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block dashboard-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("DASHBOARD") ?></span>
+                                    </span>
+
+                                </a>
+                            </li>
+                            <li id="musers" class="openable">
+                                <a href="#">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block community-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Manage Users") ?></span>
+                                        <span class="submenu-icon p-top-xs"></span>
+                                    </span>		
+                                </a>
+                                <ul id="ud1" class="submenu bg-palette4">
+                                    <li id="ud2"><a href="/admin/manageusers"><span class="submenu-label"><?php echo $this->translate("User Details") ?></span></a></li>
+                                    <li id="ud3"><a href="/admin/create-user"><span class="submenu-label"><?php echo $this->translate("Create User") ?></span></a></li>
+                                </ul><!-- Submebu Manage Users-->
+                            </li>    
+                            <li id='Classes' class="openable">
+                                <a href="#">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block my-courses-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Classes Panel") ?></span>
+                                        <span class="submenu-icon p-top-xs"></span>
+                                    </span>	
+                                </a>
+                                <ul class="submenu bg-palette4" id="classesul">
+                                    <li id="classesdetailsli"><a href="/admin/classesdetails"><span class="submenu-label"><?php echo $this->translate("Classes Details") ?></span></a></li>
+                                    <li><a href="/admin/createclass"><span class="submenu-label"><?php echo $this->translate("Create Class") ?></span></a></li>
+                                    <!--<li><a href="/admin/achievements"><span class="submenu-label">Achievements</span></a></li>-->
+                                    <li id="unassignedclassesli"><a href="/admin/unassignedclasses"><span class="submenu-label"><?php echo $this->translate("Assign classes") ?></span></a></li>
+                                    <li id="invitationsli"><a href="/admin/invitations"><span class="submenu-label"><?php echo $this->translate("Class Invitation") ?></span></a></li>
+                                </ul><!-- Submebu Manage Users-->
+                            </li>	
+                            <li class="" id="projectdetailsli">
+                                <a href="/admin/projectdetails">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block all-courses-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Projects Details") ?></span>
+                                    </span>
+                                </a>
+                            </li><!-- Project Details-->
+                            <li class="openable" id="membershippanel">
+                                <a href="#">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block badges-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Admin Plans") ?></span>
+                                    </span>
+                                </a>
+                                <ul id="" class="submenu bg-palette4">
+                                    <li id=""><a href="/admin/membership-plans"><span class="submenu-label"><?php echo $this->translate("Membership Plans") ?></span></a></li>
+                                    <li id=""><a href="/admin/coupons"><span class="submenu-label"><?php echo $this->translate("Coupons") ?></span></a></li>
+                                    <li id=""><a href="/admin/transaction-details"><span class="submenu-label"><?php echo $this->translate("Transaction Details") ?></span></a></li>
+                                    <li id=""><a href="/admin/referral-commission"><span class="submenu-label"><?php echo $this->translate("Referral-Commission") ?></span></a></li>
+                                  </ul>
+                            </li>
+
+                            <!-- Membership Plans-->
+                            <!--                            <li class="" id="paymentdetailsli">
+                                                            <a href="/admin/paymentdetails">
+                                                                <span class="menu-content block">
+                                                                    <span class="menu-icon font-24"><i class="icon icon-774"></i></span>
+                                                                    <span class="text m-left-md top-m7px"><?php echo $this->translate("Payment Details") ?></span>
+                                                                </span>
+                                                            </a>	
+                                                        </li> Payment Details-->
+                            <li class="" id="categorymanagementli">
+                                <a href="/admin/categorymanage">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block settings-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Category Management") ?></span>
+                                    </span>
+                                </a>	
+                            </li><!-- Payment Details-->
+                            <li id='Gamificationpanalli' class="openable">
+                                <a href="#">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon"><i class="block fa-2x icon-478"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Gamification Panel") ?></span>
+                                        <span class="submenu-icon p-top-xs"></span>
+                                    </span>	
+                                </a>
+                                <ul class="submenu bg-palette4" id="gamificationpanelul">
+                                    <li id="pointsscoreli"><a href="/admin/pointsandscores"><span class="submenu-label"><?php echo $this->translate("Points/Scores") ?></span></a></li>
+                                    <li id="levelsli"><a href="/admin/levels"><span class="submenu-label"><?php echo $this->translate("Levels") ?></span></a></li>
+                                    <li id="achivementsli"><a href="/admin/achievements"><span class="submenu-label"><?php echo $this->translate("Achievements") ?></span></a></li>
+                                    <li id="fashionlearnclubli"><a href="/admin/fashionlearnclub"><span class="submenu-label"><?php echo $this->translate("Fashionlearnclub") ?></span></a></li>
+                                    <li id="fashioncluborderli"><a href="/admin/fashioncluborder"><span class="submenu-label"><?php echo $this->translate("Fashionlearncluborder") ?></span></a></li>
+                                </ul><!-- Submebu Manage Users-->
+                            </li>   
+                            <li id="musers" class="openable">
+                                <a href="#">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block community-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Payment Dashboard") ?></span>
+                                        <span class="submenu-icon p-top-xs"></span>
+                                    </span>	
+                                </a>
+                                <ul id="ud1" class="submenu bg-palette4">
+                                    <li id="ud2"><a href="/dashboard/payment-control"><span class="submenu-label"><?php echo $this->translate("Payment Control") ?></span></a></li>
+                                    <li id="ud3"><a href="/admin/get-paid-students"><span class="submenu-label"><?php echo $this->translate("Formula to check") ?></span></a></li>
+                                </ul><!-- Submebu Manage Users-->
+                            </li>     
+                            <li class="">
+                                <a href="/admin/adminfinance">
+                                    <span class="menu-content block">
+                                        <span class="menu-icon m-left-sm"><i class="block settings-dark"></i></span>
+                                        <span class="text m-left-sm top-m7px"><?php echo $this->translate("Finance") ?></span>
+                                    </span>
+                                </a>	
+                            </li>
+                            <li>
+                                <div class="sidebar-admin">
+                                    <span class="menu-content block" id="admin-icon" style="display: none;">
+                                        <?php
+                                        if (isset($this->classpermissions)) {
+                                            if ($this->classpermissions['teachmode'] == 0) {
+                                                ?> <span class="menu-icon btn btn-success " style="margin-left: .7%;" data-toggle="tooltip" data-placement="right" title="Only Admin Can Teach"><i class="block users-light"></i></span><?php } else { ?> <span class="menu-icon btn btn-danger" style="margin-left: .7%;" data-toggle="tooltip" data-placement="right" title="Every One Can Teach"><i class="block users-light"></i></span><?php }
+                                }
+                                        ?>
+
+                                    </span>
+                                    <button  class="btn<?php
+                                             if (isset($this->classpermissions)) {
+                                                 if ($this->classpermissions['teachmode'] == 0) {
+                                                     ?> btn-success <?php } else { ?> btn-danger <?php
+                                                 }
+                                             }
+                                             ?> btn-sm" align="center" style="width:48%" id="clseecreatestatistics" type="submit"><?php
+                                        if (isset($this->classpermissions)) {
+                                            if ($this->classpermissions['teachmode'] == 0) {
+                                                ?>Only Admin Can Teach<?php } else { ?>Every One Can Teach<?php
+                                            }
+                                        }
+                                        ?></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>	
+                    <div class="clearfix">
+                    </div>
+                </div><!-- sidebar-inner -->
+            </aside>
+
+            <!--        </div> wrapper -->
+
+            <a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+                <?php
+//        echo $this->headScript()                       
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery-1.11.1.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/bootstrap.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.min.js')
+//                   
+//                   // ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.dataTables.js')
+//                  //  ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/uncompressed/dataTables.bootstrap.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.easypiechart.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery-ui.custom.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.gritter.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.localScroll.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath .'/assets/js/admin/jquery.scrollTo.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.flot.min.js')
+//
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.slimscroll.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/uncompressed/skycons.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/rapheal.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/morris.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/uncompressed/datepicker.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/sparkline.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.popupoverlay.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.steps.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.tagsinput.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.themepunch.revolution.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/jquery.themepunch.tools.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/masonry.pkgd.min.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/moment.min.js')
+//                 
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/uncompressed/jquery.sortable.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/owl.carousel.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/select2.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/waypoints.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/modernizr.min.js')
+//                   ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/simplify/simplify.js')
+//                    ->appendFile($this->baseUrl() . $this->appSetting->assestPath . '/assets/js/admin/simplify/simplify_dashboard.js')
+//                                  
+//                    
+//                    
+//          
+                ?>
+
+
+            <!-- Le javascript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+
+            <!-- Jquery -->
+            <script src="/assets/js/jquery-1.11.1.min.js"></script>
+            <script src="/assets/js/admin/jquery.steps.min.js"></script>
+
+
+            <!-- Bootstrap -->
+            <script src="/assets/js/bootstrap.min.js"></script>
+
+            <!-- Flot -->
+            <script src='/assets/js/jquery.flot.min.js'></script>
+
+            <!-- Slimscroll -->
+            <script src='/assets/js/jquery.slimscroll.min.js'></script>
+
+            <!-- Morris -->
+            <script src='/assets/js/rapheal.min.js'></script>	
+            <script src='/assets/js/morris.min.js'></script>	
+
+            <!-- Datepicker -->
+            <!--<script src='/assets/js/uncompressed/datepicker.js'></script>-->
+
+
+
+            <!-- Sparkline -->
+            <script src='/assets/js/sparkline.min.js'></script>
+
+            <!-- Skycons -->
+            <script src='/assets/js/uncompressed/skycons.js'></script>
+
+            <!-- Popup Overlay -->
+            <script src='/assets/js/jquery.popupoverlay.min.js'></script>
+
+            <!-- Easy Pie Chart -->
+            <script src='/assets/js/jquery.easypiechart.min.js'></script>
+
+            <!-- Sortable -->
+            <script src='/assets/js/uncompressed/jquery.sortable.js'></script>
+
+            <!-- Owl Carousel -->
+            <script src='/assets/js/owl.carousel.min.js'></script>
+
+            <!-- Modernizr -->
+            <script src='/assets/js/modernizr.min.js'></script>
+            <script src='/assets/js/Chart.js'></script>
+            <script src='/assets/js/jquery.dataTables.min.js'></script>
+
+            <!-- Simplify -->
+            <script src="/assets/js/fashionlearn.js"></script>
+<!--		<script src="/assets/js/fashionlearn_dashboard.js"></script>-->
+            <script src="/assets/js/admin/jquery.validate.min.js"></script>
+
+<!--         <script src='/includes/ckeditor/ckeditor.js'></script>
+<script src='/includes/ckeditor/config.js'></script>-->
+
+            <!-- inter related js files( containes exceptions)-->
+
+<!--         <script src='/assets//assets/js/admin/jquery.flot.min.js'></script>-->
+<!--         <script src='/assets//assets/js/admin/jquery.flot.resize.js'></script>-->
+
+<!--         <script src="/assets//assets/js/admin/simplify/simplify_dashboard.js"></script>-->
+
+
+
+
+            <script>
+                $(function() {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }); // Done by PRiya
+
+
+
+                $(function() {
+                    $('.chart').easyPieChart({
+                        easing: 'easeOutBounce',
+                        size: '140',
+                        lineWidth: '7',
+                        barColor: '#7266ba',
+                        onStep: function(from, to, percent) {
+                            $(this.el).find('.percent').text(Math.round(percent));
+                        }
+                    });
+
+                    $('.sortable-list').sortable();
+
+                    $('.todo-checkbox').click(function() {
+
+                        var _activeCheckbox = $(this).find('input[type="checkbox"]');
+
+                        if (_activeCheckbox.is(':checked')) {
+                            $(this).parent().addClass('selected');
+                        }
+                        else {
+                            $(this).parent().removeClass('selected');
+                        }
+
+                    });
+
+                    //Delete Widget Confirmation
+                    $('#deleteWidgetConfirm').popup({
+                        vertical: 'top',
+                        pagecontainer: '.container',
+                        transition: 'all 0.3s'
+                    });
+                });
+
+            </script>
+            <script>
+                $('#clseecreatestatistics, #admin-icon').on('click', function() {
+                    $.ajax({
+                        url: '/admin/user-ajax-handler',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            method: 'userperminssion'
+                        },
+                        beforeSend: function(response) {
+                        },
+                        success: function(response) {
+                            if ($('#clseecreatestatistics')[0].innerHTML == "Only Admin Can Teach") {
+                                $('#clseecreatestatistics')[0].innerHTML = "Every One Can Teach";
+                                $('#admin-icon').html('<span class="menu-icon btn btn-danger " style="margin-left: .7%;" data-toggle="tooltip" data-placement="right" title="Every One Can Teach"><i class="block users-light"></i></span>');
+                                $('#clseecreatestatistics').addClass('btn-danger');
+                                $('#clseecreatestatistics').removeClass('btn-success');
+                                $('[data-toggle="tooltip"]').tooltip();
+                            } else {
+                                $('#clseecreatestatistics')[0].innerHTML = "Only Admin Can Teach";
+                                $('#admin-icon').html('<span class="menu-icon btn btn-success " style="margin-left: .7%;" data-toggle="tooltip" data-placement="right" title="Admin Can Teach"><i class="block users-light"></i></span>');
+                                $('#clseecreatestatistics').addClass('btn-success');
+                                $('#clseecreatestatistics').removeClass('btn-danger');
+                                $('[data-toggle="tooltip"]').tooltip();
+                            }
+                            $('#appenddiscussiondiv').html(response);
+                        }
+                    });
+                });
+            </script>

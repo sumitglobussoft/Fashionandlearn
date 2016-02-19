@@ -1,0 +1,263 @@
+<div class="main-container">
+				<div class="padding-md">
+                	<ul class="breadcrumb">
+						<li><span class="primary-font"><i class="icon-home"></i></span><a href="#"><?php echo $this->translate("Home") ?></a></li>
+						<li><?php echo $this->translate("Manage Users") ?></li>	
+                                                 
+                        <li><?php echo $this->translate("Create User") ?></li>	
+                         
+						
+					</ul>
+	
+					<h3 class="header-text m-top-md"><?php echo $this->translate("Create User") ?></h3>
+						<div class="smart-widget m-top-md widget-dark-blue">
+                            <div class="smart-widget-header">
+                               <?php echo $this->translate("New User") ?> 
+                                
+                            </div>
+                            <div class="smart-widget-inner">
+                                <div class="smart-widget-hidden-section">
+                                    <ul class="widget-color-list clearfix">
+                                        <li data-color="widget-dark" style="background-color:#20232b;"></li>
+                                        <li data-color="widget-dark-blue" style="background-color:#4c5f70;"></li>
+                                        <li data-color="widget-blue" style="background-color:#23b7e5;"></li>
+                                        <li data-color="widget-green" style="background-color:#2baab1;"></li>
+                                        <li data-color="widget-yellow" style="background-color:#edbc6c;"></li>
+                                        <li data-color="widget-orange" style="background-color:#fbc852;"></li>
+                                        <li data-color="widget-red" style="background-color:#e36159;"></li>
+                                        <li data-color="widget-purple" style="background-color:#7266ba;"></li>
+                                        <li data-color="widget-light-grey" style="background-color:#f5f5f5;"></li>
+                                        <li data-color="reset" style="background-color:#fff;"></li>
+                                    </ul>
+                                </div>
+                                <div class="smart-widget-body">
+                                     <form class="form-horizontal" name="createuser"  id="createuser" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="FirstName"><?php echo $this->translate("FirstName") ?></label>
+                            <div class="col-lg-10">
+                                <input type="text" name="firstname" placeholder="<?php echo $this->translate("FirstName") ?>" id="FirstName" class="form-control">
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="LastName"><?php echo $this->translate("LastName") ?></label>
+                            <div class="col-lg-10">
+                                <input type="text" name="lastname" placeholder="<?php echo $this->translate("LastName") ?>" id="LastName" class="form-control">
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="email"><?php echo $this->translate("Email") ?></label>
+                            <div class="col-lg-10">
+                                <input type="email"   name="email" placeholder="<?php echo $this->translate("Email") ?>" id="inputEmail1" class="form-control">
+                            </div>
+                            <!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="password"><?php echo $this->translate("Password") ?></label>
+                            <div class="col-lg-10">
+                                <input type="password" name="password" placeholder="<?php echo $this->translate("Password") ?>" id="password" class="form-control">
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="gender"><?php echo $this->translate("Gender") ?></label>
+                            <div class="col-lg-10">
+                                <!--                                <div class="checkbox inline-block">
+                                                                    <div class="custom-checkbox">
+                                                                        <input type="checkbox"  name="gender" value ="0"class="checkbox-red" id="inlineCheckbox1">
+                                                                        <label for="inlineCheckbox1"></label>
+                                                                    </div>
+                                                                    <div class="inline-block vertical-top">
+                                                                        Male
+                                                                    </div>
+                                                                </div>
+                                                                <div class="checkbox inline-block">
+                                                                    <div class="custom-checkbox">
+                                                                        <input type="checkbox"  name="gender" value ="1" id="inlineCheckbox2">
+                                                                        <label for="inlineCheckbox2"></label>
+                                                                    </div>
+                                                                    <div class="inline-block vertical-top">
+                                                                        Female
+                                                                    </div>
+                                                                </div>-->
+                                <div class="form-group" style="margin-left: 0%;">
+                                    
+                                    <input type="radio" value="0" name="gender" /> <?php echo $this->translate("Male") ?>
+                                    <input type="radio"  value="1" name="gender" style="margin-left: 3%;" />  <?php echo $this->translate("Female") ?>
+                                </div>
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" > <?php echo $this->translate("User Profile Pics") ?></label>
+                            <div class="col-lg-10">
+                                <input id="file" type="file" name="fileToUpload"style="padding:0;width: 50%;">
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="city"><?php echo $this->translate("City") ?></label>
+                            <div class="col-lg-3">
+                                <input type="text" placeholder="<?php echo $this->translate("City") ?>" name="city" id="city" class="form-control">
+                            </div><!-- /.col -->
+                            <label class="col-lg-2 control-label" for="zip"><?php echo $this->translate("Zip") ?></label>
+                            <div class="col-lg-3">
+                                <input type="text" placeholder="<?php echo $this->translate("Zip") ?>"  name="zip"id="zip" class="form-control">
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success btn-sm" type="submit"><?php echo $this->translate("Create New User") ?></button>
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="/admin/manageusers" class="btn btn-danger btn-sm"><?php echo $this->translate("Cancel") ?></a>
+
+                            </div><!-- /.col -->
+                        </div><!-- /form-group -->
+                    </form>
+                                </div>
+                            </div><!-- ./smart-widget-inner -->
+					</div>
+		        </div><!-- ./padding-md -->
+                
+                
+			</div><!-- /main-container -->
+
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+
+
+
+
+<script>
+    $("#musers").addClass("open active");
+$("#ud1").attr("style","display: block;");
+$("#ud3").addClass("active");
+ window.onload = function() {
+      
+    $(function() {
+
+
+        //Wizard Step
+
+        $("#formWizard").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function(event, currentIndex, newIndex) {
+                if (newIndex > currentIndex) {
+                    if ($('#formExample').parsley().validate('step' + newIndex)) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else {
+                    return true;
+                }
+
+            },
+            onFinished: function(event, currentIndex) {
+                $('#wizardModal').modal('show')
+            }
+
+        });
+    });
+    }
+    </script>
+    
+    
+    
+<script>
+           
+        $('#createuser').validate({
+             onkeyup: function(element) {
+                    $(element).valid();
+                },
+            rules: {
+                firstname: {
+                    required: true,
+                   maxlength: 20
+                },
+                lastname: {
+                    required: true,
+                    maxlength: 20
+                
+                },
+              email: {
+                    required: true
+                },
+                gender:{
+                 required: true   
+                },
+               password:{
+                     required: true
+               },
+               city:{
+                     required: true
+
+               },
+               zip:{
+                  required: true
+ 
+               }
+            },
+    
+            messages: {      
+                firstname:{    
+                    required: "please enter firstname",
+                    maxlength: "Maximum Length of Password is 20"
+                               
+                },
+                lastname:{
+                   required: "please enter lastname",
+                    maxlength: "Maximum Length of Password is 20"
+                },
+                email:{
+                   required:"please enter valid email"
+                },
+                password:{
+                    required: "*New Password is required Field",
+                     minlength: "Minimum Length of password is 5"
+                  },
+                    city:{
+                     required:"please enter the name of city"
+
+                   },
+                  zip:{
+                  required:"please enter the zip"
+                  
+                      }
+            }
+            
+        });
+    
+    
+    
+</script>
+<script language="javascript">
+//var srcc=$('#imgprv').attr('src');
+$(document.body).on("change","#file",function(){
+
+var fup = document.getElementById('file');
+var fileName = fup.value;
+var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+if(ext == "gif" || ext == "GIF" || ext == "JPEG" || ext == "jpeg" || ext == "jpg" || ext == "JPG" || ext == "png")
+{
+// if (this.files && this.files[0]) {
+//                    var reader = new FileReader();
+//                    reader.onload = function (e) {
+//                        $('#imgprv').attr('src', e.target.result);
+//                    }
+//                    reader.readAsDataURL(this.files[0]);
+//                }
+} 
+else
+{
+alert("Upload Gif or Jpg images only");
+fup.focus();
+   $("#file").val("");
+//   $('#imgprv').attr('src',srcc);
+return false;
+}
+});
+</script>

@@ -1,0 +1,107 @@
+<script> 
+</script>
+<div class="main-container">
+    <div class="padding-md">
+        <ul class="breadcrumb">
+            <li><span class="primary-font"><i class="icon-home"></i></span><a href="#"><?php echo $this->translate(" Classes Panel") ?></a></li>
+            <li><?php echo $this->translate("Unassigned Classes") ?></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title header-text no-m-bottom">
+                    <?php echo $this->translate("Classes Panel") ?>
+                </div>
+            </div>
+        </div
+        <div class="row m-top-md">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4><?php echo $this->translate("Unassigned Classes") ?></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="unassignedclasses" class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->translate("SL no") ?></th>
+                                        <th><?php echo $this->translate("Class Id") ?></th>
+                                        <th><?php echo $this->translate("Class Name") ?></th>
+                                        <th><?php echo $this->translate("creator Name") ?></th>
+                                        <th><?php echo $this->translate("Assign user") ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if(isset($this->unassignedclass)){ $count = 1; foreach($this->unassignedclass as $value){ ?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><p><?php echo $value['class_id'] ?></p></td>
+                                        <td><p><?php echo $value['class_title'] ?></p></td>
+                                        <td><p><?php echo $value['creater_name'] ?></p></td>
+                                       <td><p style="font-size: 11px !important;" hidden><?php echo $this->translate("Enter the Mail id to whom you want to assign") ?></p><input type='text' hidden><button class="btn btn-success btn-sm assigneuser" classid="<?php echo $value['class_id'] ?>" ownerid=<?php echo $value['user_id'];?> style="display: none"><?php echo $this->translate("Assign user") ?></button><button class="btn btn-success btn-sm cancel" style="display: none"><?php echo $this->translate("Cancel") ?></button><button class="btn btn-success btn-sm assign" ><?php echo $this->translate("Assign user") ?></button> <a class="btn btn-success btn-sm" href="/admin/teachdetail/<?php echo $value['class_id'];?>" ><?php echo $this->translate("Edit") ?></a></td>
+                                    </tr>
+                                    <?php $count++;} } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./padding-md -->
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+$('#Classes').addClass('active');
+$('#Classes').addClass('open');
+$('#unassignedclassesli').addClass('active');
+$('#classesul').show();
+    $("#unassignedclasses").dataTable();
+    $(document.body).on('click', '.assign', function (e) {
+        $(this).prev().prev().prev().prev().show();
+        $(this).prev().prev().prev().show();
+        $(this).prev().prev().show();
+        $(this).prev().show();
+        $(this).hide();
+        $(this).next().hide();
+    });
+     $(document.body).on('click', '.assigneuser', function (e) {
+    
+         var thisitem = $(this);
+         var mailid = $(this).prev().val();
+         var classid = $(this).attr('classid');
+         var ownerid = $(this).attr('ownerid');
+         $.ajax({
+                url: '/admin/class-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    method:'assignuser',
+                    mailid:mailid,
+                    classid:classid,
+                    ownerid:ownerid
+                },
+                success: function (response) {
+                    if(response){
+                    thisitem.parent().parent().hide();}else{
+                    thisitem.prev().prev()[0].innerHTML = "Entered mail id is Not Exist in the user list"
+                    $(thisitem.prev().prev()[0]).css('color','red');
+                    }
+                }
+                });
+     });
+ 
+$(document.body).on('click','.cancel',function(){
+    $(this).next().next().show();
+    $(this).hide();
+    $(this).prev().hide();
+    $(this).prev().prev().hide();
+    $(this).prev().prev().prev().hide();
+    $(this).next().show();
+});
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('.opennotificationGreen').fadeOut("slow");
+        }, 500);
+    });
+</script>

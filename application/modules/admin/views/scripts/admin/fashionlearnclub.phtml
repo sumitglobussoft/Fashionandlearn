@@ -1,0 +1,243 @@
+
+<div class="main-container">
+    <div class="padding-md">
+        <ul class="breadcrumb">
+            <li><span class="primary-font"><i class="icon-home"></i></span><a href="#"> <?php echo $this->translate("Gamification Panel") ?></a></li>
+            <li><?php echo $this->translate("fashionlearnclub") ?></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title header-text no-m-bottom">
+                    <?php echo $this->translate("Gamification Panel") ?>
+                </div>
+            </div>
+        </div
+        <div class="row m-top-md">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4> <?php echo $this->translate("fashionlearnclub") ?></h4>
+                        <button class="btn btn-success btn-sm addlevel pull-right"><?php echo $this->translate("Add Reward") ?></button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->translate("SL no") ?></th>
+                                        <th><?php echo $this->translate("Order id") ?></th>
+                                        <th><?php echo $this->translate("title") ?></th>
+                                        <th><?php echo $this->translate("Num of Items Available") ?></th>
+                                        <th><?php echo $this->translate("description") ?></th>
+                                        <th><?php echo $this->translate("gems") ?></th>
+                                        <th><?php echo $this->translate("pic") ?></th>
+                                        <th><?php echo $this->translate("Edit/Delete") ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablebody">
+                                    <?php if(isset($this->club)){ $count = 1; foreach($this->club as $value){?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td id='<?php echo $value['fsid'] ?>'><?php echo $value['fsid'] ?></td>
+                                        <td><p><?php echo $value['title'] ?></p><input type='text' hidden></td>
+                                        <td><p><?php echo $value['avl_count'] ?></p><input type='text' hidden></td> 
+                                        <td><p><?php echo $value['description'] ?></p><input type='text' hidden></td>
+                                        <td><p><?php echo $value['gems'] ?></p><input type='text' hidden></td>   
+                                        <td><p><?php echo $value['pic'] ?></p><input type='text' hidden><form enctype="multipart/form-data" style='display:none' id='<?php echo "useravatarform".$value['fsid']; ?>' class="col-lg-9 col-md-8 col-sm-7"><input type="file" ><button class='btn btn-success btn-sm saveimage' iid="<?php echo $value['fsid'] ?>">save Image</button></form></td>
+                                        <td><button class="btn btn-success btn-sm savechanges" style='display:none'><?php echo $this->translate("save") ?></button> <button class="btn btn-success btn-sm editrow"><?php echo $this->translate("Edit") ?></button> <button class="btn btn-danger btn-sm deleterow" lid='<?php echo $value['fsid'] ?>'><?php echo $this->translate("Delete") ?></button> <button class="btn btn-danger btn-sm Cancel" style='display:none'><?php echo $this->translate("Cancel") ?></button></td>
+                                    </tr>
+                                    <?php $count++;} } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./padding-md -->
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+     allfun();
+    $(document).ready(function(){
+    
+        $("#Gamificationpanalli").addClass("active");
+        $("#Gamificationpanalli").addClass("openable active open");
+        $("#gamificationpanelul").show();
+        $("#fashionlearnclubli").addClass("active");
+       allfun();
+    });
+
+function allfun(){
+$(".editrow").on('click',function(){
+   var pic = $(this).parent().prev().children()['0'].innerHTML;
+   var gems = $(this).parent().prev().prev().children()['0'].innerHTML;
+   var description = $(this).parent().prev().prev().prev().children()['0'].innerHTML;
+   var numberavaliable = $(this).parent().prev().prev().prev().prev().children()['0'].innerHTML;
+   var title = $(this).parent().prev().prev().prev().prev().prev().children()['0'].innerHTML;
+                
+   $(this).parent().prev().children().hide();
+   $(this).parent().prev().children().next().show();
+   $(this).parent().prev().children().next().attr("value", pic);
+   $(this).parent().prev().prev().children().hide();
+   $(this).parent().prev().prev().children().next().show();
+   $(this).parent().prev().prev().children().next().attr("value", gems);
+   $(this).parent().prev().prev().prev().children().hide();
+   $(this).parent().prev().prev().prev().children().next().show();
+   $(this).parent().prev().prev().prev().children().next().attr("value", description);
+   $(this).parent().prev().prev().prev().prev().children().hide();
+   $(this).parent().prev().prev().prev().prev().children().next().show();
+   $(this).parent().prev().prev().prev().prev().children().next().attr("value", numberavaliable);
+   $(this).parent().prev().prev().prev().prev().prev().children().hide();
+   $(this).parent().prev().prev().prev().prev().prev().children().next().show();
+   $(this).parent().prev().prev().prev().prev().prev().children().next().attr("value", title);
+   if($(this).next().next().hasClass("Cancel")){
+       
+   }else{
+       $(this).next().next().addClass("Cancel");
+        $(this).next().next().removeClass("Cancelnewrow");
+   }
+
+  
+   $(this).prev().show();
+   $(this).next().hide();
+   $(this).next().next().show();
+   $(this).hide();
+});
+$(".savechanges").on('click',function(){
+    var presentitem = $(this);
+    var pic = $(this).parent().prev().children().next().val();
+    var gems = $(this).parent().prev().prev().children().next().val();
+    var description = $(this).parent().prev().prev().prev().children().next().val();
+    var availablecount = $(this).parent().prev().prev().prev().prev().children().next().val();
+    var title = $(this).parent().prev().prev().prev().prev().prev().children().next().val();
+     var id = $(this).parent().prev().prev().prev().prev().prev().prev().attr("id");
+        $.ajax({
+                url: '/admin-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    method:'fashionlearnclub',
+                    pic:pic,
+                    gems:gems,
+                    description:description,
+                    availablecount:availablecount,
+                    title:title,
+                    id:id
+                   
+                },
+                success: function (response) {
+                    if(response != 1 && response != 0){
+                        //presentitem.parent().prev().prev().prev().prev().prev().prev().prev().prev().children()['0'].innerHTML = response;
+                       presentitem.parent().prev().prev().prev().prev().prev().prev().prev().prev().attr("id",response);
+                       presentitem.next().next().attr("id",response)
+                    }
+                    presentitem.parent().prev().children()['0'].innerHTML = pic;
+                    presentitem.parent().prev().prev().children()['0'].innerHTML = gems;
+                    presentitem.parent().prev().prev().prev().children()['0'].innerHTML = description;
+                    presentitem.parent().prev().prev().prev().prev().children()['0'].innerHTML = availablecount;
+                    presentitem.parent().prev().prev().prev().prev().prev().children()['0'].innerHTML = title;
+       
+                    
+                    presentitem.parent().prev().children().show();
+                    presentitem.parent().prev().children().next().hide();
+                    presentitem.parent().prev().prev().children().show();
+                    presentitem.parent().prev().prev().children().next().hide();
+                    presentitem.parent().prev().prev().prev().children().show();
+                    presentitem.parent().prev().prev().prev().children().next().hide();
+                    presentitem.parent().prev().prev().prev().prev().children().show();
+                    presentitem.parent().prev().prev().prev().prev().children().next().hide();
+                    presentitem.parent().prev().prev().prev().prev().prev().children().show();
+                    presentitem.parent().prev().prev().prev().prev().prev().children().next().hide();
+                 
+     
+                    presentitem.hide();
+                    presentitem.next().show();
+                    presentitem.next().next().show();
+                    presentitem.next().next().next().hide();
+                }
+               
+                });
+    
+});
+$('.deleterow').on('click',function(){
+   var presentitem = $(this);
+   var id = $(this).attr('lid');
+   $.ajax({
+                url: '/admin-ajax-handler',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    method:'deletefashionlearnclub',
+                    id:id
+                },
+                success: function (response) {
+                       presentitem.parent().parent().hide();
+                       count -- ;
+                }
+                });
+});
+
+$('.saveimage').on('click',function(e){
+        e.preventDefault();
+        var thisitem = $(this);
+        var iid =  $(this).attr('iid');
+         var formData = new FormData();
+         formData.append('file', $('#'+'useravatarform'+iid)[0][0].files[0]);
+          $.ajax({
+            url: '/admin/imageuploadhandler',
+            type: 'POST',
+            dataType: 'text',
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (response) {
+                thisitem.parent().prev().attr("value",response);
+                if(response != "error"){
+                     thisitem.parent().hide();
+                }
+                
+            }
+        });
+    });
+
+}
+$(document.body).on('click','.Cancel',function(){
+   $(this).parent().prev().children().show();
+   $(this).parent().prev().children().next().hide();
+   $(this).parent().prev().prev().children().show();
+   $(this).parent().prev().prev().children().next().hide();
+   $(this).parent().prev().prev().prev().children().show();
+   $(this).parent().prev().prev().prev().children().next().hide();
+   $(this).parent().prev().prev().prev().prev().children().show();
+   $(this).parent().prev().prev().prev().prev().children().next().hide();
+   $(this).parent().prev().prev().prev().prev().prev().children().show();
+   $(this).parent().prev().prev().prev().prev().prev().children().next().hide();
+   $(this).prev().show();
+   $(this).prev().prev().show();
+   $(this).prev().prev().prev().hide();
+   $(this).hide();
+});
+var length =  <?php echo $count; ?>;  
+var count = length+0;
+$('.addlevel').on('click',function(){
+    var row = "<tr><td id=''>"+count+"</td><td><p></p><input type='text'></td><td><p></p><input type='text'></td><td><p></p><input type='text'></td><td><p></p><input type='text'></td><td><p></p><input type='text'><form enctype='multipart/form-data' class='col-lg-9 col-md-8 col-sm-7' id='useravatarform' ><input type='file' name='badgeimage' id='badgeimage'><button class='btn btn-success btn-sm saveimage' iid=''>save Image</button></form></td><td><button class='btn btn-success btn-sm savechanges'>save</button> <button class='btn btn-success btn-sm editrow' style='display:none'>Edit</button> <button class='btn btn-danger btn-sm deleterow' id='' style='display:none' >Delete</button><button class='btn btn-danger btn-sm Canclenewrow' id=''>Cancle</button></td></tr>";
+    count ++;
+    $('#tablebody').append(row);
+    allfun();
+});
+$(document.body).on('click','.Canclenewrow',function(){
+   $(this).parent().parent().hide();
+});
+
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('.opennotificationGreen').fadeOut("slow");
+        }, 500);
+    });
+   </script>

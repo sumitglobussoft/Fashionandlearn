@@ -1,0 +1,36 @@
+<div class="main-container">
+				<div class="padding-md m-bottom-md">
+				
+<h3 class="header-text m-top-lg"><?php echo $this->translate("Payment Details") ?></h3>
+
+					<table class="table table-striped" id="dataTable">
+						<thead>
+							<tr>
+								<th><?php echo $this->translate("S.No") ?></th>
+								<th><?php echo $this->translate("Uname") ?></th>
+								<th><?php echo $this->translate("Amount") ?> </th>
+								<th><?php echo $this->translate("Pay Method") ?></th>
+								<th><?php echo $this->translate("Confirm Code") ?></th>
+								<th><?php echo $this->translate("Transcation Date") ?></th>
+								<th><?php echo $this->translate("Plan Status") ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						
+						</tbody>
+					</table>
+				</div><!-- ./padding-md -->
+			</div><!-- /main-container -->
+
+		</div><!-- /wrapper -->
+
+		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+		
+	
+
+		<script>
+			$(function()	{
+			    $('#dataTable').dataTable();
+			});
+		</script>

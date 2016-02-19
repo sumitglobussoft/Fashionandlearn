@@ -1,0 +1,17 @@
+<!--
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
+</script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js">
+    
+</script>
+<script type="text/javascript">
+
+    var tz = jstz.determine(); // Determines the time zone of the browser client
+    var timezone = tz.name(); //'Asia/Kolhata' for Indian Time.
+   document.write(timezone);
+
+</script>-->
+<?php $objss = Application_Model_Sitestatistics::getInstance();
+       $res=$objss->getweekssstatistics(); 
+       print_r($res);
+       die();?>

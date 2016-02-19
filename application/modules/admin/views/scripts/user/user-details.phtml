@@ -1,0 +1,81 @@
+<script type="text/javascript" language="javascript" class="init">
+
+
+$(document).ready(function() {
+	$('#testTable').dataTable( {
+		columnDefs: [ {
+			targets: [ 0 ],
+			orderData: [ 0, 1 ]
+		}, {
+			targets: [ 1 ],
+			orderData: [ 1, 0 ]
+		}, {
+			targets: [ 4 ],
+			orderData: [ 4, 0 ]
+		} ]
+	} );
+} );
+
+</script>
+<section id="content"class="scrollable padder">
+           <header class="header b-b b-light">
+              <p><?php echo $this->translate("User Details") ?></p>
+            </header>
+    
+    <section class="panel panel-default">
+            <header class="panel-heading font-bold"> <?php echo $this->translate("user details ") ?></header>
+    </section>
+           
+   <div class="table-responsive">
+    <table id="testTable" class="display" cellspacing="0" width="100%">
+        <thead>             
+            <tr>
+                <th><?php echo $this->translate("No") ?></th>
+                <th><?php echo $this->translate("Name") ?></th>
+                <th><?php echo $this->translate("Email") ?></th>
+                <th><?php echo $this->translate("status") ?></th>                             
+                <th><?php echo $this->translate("edit/delete") ?></th>
+            </tr>
+        </thead>
+    <tbody>
+       <?php if(isset($this->users)){$row = 0; foreach($this->users as $userDetails){ $row ++;?>
+        <tr>
+            <td><?php echo $row ; ?></td>
+            <td><?php echo $userDetails['user_name'];?></td>
+            <td><?php  echo $userDetails['email'];  ?></td>
+            <td><?php  if($userDetails['status'] == 1) { echo "Active"; }else{ echo "Deactive"; };  ?></td>            
+            <td>
+           <a  href="/admin/edit-user/<?php echo $userDetails['user_id']; ?>" class="fa fa-pencil"><i></i></a>
+           <a  id="delete" data-drid= "<?php echo $userDetails['user_id'];?>" class="fa fa-times"><i></i></a>
+           </td>
+         </tr>
+       <?php }}?>
+    </tbody>
+    </table>
+</div>
+</section>
+</section>
+<script>
+    $( document ).ready(function(){  
+       $(document.body).on('click','#delete',function(){ 
+           var del_did= $(this).attr('data-drid');
+           alert(del_did);
+        $.ajax({
+            type:'POST',
+            url:'./delete-user',
+            data:{'del_did':
+                    del_did},
+            success: function(response){
+                 if(response){
+                     window.location.reload(true);
+                 }else{
+                        alert("can't delete the user")
+                 }
+                
+             }
+
+            });
+           
+       });
+       });
+    </script>

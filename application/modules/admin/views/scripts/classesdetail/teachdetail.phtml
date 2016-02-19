@@ -1,0 +1,2692 @@
+
+<link href="/assets/css/select2.min.css" rel="stylesheet">
+<link href="/assets/css/settings.css" rel="stylesheet">
+<link href="/assets/css/extralayers.css" rel="stylesheet">
+<link href="/assets/css/simplify.css" rel="stylesheet">
+
+<script type="text/javascript" src="/assets/js/tooltipsy.min.js"></script>
+<script type="text/javascript" src="/assets/js/select2.full.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/uploadify.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery-ui.min.css">
+<script type="text/javascript" src="/assets/js/jquery.classyloader.min.js"></script>
+<script type="text/javascript" src="/assets/js/vemioupload.js"></script>
+<script src="/assets/js/jquery.form.js"></script>  
+
+<script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.uploadify.min.js"></script>
+
+<script src="/assets/js/summernote.js"></script>
+<link href="/assets/css/custommodal.css" rel="stylesheet">
+<script src="/assets/js/teachclass.js"></script>
+<style>
+    #chargeBar {
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100px;
+        margin-top: 10px;
+        text-align: center;
+        width: 150px;
+    }
+    .tabs-left > .nav-tabs > li.active > a {
+        background-color: #fff !important;
+        color: #e36159 !important;
+    }
+    .tabs-left > .nav-tabs > li.active > a:focus {
+        color: #e36159 !important;
+    }
+    .tooltipsy
+    {
+        padding: 5px;
+        max-width: 200px;
+        color: whitesmoke;
+        border-radius: 12px;
+        background-color: black;
+        border: 1px solid #deca7e;
+    }
+    .margin0{margin: 0px;}
+    .bg-grey {
+        background-color: #e3e9ed;
+    }
+    .nav-tabs > li{float:none;}
+    .image_trigger {
+        display: block !important;
+    }
+    .sidebar-menu {
+        padding-top: 70px !important;
+    }
+    .sidebar-menu .main-menu ul li {
+        border-bottom: none !important;
+    }
+</style>
+<link href="/assets/css/summernote.css" rel="stylesheet">
+<script src="/includes/ckeditor/ckeditor.js"></script>
+
+<div id="modale" style="z-index:1">
+    <img id="loader" src="/../assets/images/loadinga.gif" />
+</div>
+
+
+<div class="main-container">
+
+    <div class="padding-md">
+        <div class="panel bg-white">
+            <div class="panel-body">
+                <div class="row bg-white">
+                    <div class="m-left-md">
+                        <h3><?php echo $this->translate("Edit") ?></h3>
+                    </div>
+
+
+                    <div class="col-md-12 marginTB-md">
+                        <span>  <?php
+                            if (isset($this->session->storage->teach)) {
+                                echo $this->session->storage->teach;
+                                ?>
+                            </span> &nbsp;
+
+
+                            <?php if ($this->publish_status == 1) { ?>
+                                <span class="badge badge-info" style="background-color: orange;"><?php echo $this->translate("Pending") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class will automatically publish as soon as your videos are done processing") ?>." style="background-color: gray; color: white; width: 18px;">?</a>
+
+                            <?php } elseif ($this->publish_status == 0) { ?>
+                                <span class="badge badge-info"><?php echo $this->translate("Published") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class is live and visible for students to start enrolling") ?>!" style="background-color: gray; color: white; width: 18px;">?</a> <?php } else { ?>
+                                <span class="badge badge-info" ><?php echo $this->translate("Draft") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class is private and only accessible by you. Save and access your class as a draft as often as you'd like") ?>." style="background-color: gray; color: white; width: 18px;">?</a> 
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <span  class ="editclassname" name="editclassname"><?php echo $this->teachresult['class_title']; ?></span> &nbsp;&nbsp; 
+                            <?php if ($this->publish_status == 1) { ?>
+                                <span class="badge badge-info" style="background-color: orange;"><?php echo $this->translate("Pending") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class will automatically publish as soon as your videos are done processing") ?>." style="background-color: gray; color: white; width: 18px;">?</a>
+
+                            <?php } elseif ($this->publish_status == 0) { ?>
+                                <span class="badge badge-info"><?php echo $this->translate("Published") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class is live and visible for students to start enrolling") ?>!" style="background-color: gray; color: white; width: 18px;">?</a> <?php } else { ?>
+                                <span class="badge badge-info" ><?php echo $this->translate("Draft") ?></span>&nbsp;&nbsp;<a class="help-icon icon-help badge badge-info information" title="<?php echo $this->translate("Your class is private and only accessible by you. Save and access your class as a draft as often as you'd like") ?>." style="background-color: gray; color: white; width: 18px;">?</a> 
+
+                                <?php
+                            }
+                        }
+                        ?>
+
+                        <div class="pull-right">
+                            <?php
+                            if (isset($this->teachresult)) {
+                                if ($this->publish_status == 2) {
+                                    ?>         
+                                    <b><span class="save-status-lbl right savedstatus" style="display:none;"><?php echo $this->translate("Saving Draft") ?>...</span></b>&nbsp;<button id="saveDraft" class="btn btn-default"><?php echo $this->translate("Save Draft") ?></button>&nbsp;
+                                    <button id="publish" class="btn btn-danger" data-toggle="modal" ><?php echo $this->translate("Publish") ?></button>
+                                <?php } else { ?>
+                                    <button id="publish" class="btn btn-danger" data-toggle="modal" ><?php echo $this->translate("Publish") ?></button><?php
+                                }
+                            } else {
+                                ?>
+                                <b><span class="save-status-lbl right savedstatus" style="display:none;"><?php echo $this->translate("Saving Draft") ?>...</span></b>&nbsp;<button id="saveDraft" class="btn btn-default"><?php echo $this->translate("Save Draft") ?></button>&nbsp;
+                                <button id="publish" class="btn btn-danger" data-toggle="modal" ><?php echo $this->translate("Publish") ?></button><?php } ?>
+                        </div><br/><br/>
+
+ <!--<i class="fa fa-eye"></i> &nbsp; <a href="/teachclass/<?php //echo $this->session->storage->teach;               ?>">Preview Class</a>-->
+                        <i class="fa fa-eye"></i> &nbsp; <a href="/teachclass/<?php echo $this->session->storage->class_id; ?>"><?php echo $this->translate("Preview Class") ?></a>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="smart-widget">
+                            <div class="smart-widget-inner">
+                                <ul class="nav tab-style2 nav-justified">
+                                    <li class="active">
+                                         <a href="#a" data-toggle="tab">
+                                            <span class="icon-wrapper"><i class="inline-block recent-activity-icon"></i></span>
+                                            <span class="text-wrapper"><?php echo $this->translate("Class Overview") ?></span>
+                                        </a>
+                                      
+                                    </li>
+                                    <li>
+                                        <a href="#b" data-toggle="tab">
+                                            <span class="icon-wrapper"><i class="inline-block recent-project-icon"></i></span>
+                                            <span class="text-wrapper"><?php echo $this->translate("Videos") ?></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                         <a href="#c" data-toggle="tab">
+                                            <span class="icon-wrapper"><i class="inline-block recent-discussions-icon"></i></span>
+                                            <span class="text-wrapper"><?php echo $this->translate("More Details") ?></span>
+                                        </a> 
+                                       
+                                    </li>
+
+                                    <li>
+                                        <a href="#d" data-toggle="tab">
+                                            <span class="icon-wrapper"><i class="inline-block icon icon-315"></i></span>
+                                            <span class="text-wrapper"><?php echo $this->translate("Help") ?></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="smart-widget-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="a">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class=" tab1">
+                                                        <input type="hidden" id="user_session" value="<?php if($this->tid){echo $this->tid;}else{echo $this->session->storage->user_id;} ?>">
+                                                        <input type="hidden" id="class_session" value="<?php echo $this->session->storage->teach_id; ?>">
+                                                        <h2 style="margin-top: 10px;"><?php echo $this->translate("Class Overview") ?></h2>
+                                                        <p><?php echo $this->translate("Everything students need to know to get excited about your class. Get started with your class topic and project") ?>.</p>
+                                                        <div class="divider-steach"></div>
+                                                        <h4><?php echo $this->translate("Class Title") ?></h4>
+                                                        <p><?php echo $this->translate("What are you teaching? Add a catchy, descriptive title. (e.g Outstanding Zombies: Developing Tools for Defense)") ?></p>
+                                                        <input type="hidden" class="form-control" data-required="true" value="<?php if (isset($this->session->storage->teach_id)) echo $this->session->storage->teach_id; ?>" id="classTeachId"/>
+                                                        <?php
+                                                        if ($this->teachresult) {
+
+                                                            $value = $this->teachresult;
+//                                               echo "<pre>";
+//                                               print_r($this->teachresult);
+//                                               die();
+
+                                                            $class_title = $value['class_title'];
+                                                            $project_title = $value['assignment_project_title'];
+                                                            $project_description = $value['assignment_project_description'];
+                                                            $dropdown_value = $value['category_id'];
+                                                            ?>
+                                                            <input  class="form-control" data-required="true" value="<?php echo $class_title; ?>" id="classTeach"/>    
+
+                                                        <?php } elseif (isset($this->session->storage->teach)) {
+                                                            ?><input  class="form-control" data-required="true" value="<?php echo $this->session->storage->teach; ?>" id="classTeach"/>
+                                                        <?php } else {
+                                                            ?>
+                                                            <input  class="form-control" data-required="true" value="<?php echo $this->teach; ?>" id="classTeach"/>
+                                                        <?php } ?>
+                                                        <h4><?php echo $this->translate("Project Title") ?></h4>
+                                                        <p><?php echo $this->translate("What will students make in your class? (e.g. Hand-letter your favourite quote, tittle, or phrase)") ?></p>
+
+                                                        <?php if (isset($this->teachresult)) { ?>
+
+                                                            <input class="form-control" data-required="true" value="<?php echo $this->teachresult['assignment_project_title']; ?>" id="project_title" name="project_title" />
+                                                        <?php } else { ?>
+                                                            <input class="form-control" data-required="true" value="" id="project_title" name="project_title" placeholder="Enter Project Title" />
+                                                        <?php } ?>
+                                                        <h4><?php echo $this->translate("Project Description") ?></h4>
+                                                        <p><?php echo $this->translate("What steps should students take during the project? Describe what students should upload for their final project") ?>.</p>
+                                                        <?php if (isset($this->teachresult)) { ?>
+                                                            <?php
+                                                            $this->teachresult = $this->teachresult;
+                                                            $class_discription = $value['class_description'];
+                                                            $project_description = $value['assignment_project_description'];
+                                                            ?>
+                                                                                                                                                                                                                                <!--                            <textarea class="form-control" data-required="true" placeholder="Enter Project description" id="desc" name="desc"></textarea>-->
+                                                           <div  name="summernote123" class="summernote123" ><?php echo  $project_description?> </div>
+                                                        <?php } else { ?>
+                                                            <div  name="summernote123" class="summernote123" > </div>
+                                                        <?php } ?>
+                                                      
+                                                        <div id="addFile">
+                                                            <form enctype="multipart/form-data" id="file_upload_form" method="POST">
+                <!--                                                <input type="file" id="upload_link_name" name="upload_name" style="visibility: hidden; width: 1px; height: 1px" multiple />
+                                                                <a href="" onclick="document.getElementById('upload_link_name').click();
+                                                                    return false"><i class="fa fa-plus"></i> &nbsp; Attach a File to Your Project Description</a>-->
+                                                                <?php
+                                                                if (isset($this->teachresult)) {
+                                                                    if (isset($this->savedFiles)) {
+                                                                        foreach ($this->savedFiles as $files) {
+                                                                            ?>
+                                                                
+                                                                
+                                                                            <div style="margin-top: 3%;" class="alert alert-info">
+                                                                                
+                                                                                <div class="">
+                                                                                    <span id="fileNameTake" class="checkFile"><?php
+                                                                                    if($files['class_file_name'])
+                                                                                    {
+                                                                                        echo $files['class_file_name'];
+                                                                                    }
+                                                                                    else{
+                                                                                        $files['class_file_path'] = array_pop(explode('/', $files['class_file_path']));
+                                                                                        echo $files['class_file_path'];
+                                                                                    }
+                                                                                        ?>
+                                                                                    </span>
+                                                                                    <span hidden id="<?php echo "ff".$files['class_file_id'] ?>"><input type="text" class="" id="<?php echo "f".$files['class_file_id'] ?>" style="padding: 5px 10px; margin-right: 10px; " ><a class="text-grey saveeditname" fid="<?php echo $files['class_file_id'] ?>" ><i style="color:greenyellow"class="fa fa-2x fa-check"></i></a><a class="text-grey cancel" fid="<?php echo $files['class_file_id'] ?>" ><i style="color:red"class="fa fa-2x fa-times"></i></a></span>
+                                                                                    <a class="text-grey pull-right editsavedfile" fid="<?php echo $files['class_file_id'] ?>" ><i class="fa fa-2x fa-edit"></i></a>&nbsp; &nbsp;<a class="text-danger  deleteSavedFile pull-right" aria-label="Close" data-dismiss="alert"  data-value="<?php echo $files['class_file_id'] ?>" type="button"><i class="fa fa-2x fa-times"></i></a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <button type="file" id="fileuploader"><?php echo $this->translate("upload") ?></button>
+                <!--                                                <input id="fileUpload" name="manage_file" type="file" style="display: none;"/>
+                                                           <a href="" id="upload_links"> <i class="fa fa-plus"></i> &nbsp; Attach a File to Your Project Description</a>-->
+                                                            </form>
+                                                        </div>
+                                                        <div id="addDivision">
+                                                            <span class="err_msg" ></span>
+                                                        </div>
+                                                        <!--<div><ul class="attachments-list populated"><li class="attachment grey-container clear"><a class="iconed-link left"><span class="icon-attach title ellipsis">bit</span></a><a class="attachment-delete secondary right iconed-link"><span class="icon-trash">Delete</span></a></li></ul></div>-->
+
+
+      <!--<textarea class = "form-control" data-required = "true" placeholder = "Enter Project description" id = "desc" name = "desc"></textarea> -->
+<!--                                        <textarea id = "MyToolbar2" name = "MyToolbar2"><?php
+                                                        //  if ($project_description) {
+                                                        //     echo $project_description;
+                                                        // }
+                                                        ?></textarea>
+                                        <script>CKEDITOR.replace('MyToolbar2', {
+                                        toolbar: 'MyToolbar2',
+                                        uiColor: '#9AB8F3'
+                                    });</script>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- ./tab-pane -->
+                                        <div class="tab-pane fade" id="b">
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class=" tab1">
+                                                        <h2 style="margin-top: 10px;"><?php echo $this->translate("Video Lessons") ?></h2>
+                                                        <p><?php echo $this->translate("Upload video lessons that walk students through the class project and key concepts") ?>.</p>
+                                                        <div class="divider-steach unit_append">
+                                                            <?php
+                                                            if ($this->unitresult) {
+                                                                foreach ($this->unitresult as $resArr) {
+                                                                    ?>                 
+
+                                                                    <div class="well unitclasss">
+
+                                                                        <div class="inner-bg showTrash" style="color:black;">
+
+                                                                            <?php // if ($this->upload) {      ?>
+                                                                            <h4><input type="text" placeholder="<?php echo $this->translate("Untitled") ?>" style="display:none;" class="form-control upload_video_text"><input type="hidden" class="classiddetails" value="<?php
+                                                                                if (isset($this->session->storage->class_id)) {
+                                                                                    echo $this->session->storage->class_id;
+                                                                                }
+                                                                                ?>">
+                                                                                <input type="hidden" class="unitid" value="<?php echo $resArr['class_unit_id']; ?>" name="unitid"><span class="unit_video_show upload_video_edit" style="cursor: pointer;"><?php echo $resArr['class_unit_titile']; ?></span> <i class="fa fa-edit upload_video_edit" style="cursor: pointer;"></i></h4>
+
+                                                                            <div class="sort-container ui-corner-all ui-sortable vid">
+
+                                                                                <div class="item-wrapper ui-draggable parent-video newDraggable " id="newDraggable" style="display: block;">       
+                                                                                    <?php foreach ($resArr['details'] as $vArrr) { ?>   
+                                                                                        <div class="drag-handle"></div>
+                                                                                        <div class="row bg-white imageHvr item-container" data-no="<?php echo $vArrr['class_no']; ?>" val="<?php echo $vArrr['class_video_id']; ?>" style="margin-bottom:5px;">
+                                                                                            <div class="col-md-4" class="videocover">
+                                                                                                <?php
+                                                                                                if ($vArrr['cover_image']) {
+                                                                                                    $abc = $vArrr['cover_image'];
+                                                                                                    ?>
+                                                                                                    <div style="background-image: url('<?php echo $abc; ?>');" class="well no-padding" id="chargeBar"></div>
+                                                                                                <?php } else { ?>
+                                                                                                    <iframe id="player1"  src="//player.vimeo.com/video/<?php echo $vArrr['video_id']; ?>?api=1&player_id=player1" width="150" height="85" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>  
+                                                                                                <?php } ?>
+                                                                                                <canvas class="loader loader_height" style="display:none;"><?php $timestamp = time(); ?></canvas>	
+                                                                                                <div class="percent" style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;">0</div >
+                                                                                                <div class="progress" style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;">
+                                                                                                    <div class="progress-bar progress-bar-striped active" style="width: 100px; height: 7px;"></div >
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-8"><h4><span class="video_tit video_tit_edit"><?php echo $vArrr['class_video_title']; ?></span><input type="hidden" class="class_video_id" name="video_id" value="<?php echo $vArrr['class_video_id']; ?>"><input type="hidden" class="order_video_id" name="video_id" value="<?php echo $vArrr['orderid']; ?>"><i class="fa fa-edit video_tit_edit" style=""></i><input type="text" class="form-control text_video_tit" style="display: none;" placeholder="<?php echo $this->translate("Untitled") ?>"></h4>
+                                                                                                <input class="form-control hidden unit_show "  type="text" placeholder="<?php echo $this->translate("Untitled") ?>"><span class="lesson-video-file-name"></span>
+                                                                                                <div class="like-icon"><input id="upload_cover_image" class="hiddenimage hide" type="file" name="file_cover_image">
+                                                                                                    <span   style="cursor:pointer;"  class="round_image fa fa-image image_trigger" title="upload cover image"></span>
+                                                                                                    <a data-target="#trash" data-toggle="modal" href="#"><span class="round_trash fa fa-trash-o" title="Delete"></span>
+                                                                                                    </a></div></div> 
+                                                                                        </div><?php } ?></div>   </div> 
+                                                                            <?php
+//                                                }
+//                                                else {
+//                                                    
+                                                                            ?>
+                           <!--<a  href="//<?php // echo($this->session->authlink);             ?>"> <i style="margin-left: 44px; margin-top: 2px;" class="fa fa-2x fa-upload"></i></a> <h5 style="text-align: center;">Upload Video</h5>-->
+
+                                                                            <?php // }         ?> 
+
+                                                                            <span>
+                                                                                <a class="btn btn-default new-video" id="add_video_lesson" style="background-color: transparent; margin-top: 28px;">
+                                                                                    <i class="fa fa-plus" ></i>
+                                                                                    <?php echo $this->translate("Add Video Lesson") ?>
+                                                                                </a>
+                                                                                <a class="btn btn-default new-mulvideo"  style="background-color: transparent; margin-top: 28px;">
+                                                                                    <i class="fa fa-plus" ></i>
+                                                                                    <?php echo $this->translate("Add multiple Video Lesson") ?> 
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <?php
+                                                                }
+                                                            } else {
+                                                                ?>
+
+
+                                                                <div class="well unitclasss">
+
+                                                                    <div class="inner-bg showTrash" style="color:black;">
+
+                                                                        <?php // if ($this->upload) {     ?>
+                                                                        <h4><input type="text" placeholder=" <?php echo $this->translate("Untitled") ?>" style="display:none;" class="form-control upload_video_text"><input type="hidden" class="classiddetails" value="<?php
+                                                                            if (isset($this->session->storage->class_id)) {
+                                                                                echo $this->session->storage->class_id;
+                                                                            }
+                                                                            ?>">
+                                                                            <input type="hidden" class="unitid" value="" name="unitid"><span class="unit_video_show upload_video_edit" style="cursor: pointer;"><?php echo $this->translate("Untitled") ?></span> <i class="fa fa-edit upload_video_edit" style="cursor: pointer;"></i></h4>
+
+                                                                        <div class="sort-container ui-corner-all ui-sortable vid">
+
+                                                                            <div class="item-wrapper ui-draggable parent-video newDraggable" id="newDraggable" style="display: block;">       
+                                                                                <div class="drag-handle"></div>
+
+                                                                                <div class="row bg-white imageHvr item-container"  style="margin-bottom:5px;" data-no="0">
+                                                                                    <div class="col-md-4" class="videocover">
+
+                                                                                        <div style="margin-top: 10px; background-repeat: no-repeat; height: 100px; background-size: cover; width: 150px; text-align: center;" class="well no-padding" id="chargeBar">
+
+                                                                                            <input class="hiddenupload hide" id="upload" name="file_upload" type="file" /><a id="upload_video3" style="margin-top: 8px;"class="fa fa-2x fa-upload upload_trigger"></a><h5 class="covervideo" style="text-align: center;"><?php echo $this->translate("Upload Video") ?></h5>
+                                                                                        <canvas class="loader loader_height" style="display:none;"><?php $timestamp = time(); ?></canvas>	
+                                                                                        <div class="percent" style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;">0</div >
+                                                                                        <div class="progress" style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;">
+                                                                                            <div class="progress-bar progress-bar-striped active" style="width: 100px; height: 7px;"></div >
+                                                                                        </div>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="col-md-8"><h4><span class="video_tit video_tit_edit"><?php echo $this->translate("Untitled") ?></span><input type="hidden" class="class_video_id" name="video_id" value=""><input type="hidden" class="order_video_id" name="video_id" value=""><i class="fa fa-edit video_tit_edit" style="display:none;"></i><input type="text" class="form-control text_video_tit" style="display: none;" placeholder="<?php echo $this->translate("Untitled") ?>"></h4>
+                                                                                        <input class="form-control hidden unit_show "  type="text" placeholder="<?php echo $this->translate("Untitled") ?>"><span class="lesson-video-file-name">(<?php echo $this->translate("No Video Uploaded yet") ?>)</span>
+                                                                                        <div class="like-icon"><input id="upload_cover_image" class="hiddenimage hide" type="file" name="file_cover_image">
+                                                                                            <span   style="cursor:pointer;"  class="round_image fa fa-image image_trigger" title="upload cover image"></span>
+                                                                                            <a data-target="#trash" data-toggle="modal" href="#"><span class="round_trash fa fa-trash-o" title="Delete"></span>
+                                                                                            </a></div></div> 
+                                                                                </div></div>  </div> 
+                                                                        <?php
+//                                                } else {
+//                                                    
+                                                                        ?>
+                                                                        <!--<a  href="//<?php // echo($this->session->authlink);              ?>"> <i style="margin-left: 44px; margin-top: 2px;" class="fa fa-2x fa-upload"></i></a> <h5 style="text-align: center;">Upload Video</h5>-->
+
+                                                                        <?php // }         ?> 
+
+                                                                        <span>
+                                                                            <a class="btn btn-default new-video" id="add_video_lesson" style="background-color: transparent; margin-top: 28px;">
+                                                                                <i class="fa fa-plus" ></i>
+                                                                                <?php echo $this->translate("Add Video Lesson") ?>
+                                                                            </a>
+                                                                            <a class="btn btn-default new-mulvideo"  style="background-color: transparent; margin-top: 28px;">
+                                                                                <i class="fa fa-plus" ></i>
+                                                                                <?php echo $this->translate("Add multiple Video Lesson") ?>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div> <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                    <span>
+                                                        <a style="background-color: transparent; margin-top: 10px;" id="add_new_unit" class="btn btn-default ">
+                                                            <i class="fa fa-plus"></i><?php echo $this->translate("Add new unit") ?>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div><!-- ./tab-pane -->
+                                        <div class="tab-pane fade" id="c">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="tab1">
+                                                        <h2 style="margin-top: 10px;"><?php echo $this->translate("More Details") ?></h2>
+                                                        <p><?php echo $this->translate("Provide additional information to describe your class to students and make it searchable on FashionTuts") ?>.</p>
+                                                        <div class="divider-steach"></div>
+                                                        <h4><?php echo $this->translate("Category") ?></h4>
+                                                        <p><?php echo $this->translate("What are you teaching? Add a catchy, descriptive title. (e.g Outstanding Zombies: Developing Tools for Defense)") ?></p>
+                                                        <?php if (isset($this->teachresult)) { ?>
+
+                                                            <select class="form-control dynamic_select" id="category">
+                                                                <option selected="selected" value="<?php echo $this->teachresult['category_id']; ?>"><?php echo $value['category_name']; ?></option>
+                                                                <?php foreach ($this->AllCategories as $cat) { ?>
+                                                                    <option value="<?php echo $cat['category_id']; ?>"><?php echo $cat['category_name']; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?>    
+                                                            <select class="form-control dynamic_select" id="category">
+                                                                <option selected="" value="">Choose a Category</option>
+                                                                <?php foreach ($this->AllCategories as $cat) { ?>
+                                                                    <option value="<?php echo $cat['category_id']; ?>"><?php echo $cat['category_name']; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } ?>
+                                                        <h4><?php echo $this->translate("Class Tags") ?></h4>
+                                                        <p><?php echo $this->translate("Add up to (5) related subject tags to help students find your class") ?>.</p>
+                                                        <?php
+                                                        if (isset($this->teachresult)) {
+                                                            
+                                                            
+                                                            $value = $this->teachresult;
+                                                            if($value['class_tags']!="")
+                                                            $myArray = explode(',', $value['class_tags']);
+                                                            else
+                                                              $myArray=array();  
+                                                            $new= array_diff(array_column($this->AllCategories,"category_name"),$myArray);
+                             
+                                                             ?>
+                                                            <select class=" js-example-tokenizer  dynamic_select" id="more_details_class_tags" multiple style="width:100%">
+                                                                <?php foreach ($myArray as $v) { ?>
+                                                                    <option value="<?php echo $v ?>" selected=""><?php echo $v ?></option>                                             
+                                                                <?php } ?>
+                                                                <?php foreach ($new as $tags) { ?>
+                                                                    <option value="<?php echo $tags ?>"><?php echo $tags; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } else { ?> 
+                                                            <select class="  js-example-tokenizer dynamic_select" id="more_details_class_tags" multiple style="width:100%">
+                                                                <?php foreach ($this->AllCategories as $tags) { ?>
+                                                                    <option value="<?php echo $tags['category_name'] ?>"><?php echo $tags['category_name']; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        <?php } ?>
+                                                        <h4><?php echo $this->translate("Class Description") ?></h4>
+                                                        <p><?php echo $this->translate("Write a summary of your class in 100 words or less") ?>.</p>
+                                                        <?php if(isset($this->teachresult['class_description'])){?>
+                                                      <div class="summernote231" name="summernote231"><?php echo $this->teachresult['class_description']?></div>
+                                                        <?php }else{?>
+                                                      
+                                                      <div class="summernote231" name="summernote231"></div>
+                                                      <?php }?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- ./tab-pane -->
+                                        <div class="tab-pane fade" id="d">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="tab1">
+                                                        <div class="m-top-md p-bottom-sm border-bottom">
+                                                            <h2><?php echo $this->translate("More Details") ?></h2>
+                                                            <p><?php echo $this->translate("Provide additional information to describe your class to students and make it searchable on FashionTuts") ?>.</p>
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div><!-- ./tab-content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- ./padding-md -->
+
+</div><!-- /main-container -->
+
+</div><!-- /wrapper -->
+
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<!--<script>
+            if (CKEDITOR.instances['MyToolbar3'])
+            delete CKEDITOR.instances['MyToolbar3'];
+            CKEDITOR.replace('MyToolbar3', {
+            toolbar: 'MyToolbar3',
+                    uiColor: '#ffffff',
+                    //                                   //                filebrowserBrowseUrl: 'js/ckeditor/filemanager/browser/default/browser.html?Connector=http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/connector.php',
+                    //                filebrowserImageBrowseUrl: "",
+                    //                filebrowserFlashBrowseUrl: 'js/ckeditor/filemanager/browser/default/browser.html?Type=Flash&amp;Connector=http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/connector.php',
+                    filebrowserUploadUrl: '/includes/ckeditor/upload.php'
+                    //                filebrowserImageUploadUrl: 'http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/upload.php?Type=Image',
+                    //                filebrowserFlashUploadUrl: 'http://www.mixedwaves.com/filemanager_in_ckeditor/js/ckeditor/filemanager/connectors/php/upload.php?Type=Flash'
+            });</script>-->
+<script>
+         $('.summernote123').summernote({
+            height: 200, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+
+            focus: true,
+            toolbar: [
+                ['styles', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['other', ['fullscreen', 'codeview', 'undo', 'redo']],
+                 ['insert', ['link', 'picture']]
+               
+            ]
+
+        });
+        
+             $('.summernote231').summernote({
+            height: 200, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+
+            focus: true,
+            toolbar: [
+                ['styles', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['other', ['fullscreen', 'codeview', 'undo', 'redo']]
+               
+            ]
+
+        });
+    
+    
+    
+    
+    
+            $(function () {
+            $("#upload_link").on('click', function (e) {
+            e.preventDefault();
+                    $("#upload:hidden").trigger('click');
+            });
+                    $("#upload_video1").on('click', function (e) {
+            e.preventDefault();
+                    $("#upload:hidden").trigger('click');
+            });
+                    $("#upload_video2").on('click', function (e) {
+            e.preventDefault();
+                    $("#upload:hidden").trigger('click');
+            });
+                    $("#upload_multiple").on('click', function (e) {
+            e.preventDefault();
+                    $("#upload:hidden").trigger('click');
+            });
+            });</script>
+
+
+
+
+<script>
+            $(function () {
+            $('.chart').easyPieChart({
+            easing: 'easeOutBounce',
+                    size: '140',
+                    lineWidth: '7',
+                    barColor: '#7266ba',
+                    onStep: function (from, to, percent) {
+                    $(this.el).find('.percent').text(Math.round(percent));
+                    }
+            });
+                    $('.sortable-list').sortable();
+                    $('.todo-checkbox').click(function () {
+
+            var _activeCheckbox = $(this).find('input[type="checkbox"]');
+                    if (_activeCheckbox.is(':checked')) {
+            $(this).parent().addClass('selected');
+            }
+            else {
+            $(this).parent().removeClass('selected');
+            }
+
+            });
+                    //Delete Widget Confirmation
+                    $('#deleteWidgetConfirm').popup({
+            vertical: 'top',
+                    pagecontainer: '.container',
+                    transition: 'all 0.3s'
+            });
+            });</script>
+<script>
+            $('[data-toggle="popover"]').popover({trigger: "hover focus"});
+            $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            });
+            $(window).on("load resize", function () {
+    var width = $(window).width();
+            if (width < 500) {
+
+    }
+    if (width >= 500) {
+
+    }
+
+
+
+
+    });
+            $('.summernote').summernote({
+    height: 300, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+
+            focus: true,
+            toolbar: [
+                    ['styles', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['other', ['fullscreen', 'codeview', 'undo', 'redo']],
+                    ['insert', ['link', 'picture']]
+            ]
+
+    });
+            /*$('.class-nav-toggle').click( function() {
+             if(!$('aside').hasClass('sidebar-mini')){
+             $('.sidebar-menu').addClass('aside-mini')
+             $('.main-container').addClass('no-m-left')
+             }
+             else{
+             $('.sidebar-menu').removeClass('aside-mini')
+             $('.main-container').removeClass('no-m-left')
+             }
+             
+             return false;
+             });
+             */
+
+
+
+
+</script>
+
+
+
+
+
+<!---------------------------------------------------------------------------------------------------------->
+
+<!-----Modal for Read-More About the Class details------>
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="paymentModalLabel"><?php echo $this->translate("Are You Sure") ?> ?</h4>
+            </div>
+            <div class="modal-body">
+                <p style="color:black"><?php echo $this->translate("Publishing your class will make it public and discoverable by students to join and start learning") ?></p> 
+                <p style="color:black"><?php echo $this->translate("Admin will verify and publish your class ") ?> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+                <button type="button" id="finalpublish"  data-dismiss="modal" class="btn btn-primary"><?php echo $this->translate("Publish") ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="trash" style="z-index:9999;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true" aria-label="Close">&times;</span></button>
+                <h4 class="modal-title"><?php echo $this->translate("Are you sure") ?>?</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p class="p-25px"><?php echo $this->translate("Are you sure want you to delete this lesson") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning deleteless" data-dismiss="modal"><?php echo $this->translate("Yes, Delete Lesson") ?>!</button>
+                <button class="btn btn-primary" data-dismiss="modal"><?php echo $this->translate("Cancel") ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="trash1" style="z-index:9999;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span aria-hidden="true" aria-label="Close">&times;</span></button>
+                <h4 class="modal-title"><?php echo $this->translate("Are you sure") ?>?</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p class="p-25px"><?php echo $this->translate("Are you sure want you to delete this unit") ?>?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning deleteless" data-dismiss="modal"><?php echo $this->translate("Yes, Delete Lesson") ?>!</button>
+                <button class="btn btn-primary" data-dismiss="modal"><?php echo $this->translate("Cancel") ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div role="alert" id="trash"class="alert alert-danger alert-dismissible fade in">
+      <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">�</span></button>
+      <strong>Are you sure want you to delete this lesson?</strong>
+       <button class="btn btn-warning deleteless" data-dismiss="alert">Yes, Delete Lesson!</button>
+                
+    </div>-->
+
+
+<div class="modal fade" id="teach_modal_success">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="modal_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><?php echo $this->translate("Errors") ?></h4>
+            </div>
+            <div class="modal-body" id="teach_modal_errors">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="teach_modal_draft">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><?php echo $this->translate("Teach Classes") ?></h4>
+            </div>
+            <div class="modal-body" id="teach_modal_success_draft">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<form hidden action="" enctype="multipart/form-data">
+    <input type="file" class="multi" id="multi" name="multi[]" multiple="multiple">
+
+</form>
+
+<input type="text" id="ruid" name="ruid" hidden>
+<script 
+
+
+
+
+
+
+
+
+
+
+
+    <?php
+    if (isset($this->video_id)) {
+        ?>
+    <script>
+                window.onload = function () {
+                $("#a").removeClass("active");
+                        $("#lia").removeClass("active");
+                        $("#b").addClass("active");
+                        $("#lib").addClass("active");
+                        $("#c").removeClass("active");
+                        $("#lic").removeClass("active");
+                }
+        </script>
+    <?php }
+    ?>
+
+    <script>
+        $(".js-example-tokenizer").select2({
+        tags: true,
+                tokenSeparators: [',', ' ']
+        })
+    </script>
+<!--<script>
+    jQuery(document).ready(function(){
+            "use strict";
+// Select2
+            jQuery(".select2").select2({
+    width: '100%'
+});
+
+    });
+</script>-->
+
+    <link href="http://hayageek.github.io/jQuery-Upload-File/uploadfile.min.css" rel="stylesheet">
+    <script src="http://hayageek.github.io/jQuery-Upload-File/jquery.uploadfile.min.js"></script>
+
+    <script>
+
+                $('.summernote').summernote({
+        height: 100, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+
+                focus: true,
+                toolbar: [
+                        ['styles', ['bold', 'italic', 'underline', 'clear']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['other', ['fullscreen', 'codeview', 'undo', 'redo']],
+                        ['insert', ['link', 'picture']]
+                ]
+        });</script>
+    <script>
+                $(document).ready(function () {
+var userid = $.trim($('#user_session').val());
+        $("#fileuploader").uploadFile({
+        url: "/teach-doc-handler",
+                dragDrop: true, fileName: "myfile",userid:userid,
+                returnType: "json",
+                showDelete: true,
+                deleteCallback: function (data, pd) {
+                for (var i = 0; i < data.length; i++) {
+                $.post("/teach-delete-handler", {op: "delete", name: data[i]},
+                        function (resp, textStatus, jqXHR) {
+                        //Show Message	
+                        alert("File Deleted");
+                        });
+                        }
+                pd.statusbar.hide(); //You choice.
+                }
+        });
+                $(".deleteSavedFile").on('click', function (e) {
+        var filepath = $(this).attr('data-value');
+//            alert(filepath);
+                $.ajax({
+                url: '/teach-ajax-handler',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                        method: 'deleteSavedFile',
+                                filepath: filepath
+                        },
+                        success: function (response) {
+                        alert("File Deleted");
+                        }
+                });
+                });
+                $(function () {
+                $("#upload_link").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                });
+                        $("#upload_link1").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                });
+                        $("#upload_links").on('click', function (e) {
+                e.preventDefault();
+                        $("#fileUpload:hidden").trigger('click');
+                        });
+                        $("#upload_video1").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                        });
+                        $("#upload_video2").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                });
+                        $("#upload_image1").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                        });
+                        $("#upload_image2").on('click', function (e) {
+                e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                        });
+                        $(document.body).on('click', '.upload_trigger', function (e) {
+                e.preventDefault();
+                        console.log($(this).siblings('.hiddenupload:hidden').html());
+                        $(this).siblings('.hiddenupload:hidden').trigger('click');
+                        });
+                        $(document.body).on('click', '.image_trigger', function (event) {
+                event.preventDefault();
+                        $(this).siblings('.hiddenimage:hidden').trigger('click');
+                        });
+                        });
+                var input_text = "";
+                var uploadVideoEdit = "";
+                var uploadVideoTitleEdit = "";
+                var video_lesson_file = "";
+                var text_id = "";
+                $(document.body).on('click', '.upload_video_edit', function () {
+        $(this).siblings('.upload_video_text').css('display', 'block'); $(this).siblings('.upload_video_edit').css('display', 'none');
+                text_id = $(this).siblings('.upload_video_text');
+                });
+//        var upload_video_text=$(this).parent().find('.upload_video_text');
+                $(document.body).on('focusout', '.upload_video_text', function () {
+
+        uploadVideoEdit = "";
+                var w = $(this);
+                if ($(this).val() != "") {         uploadVideoEdit = $(this).val() + ',' + uploadVideoEdit;
+                var unitNameID = w.parent().find('.unitid').attr('value')
+
+
+                uploadVideoEdit = $(this).val();
+//                            + ',' + uploadVideoEdit;
+                var class_id = $(this).siblings('.classiddetails').val();
+                var user_id = $('#user_session').val();
+                
+             
+                    
+//					 alert(uploadVideoEdit);
+                var uid = w.parent().find('.unitid').attr('value');
+                if (uid != "") {
+        $.ajax({
+        type: "POST",
+                url: '/teach-ajax-handler',
+                data: {
+                method: 'updateUnitname',
+                        unit_id: uid,
+                        uploadVideoEdit: uploadVideoEdit,
+                        },
+                success: function (response) {
+                   $('.upload_video_edit').attr('display','-moz-inline-stack;');
+                    
+                //                  w.parent().find('.unitid').attr('value',response);
+
+                }
+
+        })
+                }
+        else {
+        
+                $.ajax({
+                type: "POST",
+                        url: '/teach-ajax-handler',
+                        data: {
+                        method: 'updateVideoName',
+                                clasid: class_id,
+                                uploadVideoEdit: uploadVideoEdit,
+                                user_id: user_id
+                        },
+                        success: function (response) {
+//                               $('.upload_video_edit').css('display','block');
+                    
+                        w.parent().find('.unitid').attr('value', response);
+                        }
+
+                });
+                }
+        }
+//                }
+//            });
+        if (uploadVideoEdit == "") {
+        $(this).siblings('.upload_video_edit').css('display', '-moz-inline-stack');
+                $(this).siblings('.unit_video_show').html('Untitled');
+                $(this).css('display', 'none');
+                } else {
+        $(this).siblings('.upload_video_edit').css('display', '-moz-inline-stack');
+                $(this).siblings('.unit_video_show').html($(this).val());
+                $(this).css('display', 'none');
+                }
+        });
+                $(document.body).on('keypress', '.upload_video_text', function (e) {
+
+
+        var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+
+                uploadVideoEdit = "";
+                        uploadVideoEdit = "";
+                        var w = $(this);
+                        if ($(this).val() != "") {
+                uploadVideoEdit = $(this).val() + ',' + uploadVideoEdit;
+                        var unitNameID = w.parent().find('.unitid').attr('value')
+
+
+                        uploadVideoEdit = $(this).val();
+//                            + ',' + uploadVideoEdit;
+                        var class_id = $(this).siblings('.classiddetails').val();
+                        var user_id = $('#user_session').val();
+//					 alert(uploadVideoEdit);
+                        var uid = w.parent().find('.unitid').attr('value');
+                        if (uid != "") {
+                $.ajax({
+                type: "POST",
+                        url: '/teach-ajax-handler',
+                        data: {
+                        method: 'updateUnitname',
+                                unit_id: uid,
+                                uploadVideoEdit: uploadVideoEdit,
+                                },
+                        success: function (response) {
+                            alert('dasd');
+//                  w.parent().find('.unitid').attr('value',response);
+
+                        }
+
+                })
+
+                        }
+                else {
+                console.log('test1');
+                        $.ajax({
+                        type: "POST",
+                                url: '/teach-ajax-handler',
+                                data: {
+                                method: 'updateVideoName',
+                                        clasid: class_id,
+                                        uploadVideoEdit: uploadVideoEdit,
+                                        user_id: user_id
+                                },
+                                success: function (response) {
+                                w.parent().find('.unitid').attr('value', response);
+                                }
+
+                        });
+                        }
+                }
+//                }
+//            });
+                if (uploadVideoEdit == "") {
+                $(this).siblings('.upload_video_edit').css('display', '-moz-inline-stack');
+                        $(this).siblings('.unit_video_show').html('Untitled');
+                        $(this).css('display', 'none');
+                        } else {
+                $(this).siblings('.upload_video_edit').css('display', '-moz-inline-stack');
+                        $(this).siblings('.unit_video_show').html($(this).val());
+                        $(this).css('display', 'none');
+                        }
+                return false;
+                        }
+        });
+                var input_text1 = "";
+                var uploadVideoEdit1 = "";
+                var uploadVideoTitleEdit1 = "";
+                var video_lesson_file1 = "";
+                var text_id1 = "";
+                $(document.body).on('click', '.video_tit_edit', function () {
+        $(this).siblings('.text_video_tit').css('display', 'block');
+                $(this).siblings('.video_tit').css('display', 'none');
+                text_id1 = $(this).siblings('.upload_video_text');
+                });
+                $(document.body).on('focusout', '.text_video_tit', function () {
+//            alert('test');
+        uploadVideoTitleEdit1 = "";
+                var class_video_ids = $(this).siblings('.class_video_id').attr('value');
+                if ($(this).val() != "") {
+        uploadVideoTitleEdit1 = $(this).val();
+                + ',' + uploadVideoTitleEdit1;
+                var value = uploadVideoTitleEdit1;
+//                    alert(value);
+//                    var class_video_id=$this.siblings('.class_video_id').attr('value');
+                if (class_video_ids != "") {
+        $.ajax({
+        type: "POST",
+                url: '/teach-ajax-handler',
+                data: {
+                method: 'updatevideoesname',
+                        class_video_id: class_video_ids,
+                        uploadVideoEdit: value,
+                        },
+                success: function (response) {
+//                  w.parent().find('.unitid').attr('value',response);
+
+                }
+
+
+        }
+        )
+                } else {
+        $.ajax({
+        type: "POST",
+                url: '/teach-ajax-handler',
+                data: {
+                method: 'updateCorcesName',
+                        class_video_id: class_video_ids,
+                        uploadVideoEdit: value,
+                        },
+                success: function (response) {
+//                  w.parent().find('.unitid').attr('value',response);
+
+                }
+
+
+        }
+        )
+                }
+        ;
+                }
+        if (uploadVideoTitleEdit1 == "") {
+        $(this).siblings('.video_tit').css('display', '-moz-inline-stack');
+                $(this).siblings('.video_tit').html('Untitled');
+                $(this).css('display', 'none');
+                } else {
+        $(this).siblings('.video_tit').css('display', '-moz-inline-stack');
+                $(this).siblings('.video_tit').html($(this).val());
+                $(this).css('display', 'none');
+                }
+        });
+                $(document.body).on('keypress', '.text_video_tit', function (e) {
+
+        var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                uploadVideoTitleEdit1 = "";
+                        var class_video_ids = $(this).siblings('.class_video_id').attr('value');
+                        if ($(this).val() != "") {
+                uploadVideoTitleEdit1 = $(this).val();
+                        + ',' + uploadVideoTitleEdit1;
+                        var value = uploadVideoTitleEdit1;
+//                    alert(value);
+//                    var class_video_id=$this.siblings('.class_video_id').attr('value');
+                        if (class_video_ids != "") {
+                $.ajax({
+                type: "POST",
+                        url: '/teach-ajax-handler',
+                        data: {
+                        method: 'updatevideoesname',
+                                class_video_id: class_video_ids,
+                                uploadVideoEdit: value,
+                                },
+                        success: function (response) {
+//                  w.parent().find('.unitid').attr('value',response);
+
+                        }
+
+
+                }
+                )
+                        } else {
+                $.ajax({
+                type: "POST",
+                        url: '/teach-ajax-handler',
+                        data: {
+                        method: 'updateCorcesName',
+                                class_video_id: class_video_ids,
+                                uploadVideoEdit: value,
+                                },
+                        success: function (response) {
+//                  w.parent().find('.unitid').attr('value',response);
+
+                        }
+
+
+                }
+                )
+                        }
+                ;
+                        }
+                if (uploadVideoTitleEdit1 == "") {
+                $(this).siblings('.video_tit').css('display', '-moz-inline-stack');
+                        $(this).siblings('.video_tit').html('Untitled');
+                        $(this).css('display', 'none');
+                        } else {
+                $(this).siblings('.video_tit').css('display', '-moz-inline-stack');
+                        $(this).siblings('.video_tit').html($(this).val());
+                        $(this).css('display', 'none');
+                        }
+                return false;
+                        }
+        });
+                /*step :1 */
+                /*inserting details in class over view section*/
+
+                $('#saveDraft').on('click', function (event) {
+        $('.savedstatus').css('display', '');
+                sortvideo();
+                var now = new Date(),
+                now = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+//           alert(now);
+
+                event.preventDefault();
+                var userId = $.trim($('#user_session').val());
+                var classTeach = $('#classTeach').val();
+                var classTeachId = $('#classTeachId').val();
+                var projectTitle = $.trim($('#project_title').val());
+                var projectDescription = $('.summernote123').code();
+                var upload_link = $.trim($('#upload_link_name').val());
+                console.log(upload_link + '--');
+                var upload_image = $.trim($('#upload_image').val());
+                var moreDetailsCategory = $.trim($('#category').val());
+//            var video_lesson_file = $.trim($('.video_lesson_file').val());
+//            var moreDetailsClassTags = $.trim($('#more_details_class_tags').val());
+//            var moreDetailsClassDesc = CKEDITOR.instances['MyToolbar3'].getData();
+                $.ajax({
+                url: '/teach-ajax-handler',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                        method: 'saveDraftDetails',
+                                userId: userId,
+                                classId: "<?php echo $this->session->storage->teachedit ?>",
+                                classTeachId: classTeachId,
+                                classTeach: classTeach,
+                                upload_link: upload_link,
+                                projectTitle: projectTitle,
+                                upload_image: upload_image,
+                                projectDescription: projectDescription,
+                                //                    unitTitle: input_text,
+                                //                    uploadVideoEdit: uploadVideoEdit,
+                                moreDetailsCategory: moreDetailsCategory,
+                                //                    moreDetailsClassTags: moreDetailsClassTags,
+                                //                    moreDetailsClassDesc: moreDetailsClassDesc,
+                                //                    video_lesson_file: video_lesson_file
+                        },
+                        success: function (response) {
+                        if (response) {
+                        $('#teach_modal_success_draft').html("Draft saved successfully.");
+//                            $('#teach_modal_draft').modal('show');
+                                $('.savedstatus').html('Saved at &nbsp;' + now);
+                        }
+                        }
+                });
+                });
+//dev:priyanka varanasi 
+//desc: To delete the uploaded file
+
+//                $(document.body).ready(function () {
+
+
+
+
+
+        $('.unit_title').mouseout(function () {
+        input_text = $(this).val();
+                if (input_text == "") {
+        $('.unit_edit').css('display', '-moz-popup');
+                $('.unit_show').html('Untitled');
+                $('.unit_title').css('display', 'none');
+                } else {
+        $('.unit_edit').css('display', '-moz-popup');
+                $('.unit_show').html(input_text);
+                $('.unit_title').css('display', 'none');
+                }
+        $.ajax({
+        url: '/teach-ajax-handler',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                method: 'getTeachDetails',
+                        userId: userId
+                        },
+                success: function (response) {
+                $('#teach_modal_success_draft').html("Teach Classes Published successfully.");
+                        $('#teach_modal_draft').modal('show');
+                        window.location.href = '/admin';
+                        }
+        });
+                });
+                $("#upload_image").change(function () {
+        $('#teachdetail').submit();
+                });
+//            $("#upload_link_name").change(function(e) {
+//                e.preventDefault();
+//                $('#teachdetail').submit();
+//            });
+//            $('#teachdetail').on('submit', function(e) {
+//                e.preventDefault();
+//                var formData = new FormData($(this)[0]);
+//                var userid = $.trim($('#user_session').val());
+//                formData.append("userid", userid);
+//                $.ajax({
+//                    url: "/teach-doc-handler",
+//                    type: "POST",
+//                    data: formData,
+//                    async: false,
+//                    success: function(msg) {
+//                        if (msg == "Sorry, only txt, pdf and docx files are allowed") {
+//                            $('.err_msg').show();
+//                            $('.err_msg').html(msg);
+//                            $('.err_msg').css('color', 'red');
+//                            setTimeout("$('.err_msg').hide();", 3000);
+//                        } else if (msg == "Doc Already Exist. Please try again.") {
+//                            $('.err_msg').show();
+//                            $('.err_msg').html(msg);
+//                            $('.err_msg').css('color', 'red');
+//                            setTimeout("$('.err_msg').hide();", 3000);
+//                        }
+//                        else {
+//                            $('.err_msg').show();
+//                            $('.err_msg').html(msg);
+//                            $('.err_msg').css('color', 'green');
+//                            setTimeout("$('.err_msg').hide();", 3000);
+//                        }
+//
+//                    },
+//                    cache: false,
+//                    contentType: false,
+//                    processData: false
+//                });
+//            });
+
+                $('#fileUpload').on('change', function (event) {
+        event.preventDefault();
+                $('#file_upload_form').submit();
+                });
+                $('#file_upload_form').on('submit', function (event) {
+        event.preventDefault();
+                var formData = new FormData($(this)[0]);
+                var userid = $.trim($('#user_session').val());
+                formData.append("user_id", userid);
+//$('addDivision').append("<div style='margin-top: 2%;' class='alert alert-info'><button aria-label='Close' data-dismiss='alert' class='close' type='button'><span aria-hidden='true'><i class='fa fa-trash'></i></span></button><div><span>'+bit.txt+'</span></div>");
+                $.ajax({
+                url: "/teach-doc-handler",
+                        type: "POST",
+                        data: formData,
+                        async: false,
+                        success: function (msg) {
+                        $('.err_msg').show();
+                                $('.err_msg').html(msg);
+                                $('.err_msg').css('color', 'green');
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                        });
+                });
+//dev:priyanka varanasi
+//dec: cover image via ajax
+                var hiddenimage = "";
+                $(document.body).on('change', '.hiddenimage', function (event) {
+        var hiddenimage = $(this);
+                var file_data = $(this).prop('files')[0];
+                var form_data = new FormData();
+//                var video_id = hiddenimage.parent().parent().siblings().attr('data-vid');
+                var video_id = $(this).parent().siblings().children('.class_video_id').val();
+//                   alert(video_id);
+                console.log(file_data);
+                console.log(form_data);
+                var userid = $.trim($('#user_session').val());
+                form_data.append('file', file_data);
+                form_data.append("userid", userid);
+                form_data.append("video-id", video_id);
+                event.preventDefault();
+                $.ajax({
+                url: '/teach-cover-image',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: form_data,
+                        async: false,
+                        success: function (response) {
+                        console.log(response);
+                                if (response.code === 200) {
+                        if (response == "Sorry only png,jpg,gif and jpeg format allowed") {
+                        hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                                //                        } else if (response === "Image already exists,try different image") {
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                        } else if (response == "Please upload image first") {
+                        hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                        } else {
+                        hiddenimage.parent().parent().siblings().children('#player1').hide();
+                                hiddenimage.parent().parent().siblings().find('#chargeBar').show();
+                                hiddenimage.parent().parent().siblings().children('#chargeBar').css('background-image', 'url(/' + response.coverpath + ')');
+                        }
+                        } else {
+                        if (response == "Sorry only png,jpg,gif and jpeg format allowed") {
+                        hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                                //                        } else if (response === "Image already exists,try different image") {
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                //                            hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                        } else if (response == "Please upload image first") {
+                        hiddenimage.parent().siblings('.lesson-video-file-name').show();
+                                hiddenimage.parent().siblings('.lesson-video-file-name').html(response);
+                                hiddenimage.parent().siblings('.lesson-video-file-name').css('color', 'red');
+                                hiddenimage.parent().siblings('.lesson-video-file-name').delay(5000).hide('slow');
+                        } else {
+                        hiddenimage.parent().parent().siblings().find('#chargeBar').show();
+                                hiddenimage.parent().parent().siblings().find('#chargeBar').css('background-image', 'url(/' + response.coverpath + ')');
+                        }
+
+                        }
+
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+
+                        });
+                });
+// });
+//dev:priyanka varanasi
+//desc:video upload with progresss bar functionality
+                var hiddenuploader = {};
+                var count = 0;
+                $(document.body).on('change', '.hiddenupload', function (e,rand ) {
+rand = Math.floor((Math.random() * 10000) + 1);
+   
+
+        var editclname = $('.editclassname').html();
+//                    //                alert(editclname);
+                hiddenupload = $(this);
+//
+//  
+                hiddenuploader[rand] = hiddenupload;
+                var video_no = $(this).parent().parent().parent().attr('data-no');
+                console.log(video_no);
+                var image = hiddenupload.parent('#chargeBar').css('background-image');
+                hiddenupload.parent().parent().siblings().children().children('.round_image').hide();
+                image = image.replace('url(', '').replace(')', '');
+                var unit_id = hiddenupload.parent().parent().parent().parent().parent().siblings().children('.unitid').val();
+//                alert(unit_id);
+//                console.log(image);
+//                 alert(unit_id);
+                hiddenupload.parent().parent().siblings().children().children('.video_tit').html('');
+                var file_data = $(this).prop('files')[0];
+                console.log(file_data);
+                var form_data = new FormData();
+                var bar = hiddenupload.parent().siblings().find('.bar');
+                var percent = hiddenupload.parent().siblings('.percent');
+                var status = $('#status');
+                console.log(form_data);
+                console.log(file_data);
+                status.empty();
+                console.log(hiddenupload.parent().parent().parent().siblings().children().children('.unit_video_show').html());
+                var videoTile = $(this).parent().parent().siblings().children().children('.video_tit').html();
+                uploadVideoEdit = $(this).parent().parent().parent().siblings().children().children('.unit_video_show').html();
+                var videoTitle = hiddenupload.parent().parent().parent().parent().parent().siblings().children('.unit_video_show').html();
+                console.log(videoTitle);
+                if (videoTitle == "Untitled") {
+
+        $('#teach_modal_errors').html("Please enter Video Title First");
+                $('#teach_modal_success').modal('show');
+                return false;
+                }
+
+                 var user_id = $('#user_session').val();
+        form_data.append('videoTitle', videoTitle);
+                form_data.append('uploadVideoEdit', uploadVideoEdit);
+                form_data.append('user_id', user_id);
+                form_data.append('imageurl', image);
+                form_data.append('editclassname', editclname);
+                form_data.append('unit_id', unit_id);
+                form_data.append('video_no', video_no);
+                var files = $(this).prop('files');
+                var classnamee = files[0]["name"];
+                form_data.append('class_video_title', classnamee);
+                console.log(files[0]["name"]);
+                var accessToken = "07ecf4de0bc8fdef19133ccfd9cdfbf9";
+                var upgrade_to_1080 = 0;
+//var hiddenupload = $(this);
+                var bar = hiddenupload.parent().siblings().children('.bar');
+                var percent = hiddenupload.parent().siblings('.percent');
+                hiddenupload.parent('#chargeBar').show();
+                hiddenupload.siblings('#upload_video3').hide();
+                hiddenupload.siblings('.covervideo').html('video is uploading...');
+                hiddenupload.parent().siblings('.progress').show();
+                hiddenupload.parent().siblings('.percent').show();
+                bar.width(0);
+                hiddenupload.parent().siblings('.percent').html(0);
+                var bar = hiddenupload.parent().siblings().children('.bar');
+                bar.width(0);
+                var uploader = new MediaUploader({
+                file: files[0],
+                        token: accessToken,
+                        upgrade_to_1080: upgrade_to_1080,
+                        onError: function(data) {
+
+                        var errorResponse = JSON.parse(data);
+                                message = errorResponse.error;
+                                var element = document.createElement("div");
+                                element.setAttribute('class', "alert alert-danger");
+                                element.appendChild(document.createTextNode(message));
+                                document.getElementById('results').appendChild(element);
+                        },
+                        onProgress: function(data)
+                        {
+                        hiddenupload = hiddenuploader[rand];
+                                var percent = hiddenupload.parent().find('.percent');
+                                hiddenupload.parent('#chargeBar').show();
+                                hiddenupload.siblings('#upload_video3').hide();
+                                hiddenupload.siblings('.covervideo').html('video is uploading...');
+                                hiddenupload.parent().find('.progress').show();
+                                hiddenupload.parent().find('.percent').show();
+                                var percent = (data.loaded / data.total) * 100;
+                                percentcom = Math.round(percent);
+                                //console.log(event.loaded+" "+event.total);
+                                bar.width(percentcom);
+                                hiddenupload.parent().find('.percent').html(percentcom);
+                                if (percentcom >= 99)
+                        {
+                        hiddenupload.parent().parent().siblings().children().children('.video_tit').html('please wait for few minutes, video is processing');
+                        }
+
+                        // updateProgress(data.loaded / data.total);
+
+                        },
+                        onComplete: function(videoId) {
+
+//                var url = "https://vimeo.com/"+videoId;
+//               
+//                var a = document.createElement('a');
+//                a.appendChild(document.createTextNode(url));
+//                a.setAttribute('href',url);
+//
+//                var element = document.createElement("div");
+//                element.setAttribute('class', "alert alert-success");
+//                element.appendChild(a);
+
+                        // document.getElementById('results').appendChild(element);
+                        form_data.append('videoId', videoId);
+                                var ajax = new Array();
+                                ajax[rand] = new XMLHttpRequest();
+                                ajax[rand].onreadystatechange = function ()
+                        {
+
+                        $("#add_video_lesson").addClass("hidden");
+                                if (ajax[rand].status) {
+                        hiddenupload = hiddenuploader[rand];
+                                hiddenupload.parent().parent().siblings().children().children('.video_tit').html('');
+                                if (ajax[rand].status == 200 && (ajax[rand].readyState == 4))
+                        {
+
+                        $("#add_video_lesson").removeClass("hidden");
+                                status.html(ajax[rand].responseText);
+                                //                            alert(ajax.responseText);
+                                console.log(ajax[rand].response);
+                                console.log()
+
+                                console.log('test123' + ajax[rand].responseText);
+                                var values = ajax[rand].responseText.split('?');
+                                var one = values[0];
+                                var two = values[1];
+                                var three = values[2];
+                                console.log('one' + one);
+                                console.log('two' + two);
+                                console.log('three' + three);
+                                //                                     alert(three);
+                                var values1 = three.split('.');
+                                var four = values[1];
+                                //                                  alert(two);
+
+                                hiddenupload.parent('#chargeBar').show();
+                                hiddenupload.siblings('.covervideo').html('');
+                                hiddenupload.parent().find('.percent').hide();
+                                hiddenupload.parent().find('.progress').hide();
+                                hiddenupload.parent().parent().siblings().children().children('.video_tit').html(values1);
+                                hiddenupload.parent().parent().siblings().children().children('.video_tit_edit').css('display', 'block');
+                                hiddenupload.parent().parent().siblings().children().children('.class_video_id').attr('value', two);
+                                hiddenupload.parent().parent().siblings().children().children('.order_video_id').attr('value', two);
+                                hiddenupload.parent().parent().parent().attr('val', two);
+                                hiddenupload.parent('.well').css('display', 'block');
+                                hiddenupload.siblings('.covervideo').html('video uploaded');
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').show();
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Uploaded Successfully');
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'green');
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                        } else {
+                        hiddenupload.parent('.well').css('display', 'block');
+                                hiddenupload.parent().siblings('.percent').hide();
+                                hiddenupload.parent().siblings('.progress').hide();
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Fails to Upload, try again later.');
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'red');
+                                hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                        }
+                        }
+                        };
+                                ajax[rand].upload.addEventListener("progress", function(event){
+                        //                console.log(event);
+                        hiddenupload = hiddenuploader[rand];
+                                var bar = hiddenupload.parent().siblings().children('.bar');
+                                var percent = hiddenupload.parent().siblings('.percent');
+                                hiddenupload.parent('#chargeBar').show();
+                                hiddenupload.siblings('#upload_video3').hide();
+                                hiddenupload.siblings('.covervideo').html('video is uploading...');
+                                hiddenupload.parent().siblings('.progress').show();
+                                hiddenupload.parent().siblings('.percent').show();
+                                var percent = (event.loaded / event.total) * 100;
+                                percentcom = Math.round(percent);
+                                console.log(event.loaded + " " + event.total);
+                                bar.width(percentcom);
+                                hiddenupload.parent().siblings('.percent').html(percentcom);
+                                if (percentcom >= 99)
+                        {
+                        hiddenupload.parent().parent().siblings().children().children('.video_tit').html('please wait for few minutes, video is processing');
+                        }
+                        //                console.log(percentcom);
+                        }, false);
+                                //ajax.addEventListener("progress", completeHandler, false); 
+                                //ajax.addEventListener("error", errorHandler, false); 
+                                //ajax.addEventListener("abort", abortHandler, false); 
+                                ajax[rand].open("POST", "/teach-video-handler", true);
+                                ajax[rand].send(form_data);
+                        }
+
+
+                });
+                uploader.upload();
+                function progressHandler(event) {
+//                console.log(event);
+                var bar = hiddenupload.parent().siblings().children('.bar');
+                        var percent = hiddenupload.parent().siblings('.percent');
+                        hiddenupload.parent('#chargeBar').show();
+                        hiddenupload.siblings('#upload_video3').hide();
+                        hiddenupload.siblings('.covervideo').html('video is uploading...');
+                        hiddenupload.parent().siblings('.progress').show();
+                        hiddenupload.parent().siblings('.percent').show();
+                        var percent = (event.loaded / event.total) * 100;
+                        percentcom = Math.round(percent);
+                        bar.width(percentcom);
+                        hiddenupload.parent().siblings('.percent').html(percentcom);
+                        if (percentcom >= 99)
+                        {
+                        hiddenupload.parent().parent().siblings().children().children('.video_tit').html('please wait for few minutes, video is processing');
+                                }
+//                console.log(percentcom);
+                }
+
+        var myEvent = window.attachEvent || window.addEventListener;
+                var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload';
+                myEvent(chkevent, function (e) {
+                var confirmationMessage = "This page is asking you to confirm that you want to leave - data you have entered may not be saved.";
+                        (e || window.event).returnValue = confirmationMessage;
+                        return confirmationMessage;
+                        });
+                });
+                var xhr;
+                $(document.body).on('change', '.hiddenupload1', function (e) {
+
+        e.preventDefault();
+                var hiddenupload = $(this);
+                hiddenupload.parent().parent().siblings().children().children('.video_tit').html('');
+                var bar = hiddenupload.parent().siblings().children('.bar');
+                var percent = hiddenupload.parent().siblings('.percent');
+                var status = $('#status');
+                var sucessFlag = 0;
+                var percentComplete;
+                var videoTitle = hiddenupload.parent().parent().parent().siblings().children('.unit_video_show').html();
+                if (videoTitle == "Untitled") {
+        $('#teach_modal_errors').html("Please enter Video Title First");
+                $('#teach_modal_success').modal('show');
+                return false;
+                }
+
+        var videoTile = $(this).parent().parent().siblings().children().children('.video_tit').html();
+                uploadVideoEdit = $(this).parent().parent().parent().siblings().children('.unit_video_show').html();
+                var id = this.id;
+                var file_data = $(this).prop('files')[0];
+                var form_data = new FormData();
+                form_data.append('file', file_data);
+                form_data.append('videoTitle', videoTitle);
+                form_data.append('uploadVideoEdit', uploadVideoEdit);
+                hiddenupload.parent('.well').css('display', 'none');
+                hiddenupload.parent().siblings('.loader').css('display', 'block');
+                hiddenupload.parent().siblings('.loader').ClassyLoader({
+        percentage: 100,
+                speed: 20,
+                fontSize: '20px',
+                diameter: 40,
+                lineColor: 'rgba(155,155,155,1)',
+                remainingLineColor: 'rgba(200,200,200,0.4)',
+                lineWidth: 10
+                });
+                setTimeout(function () {
+                console.log($(this));
+                        hiddenupload.parent().siblings('.loader').css('display', 'none');
+                        hiddenupload.parent('#chargeBar').hide();
+                        hiddenupload.parent().siblings('.progress').show();
+                        hiddenupload.parent().siblings('.percent').show();
+                        }, 30000
+                        );
+                function secondIncreament(percentComplete) {
+                console.log("i'm called");
+                        if (sucessFlag !== 1) {
+                var percentVal = percentComplete;
+                        if (percentComplete <= 95)
+                        {
+                        bar.width(percentVal)
+                                percent.html(percentVal);
+                                console.log(percentVal);
+                                }
+                setTimeout(function () {
+                percentComplete = percentComplete + Math.floor((Math.random() * 8) + 1);
+                        secondIncreament(percentComplete);
+                        console.log("I'm called");
+                        }, 2000);
+                        }
+
+                }
+
+        xhr = $.ajax({
+        url: "/teach-video-handler",
+                type: "POST",
+                data: form_data,
+                contentType: 'multipart/form-data',
+                async: true,
+                target: '#targetLayer',
+                beforeSend: function () {
+                status.empty();
+                        var percentVal = '0%';
+                        bar.width(percentVal);
+                        percent.html(percentVal);
+                        },
+                beforeSend: function () {
+                secondIncreament(0);
+                        },
+                uploadProgress: function (event, position, total, percentComplete) {
+                console.log('test');
+                        var percentVal = percentComplete;
+                        bar.width(percentVal)
+                        percent.html(percentVal);
+                        console.log(percentVal);
+                        },
+                complete: function (xhr) {
+                setTimeout(function () {
+
+                bar.width('100%')
+                        percent.html('100%');
+                        console.log("I'm called");
+                        }, 500);
+                        status.html(xhr.responseText);
+                        hiddenupload.parent('#chargeBar').show();
+                        hiddenupload.parent().siblings('.percent').hide();
+                        hiddenupload.parent().siblings('.progress').hide();
+                        },
+                success: function (msg) {
+                sucessFlag = 1;
+                        if (msg == "Video Fails to Upload, try again later.") {
+                setTimeout(function () {
+                hiddenupload.parent('.well').css('display', 'block');
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Fails to Upload, try again later.');
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'red');
+                        }, 5000);
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                        } else {
+                hiddenupload.parent().parent().siblings().children().children('.video_tit').html(msg);
+                        hiddenupload.parent('.well').css('display', 'block');
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').show();
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Uploaded Successfully');
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'green');
+                        hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                        }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+                });
+                });
+//dev:priyanka varanasi
+//desc: to delete video lesson div
+                $(document.body).on('click', '.round_trash', function (event) {
+        var w = $(event.currentTarget);
+                console.log(w);
+                $('.deleteless').click(function () {
+        var video_id = $('.round_trash').attr('data-id');
+                w.parent().parent().parent().parent().remove();
+                if (xhr) {
+        xhr.abort();
+                }
+        $.ajax({
+        type: "POST",
+                url: '/teachdetails',
+                data: {
+                method: 'video_delete',
+                        video_id: video_id //JSON.parse(email)
+
+                        },
+                success: function (response) {
+
+                }
+
+        });
+                });
+                });
+//                });
+                $('#publish').on('click', function (event) {
+        event.preventDefault();
+                sortvideo();
+                if (input_text == "") {
+        input_text = "Untitled";
+                }
+        if (uploadVideoTitleEdit == "") {
+        uploadVideoTitleEdit = "Untitled";
+                }
+        if (uploadVideoEdit == "") {
+        uploadVideoEdit = "Untitled";
+                }
+
+        var userId = $.trim($('#user_session').val());
+                var classTeach = $('#classTeach').val();
+                var classTeachId = $('#classTeachId').val();
+                var projectTitle = $.trim($('#project_title').val());
+                var projectDescription = $('.summernote123').code();
+//            var upload_link = $.trim($('#upload_link_name').val());
+                var upload_image = $.trim($('#upload_image').val());
+                var moreDetailsCategory = $.trim($('#category').val());
+                uploadVideoEdit = uploadVideoEdit;
+                uploadVideoTitleEdit = uploadVideoTitleEdit;
+                video_lesson_file = $.trim($('.hiddenupload').val());
+                var moreDetailsClassTags = $.trim($('#more_details_class_tags').val());
+//            if ($('#more_details_class_tags:selected').length > 1){
+//                alert('hello der');
+//            }
+                var moreDetailsClassDesc = $('.summernote231').code();
+<?php if (isset($this->teachresult)) { ?>
+            var classdesc = $('.summernote231').code().replace(/<[^>]*>|\&nbsp;/g);
+                    if (classTeach == 0) {
+            $('#teach_modal_errors').html("Please enter class title in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (projectTitle.length == 0) {
+            $('#teach_modal_errors').html("Please enter project title in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (projectDescription.length == 0) {
+            $('#teach_modal_errors').html("Please enter project decsription in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (moreDetailsCategory === '') {
+            $('#teach_modal_errors').html("Please select category in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (moreDetailsClassTags.length == 0) {
+            $('#teach_modal_errors').html("Please enter class tags in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (classdesc.length == 0) {
+            $('#teach_modal_errors').html("Please enter class description in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (projectDescription.length < 100) {
+            $('#teach_modal_errors').html("Project Description should be in atleast 100 character");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (classdesc.length == "") {
+            $('#teach_modal_errors').html("Class Description should not be Empty");
+                    $('#teach_modal_success').modal('show');
+            } else {
+            $('#paymentModal').modal('show');
+            }
+
+<?php } else { ?>
+            if (classTeach == 0) {
+            $('#teach_modal_errors').html("Please enter class title in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (projectTitle.length == 0) {
+            $('#teach_modal_errors').html("Please enter project title in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (projectDescription.length == 0) {
+            $('#teach_modal_errors').html("Please enter project decsription in Classes Overview Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (video_lesson_file === 0) {
+            $('#teach_modal_errors').html("Please upload videos in Video Lessons Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (moreDetailsCategory == '') {
+            $('#teach_modal_errors').html("Please select category in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (moreDetailsClassTags.length == 0) {
+            $('#teach_modal_errors').html("Please enter class tags in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            } else if (moreDetailsClassDesc.length == 0) {
+            $('#teach_modal_errors').html("Please enter class description in More Details Section");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (projectDescription.length < 100) {
+            $('#teach_modal_errors').html("Project Description should be in atleast 100 character");
+                    $('#teach_modal_success').modal('show');
+            }
+            else if (moreDetailsClassDesc.length == "") {
+            $('#teach_modal_errors').html("Class Description should not be Empty");
+                    $('#teach_modal_success').modal('show');
+            }
+            else {
+            $('#paymentModal').modal('show');
+            }
+<?php } ?>
+        });
+                $('#finalpublish').on('click', function (event) {
+        event.preventDefault();
+                var dat = new Array();
+                $('.imageHvr').each(function (value) {
+        var a = $(this).attr('data-no');
+                var b = $(this).attr('val');
+                dat.push([a, b]);
+                });
+                if (input_text == "") {
+        input_text = "Untitled";
+                }
+        if (uploadVideoTitleEdit == "") {
+        uploadVideoTitleEdit = "Untitled";
+                }
+        if (uploadVideoEdit == "") {
+        uploadVideoTitleEdit = "Untitled";
+                }
+        var classTeach = $('#classTeach').val();
+                var paypal = $('#recipient-name').val();
+                console.log(paypal);
+                var userId = $.trim($('#user_session').val());
+                var uploadVideoTitleEdit = $('#classTeach').val();
+//            var classTeachId = $('#classTeachId').val();
+                var projectTitle = $.trim($('#project_title').val());
+                var projectDescription = $('.summernote123').code();
+//            var upload_link = $.trim($('#upload_link_name').val());
+                var upload_image = $.trim($('#upload_image').val());
+                var moreDetailsCategory = $.trim($('#category').val());
+                var uploadVideoEdit = uploadVideoEdit
+                var uploadVideoTitleEdit = uploadVideoTitleEdit;
+                var video_lesson_file = $.trim($('.hiddenupload').val());
+<?php if ($this->teachresult) { ?>
+            video_lesson_file = 1;
+<?php } ?>
+        var moreDetailsClassTags = $.trim($('#more_details_class_tags').val());
+                var moreDetailsClassDesc = $('.summernote231').code();
+//                            alert(moreDetailsClassDesc);
+                if (classTeach == 0) {
+
+        $('#teach_modal_errors').html("Please enter class title in Classes Overview Section");
+                $('#teach_modal_success').modal('show');
+                }
+
+        else {
+<?php if ($this->teachresult) { ?>
+            var data = new Array();
+                    $('.imageHvr').each(function (value) {
+            var a = $(this).attr('data-no');
+                    var b = $(this).attr('val');
+                    data.push([a, b]);
+            });
+            
+            openModal();
+                    //        alert(userId);alert(classTeachId);alert();alert();alert();alert();alert();
+                    //         alert(moreDetailsCategory);
+                    //               alert(<?php // echo $this->session->storage->teachedit             ?>);
+                    $.ajax({
+                    url: '/teach-ajax-handler',
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: {
+                            method: 'updateclass',
+                                    userId: userId,
+                                    classTeach: classTeach,
+                                    projectTitle: projectTitle,
+                                    upload_image: upload_image,
+                                    projectDescription: projectDescription,
+                                    unitTitle: input_text,
+                                    uploadVideoEdit: uploadVideoEdit,
+                                    moreDetailsCategory: moreDetailsCategory,
+                                    moreDetailsClassTags: moreDetailsClassTags,
+                                    moreDetailsClassDesc: moreDetailsClassDesc,
+                                    infodata: data,
+                                    uploadVideoTitleEdit: uploadVideoTitleEdit,
+                                    paypal: paypal,
+                                    class_id: "<?php echo $this->session->storage->teachedit ?>"
+                            },
+                            success: function (response) {
+                             closeModal();                         ;
+                            $('#teach_modal_success_draft').html("Teach Classes Updated successfully.");
+                                    $('#teach_modal_draft').modal('show');
+                            }
+                    });
+<?php } else { ?>
+            var classTeachId = $('#classTeachId').val();
+                    if (video_lesson_file == 0) {
+            $('#teach_modal_errors').html("Please upload videos in Video Lessons Section");
+                    $('#teach_modal_success').modal('show');
+            }
+            //            var classTeachId="<?php // echo $this->session->storage->teachedit            ?>";
+            //            alert(uploadVideoEdit);alert(moreDetailsCategory); alert(moreDetailsClassTags);alert(moreDetailsClassDesc);alert(uploadVideoTitleEdit);
+    openModal();        
+    $.ajax({
+            url: '/teach-ajax-handler',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                    method: 'getTeachDetails',
+                            userId: userId,
+                            classTeach: classTeach,
+                            classTeachId: classTeachId,
+                            projectTitle: projectTitle,
+                            upload_image: upload_image,
+                            projectDescription: projectDescription,
+                            unitTitle: input_text,
+                            uploadVideoEdit: uploadVideoEdit,
+                            moreDetailsCategory: moreDetailsCategory,
+                            moreDetailsClassTags: moreDetailsClassTags,
+                            moreDetailsClassDesc: moreDetailsClassDesc,
+                            infodata: dat,
+                            class_id: "<?php echo $this->session->storage->teachedit ?>",
+                            uploadVideoTitleEdit: uploadVideoTitleEdit,
+                            paypal: paypal
+                    },
+                    success: function (response) {
+                         closeModal();  
+
+                    $('#teach_modal_success_draft').html("Teach Classes Published successfully.");
+                            $('#teach_modal_draft').modal('show');
+                            setTimeout(function () {
+                            window.location.href = '/teach';
+                            }, 1000);
+                    }
+            });
+<?php } ?>
+        }
+        });
+                });
+//dev: priyanka varanasi
+//desc: to append newlesson div
+                $(document).ready(function () {
+        $(document.body).on('click', '.new-video', function () {
+//  var test= $(this).closest('.imageHvr').prevAll('.imageHvr').eq(0).show();
+//             var idd=$(this).parent().parent().children().children();
+        var id = $(this).parent().siblings('.vid').children().children('.ui-sortable-handle').last().attr('data-no');
+                var idd = parseInt(id);
+                idd = idd + 1;
+                $(this).parent().parent().find('.newDraggable').append('<div class="drag-handle"></div><div class="row bg-white imageHvr item-container ui-sortable-handle"  data-no="' + 0 + '" style="margin-bottom:5px;"><div class="col-md-4" class="videocover">' +
+                '<div style="margin-top: 10px; background-repeat: no-repeat; height: 100px; background-size: cover; width: 150px; text-align: center;" class="well no-padding" id="chargeBar">' +
+                '<input class="hiddenupload hide" id="upload" name="file_upload" type="file" /><a id="upload_video3" style="margin-top: 8px;"class="fa fa-2x fa-upload upload_trigger"></a><h5 class="covervideo" style="text-align: center;">Upload Video</h5>' +
+                '<canvas class="loader loader_height" style="display:none;"><?php $timestamp = time(); ?></canvas>' +
+                '<div class="percent" style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;">0</div >' +
+                '<div class="progress" style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;">' +
+                '<div class="progress-bar progress-bar-striped active" style="width: 100px; height: 7px;"></div ></div>' +
+                '</div></div><!--<div id="progress-div"><div id="progress-bar"></div></div><div id="targetLayer"></div>-->' +
+                '<div class="col-md-8"><h4><span class="video_tit video_tit_edit">Untitled</span><input type="hidden" class="class_video_id" name="video_id" value=""><input type="hidden" class="order_video_id" name="video_id" value=""><i class="fa fa-edit video_tit_edit" style="display:none;"></i><input type="text" class="form-control text_video_tit" style="display: none;" placeholder="Untitled"></h4>' +
+                '<input class="form-control hidden unit_show "  type="text" placeholder="Untitled"><span class="lesson-video-file-name">(No Video Uploaded yet)</span>' +
+                '<div class="like-icon"><input id="upload_cover_image" class="hiddenimage hide" type="file" name="file_cover_image">' +
+                '<span   style="cursor:pointer;"  class="round_image fa fa-image image_trigger" title="upload cover image"></span>' +
+                '<a data-target="#trash" data-toggle="modal" href="#"><span class="round_trash fa fa-trash-o" title="Delete"></span>' +
+                ' </a></div></div></div>');
+                });
+//dev:priyanka varanasi
+//desc:to append new units
+                $(document.body).on('click', '#add_new_unit', function () {
+
+
+
+        var clsssIds =<?php
+if (isset($this->session->storage->class_id)) {
+    echo $this->session->storage->class_id;
+}
+?>;
+                var newdiv = ' <div class="well unitclasss"><div class="inner-bg showTrash"><h4><div class="imageIcon"><a data-target="#trash" data-toggle="modal" href="#">' +
+                ' <span class="round_trash fa fa-trash-o" style="margin-top: 76%; margin-right: 16%;" title="Delete"></span>' +
+                '</a></div>' + clsssIds + '<span class="unit_video_show">Untitled</span><input type="hidden" class="unitid" value="" name="unitid"> <i class="fa fa-edit upload_video_edit"></i><input type="text" placeholder="Untitled" style="display:none;margin-top:7%;" class="form-control upload_video_text"></h4>' +
+                '<div class="sort-container ui-corner-all ui-sortable vid">' +
+                '<div class="item-wrapper ui-draggable parent-video newDraggable ui-sortable " id="newDraggable" style="display: block;"><div class="drag-handle ui-sortable-handle"></div><div class="row bg-white imageHvr item-container ui-sortable-handle" data-no="0" style="margin-bottom:5px;margin-top:12%;"><div class="col-md-4" class="videocover">' +
+                '<div style="margin-top: 10px; background-repeat: no-repeat; height: 100px; background-size: cover; width: 150px; text-align: center;" class="well no-padding" id="chargeBar">' +
+                '<input class="hiddenupload hide" id="upload" name="file_upload" type="file" /><a id="upload_video3" style="margin-top: 8px;"class="fa fa-2x fa-upload upload_trigger"></a><h5 class="covervideo" style="text-align: center;">Upload Video</h5>' +
+                '<canvas class="loader loader_height" style="display:none;"><?php $timestamp = time(); ?></canvas>' +
+                '<div class="percent" style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;">0</div >' +
+                '<div class="progress" style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;">' +
+                '<div class="progress-bar progress-bar-striped active" style="width: 100px; height: 7px;"></div ></div>' +
+                '</div></div><!--<div id="progress-div"><div id="progress-bar"></div></div><div id="targetLayer"></div>-->' +
+                '<div class="col-md-8"><h4><span class="video_tit">Untitled</span><input type="hidden" class="class_video_id" name="video_id" value=""><i class="fa fa-edit video_tit_edit" style="display:none;"></i><input type="text" class="form-control text_video_tit" style="display: none;" placeholder="Untitled"></h4>' +
+                '<input class="form-control hidden unit_show "  type="text" placeholder="Untitled"><span class="lesson-video-file-name">(No Video Uploaded yet)</span>' +
+                '<div class="like-icon"><input id="upload_cover_image" class="hiddenimage hide" type="file" name="file_cover_image">' +
+                '<span   style="cursor:pointer;"  class="round_image fa fa-image image_trigger" title="upload cover image"></span>' +
+                '<a data-target="#trash" data-toggle="modal" href="#"><span class="round_trash fa fa-trash-o" title="Delete"></span>' +
+                ' </a></div></div></div></div></div><span><a class="btn btn-default new-video" id="add_video_lesson" style="background-color: transparent; margin-top: 28px;">' +
+                '<i class="fa fa-plus" ></i>Add Video Lesson</a></span></div></div>';
+                var newdiv1 = '<div class="well unitclasss"> <div style="color:black;" class="inner-bg showTrash"> <h4><div class="imageIcon"><a href="#" data-toggle="modal" data-target="#trash1"> <span class="pull-right fa fa-trash-o fa-2x round_trash1" title="Delete" style="margin-top: -4%;"></span></a></div><input type="hidden" value="' + clsssIds + '" class="classiddetails"><span class="unit_video_show">Untitled</span><input type="hidden" name="unitid" value="" class="unitid"> <i class="fa fa-edit upload_video_edit"></i><input type="text" class="form-control upload_video_text" style="display:none;margin-top:7%;" placeholder="Untitled"></h4> <div class="sort-container ui-corner-all ui-sortable vid"> <div style="display: block;" id="newDraggable" class="item-wrapper ui-draggable parent-video newDraggable ui-sortable"> <div class="drag-handle ui-sortable-handle"></div> <div data-no="0" style="margin-bottom:5px;" class="row bg-white imageHvr item-container ui-sortable-handle"> <div class="col-md-4"> <div id="chargeBar" class="well no-padding" style="margin-top: 10px; background-repeat: no-repeat; height: 100px; background-size: cover; width: 150px; text-align: center;"> <input type="file" name="file_upload" id="upload" class="hiddenupload hide"><a class="fa fa-2x fa-upload upload_trigger" style="margin-top: 8px;" id="upload_video3"></a><h5 style="text-align: center;" class="covervideo">Upload Video</h5> <canvas style="display:none;" class="loader loader_height"></canvas> <div style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;" class="percent">0</div> <div style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;" class="progress"> <div style="width: 100px; height: 7px;" class="progress-bar progress-bar-striped active"> </div></div> </div> </div> <div class="col-md-8"><h4><span class="video_tit video_tit_edit">Untitled</span><input type="hidden" value="" name="video_id" class="class_video_id"><input type="hidden" value="" name="video_id" class="order_video_id"><i style="display:none;" class="fa fa-edit video_tit_edit"></i><input type="text" placeholder="Untitled" style="display: none;" class="form-control text_video_tit"></h4> <input type="text" placeholder="Untitled" class="form-control hidden unit_show "><span class="lesson-video-file-name">(No Video Uploaded yet)</span> <div class="like-icon"><input type="file" name="file_cover_image" class="hiddenimage hide" id="upload_cover_image"> <span title="upload cover image" class="round_image fa fa-image image_trigger" style="cursor:pointer;"></span> <a href="#" data-toggle="modal" data-target="#trash"><span title="Delete" class="round_trash fa fa-trash-o"></span> </a></div></div> </div></div> </div> <!--<a href="//"> <i style="margin-left: 44px; margin-top: 2px;" class="fa fa-2x fa-upload"></i></a> <h5 style="text-align: center;">Upload Video</h5>--> <span> <a style="background-color: transparent; margin-top: 28px;" id="add_video_lesson" class="btn btn-default new-video"> <i class="fa fa-plus"></i> Add Video Lesson </a><a class="btn btn-default new-mulvideo" style="background-color: transparent; margin-top: 28px;"> <i class="fa fa-plus" ></i> Add multiple Video Lesson </a> </span> </div> </div>';
+                $('.unit_append').append(newdiv1);
+                $(function () {
+                $('.newDraggable').sortable({
+                update: function (event, ui) {
+
+                var element = ui.item;
+                        var number = 0;
+                        element.parent().find('.imageHvr').each(function () {
+                $(this).attr('data-no', number);
+                        number = parseInt(number) + parseInt(1);
+                        });
+//                      $.ajax({
+//                            url: '/',
+//                            type: 'POST',
+//                            dataType: 'JSON',
+//                            data: {
+//                                method: 'videono',
+//                                
+//                             
+//                            },
+//                            success: function(response) {
+//                            
+//                            }
+//                        });
+
+                        var productOrder = $(this).sortable('toArray').toString();
+                        //               var productOrder = $(this).sortable('toArray').toString();
+                        //               $("#sortable-9").text (productOrder);
+
+                        }
+                });
+                        });
+                });
+                }); // ready ends
+
+
+
+    </script>
+    <style>
+        a {
+            color: #428bca;
+        }
+    </style>
+
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> -->
+    <script>
+                $(document).ready(function () {
+        //$('#add_video_lesson').hide();
+<?php if (isset($this->teachresult)) { ?>
+            $('#add_video_lesson').show();
+<?php } ?>
+        });</script>
+    <script>
+                $(document).ready(function () {
+        var items = 4;
+                function fixHelper(e, ui) {
+                var $ctr = $(this);
+                        console.log($ctr);
+                        ui.helper
+                        .addClass('mx-state-moving ui-corner-all')
+                        .outerWidth($ctr.outerWidth())
+                        .find('.mx-content-hover')
+                        .removeClass('mx-content-hover')
+                        .end();
+                }
+        function toggleHover(e) {
+        if (e.type === 'mouseenter')
+                $(this).addClass('mx-content-hover');
+                else
+                $(this).removeClass('mx-content-hover');
+        }
+        sdCfg = {
+        cursor: 'move',
+                zIndex: 200,
+                opacity: 0.75,
+                handle: '.drag-handle',
+                scroll: false,
+                containment: 'window',
+                appendTo: document.body,
+                helper: 'clone',
+                start: fixHelper
+        };
+                //    $('.sort-container')
+                //            .sortable({
+                //                containment: 'parent',
+                //                handle: '.item-container',
+                //                tolerance: 'pointer',
+                //                helper: 'clone',
+                //                start: fixHelper,
+                //                update: function(e, ui) {
+                //                    if (ui.item.find('.drag-handle').length == 0) {
+                //                        $('.drag-container .item-container').html('Item ' + (++items));
+                //                        ui.item
+                //                                .find('.item-container')
+                //                                .before($('<div class="drag-handle">'))
+                //                                .parent()
+                //                                .draggable(sdCfg)
+                //                                .hover(toggleHover)
+                //                                .find('.drag-handle')
+                //                                .hoverIntent(toggleHover);
+                //                        $(this).sortable('option', 'containment', 'parent');
+                //                    }
+                //                }
+                //            }).find('.item-wrapper')
+                //            .draggable(sdCfg)
+                //            .hover(toggleHover)
+                //            .find('.drag-handle')
+                //            .hoverIntent(toggleHover);
+
+
+
+
+                $(function () {
+                $('.newDraggable').sortable({
+                update: function (event, ui) {
+
+                var element = ui.item;
+                        var number = 0;
+                        element.parent().find('.imageHvr').each(function () {
+                $(this).attr('data-no', number);
+                        number = parseInt(number) + parseInt(1);
+                });
+//                      $.ajax({
+//                            url: '/',
+//                            type: 'POST',
+//                            dataType: 'JSON',
+//                            data: {
+//                                method: 'videono',
+//                                
+//                             
+//                            },
+//                            success: function(response) {
+//                            
+//                            }
+//                        });
+
+                        var productOrder = $(this).sortable('toArray').toString();
+                        //               var productOrder = $(this).sortable('toArray').toString();
+                        //               $("#sortable-9").text (productOrder);
+
+                }
+                });
+                });
+                //dev: priyanka  varanasi    
+                //desc: to delete new unit
+                $(document.body).on('click', '.round_trash1', function (event) {
+        var w = $(event.currentTarget);
+                $('.deleteless').click(function () {
+        //var video_id = $('.round_trash').attr('data-id');
+        console.log(w.closest('.well'));
+                w.closest('.well').remove();
+//                            if (xhr) {
+//                                xhr.abort();
+//                            }
+//                            $.ajax({
+//                                type: "POST",
+//                                url: '/teachdetails',
+//                                data: {
+//                                    method: 'video_delete',
+//                                    video_id: video_id //JSON.parse(email)
+//
+//                                },
+//                                success: function(response) {
+//
+//                                }
+//
+//                            });
+        });
+        }); });</script>  
+    <script type="text/javascript">
+
+                $('.information').tooltipsy();</script>
+
+
+    <script>
+                function sortvideo(){
+                $(".unitclasss").each(function(val){
+                var unitname = $(this).find(".unit_video_show").html();
+                        if (unitname != "Untitled")
+                {
+                var classid = $(this).find(".classiddetails").val();
+                        var unitid = $(this).find(".unitid").val();
+                        var vidid = [];
+                        var svidid = [];
+                        $(this).find(".row").each(function(vall){
+                var temp = $(this).find(".order_video_id").val();
+                        if (temp)
+                        vidid.push(temp);
+                        svidid.push(temp);
+                        svidid.sort(function(a, b){return a - b});
+                })
+                        var thiss = $(this);
+                        $.ajax({
+                        url: '/ordervideo',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+
+                                classid:classid,
+                                        unitid:unitid,
+                                        vidid:vidid,
+                                        svidid:svidid
+
+
+
+
+
+
+                                },
+                                success: function(response) {
+
+                                var countr = 0;
+                                        thiss.find(".row").each(function(vall){
+                                var temp = $(this).find(".order_video_id").val();
+                                        if (temp)
+                                        $(this).find(".order_video_id").val(svidid[countr]);
+                                        countr++;
+                                });
+                        }
+                        });
+                }
+
+
+
+                }); }</script>
+ 
+    <script>
+
+                var thisunit;
+                var k = 0;
+                        $(document.body).on('click', '.new-mulvideo', function (e) {
+
+
+                        thisunit = $(this).closest(".well").find(".newDraggable");
+                        thistitle = $(this).closest(".well").find(".upload_video_edit").html();
+                console.log(thistitle);
+                if (thistitle != "Untitled")
+                        $(".multi").trigger("click"); else
+        {
+                        $('#teach_modal_errors').html("Please enter Video Title First");
+                $('#teach_modal_success').modal('show');
+        }
+                });
+                        $(document.body).on('change', '.multi', function (e) {
+
+                        console.log($('#multi')[0].files);
+                        console.log(thisunit);                 
+                        for (var i = 0; i < $('#multi')[0].files.length; i++)         {
+        k++;
+                                thisunit.append('<div class="drag-handle"></div><div class="row bg-white imageHvr item-container ui-sortable-handle"  data-no="' + 0 + '" style="margin-bottom:5px;"><div class="col-md-4" class="videocover">' +
+                                '<div style="margin-top: 10px; background-repeat: no-repeat; height: 100px; background-size: cover; width: 150px; text-align: center;" class="well no-padding" id="chargeBar">' +
+                                '<input class="hiddenupload hide" id="upload' + k + '"  name="file_upload" type="file" /><a id="upload_video3" style="margin-top: 8px;"class="fa fa-2x fa-upload upload_trigger"></a><h5 class="covervideo" style="text-align: center;">Upload Video</h5>' +
+                                '<canvas class="loader loader_height" style="display:none;"><?php $timestamp = time(); ?></canvas>' +
+                                '<div class="percent" style="font-size: 24px; margin-left: -1%; margin-top: 0; display:none;">0</div >' +
+                                '<div class="progress" style="margin-top: 0; width: 100px; height: 5px; margin-left: 25px; display: none;">' +
+                        '<div class="progress-bar progress-bar-striped active" style="width: 100px; height: 7px;"></div ></div>' +
+                                '</div></div><!--<div id="progress-div"><div id="progress-bar"></div></div><div id="targetLayer"></div>-->' +
+                                '<div class="col-md-8"><h4><span class="video_tit video_tit_edit">Untitled</span><input type="hidden" class="class_video_id" name="video_id" value=""><input type="hidden" class="order_video_id" name="video_id" value=""><i class="fa fa-edit video_tit_edit" style="display:none;"></i><input type="text" class="form-control text_video_tit" style="display: none;" placeholder="Untitled"></h4>' +
+                                                            '<input class="form-control hidden unit_show "  type="text" placeholder="Untitled"><span class="lesson-video-file-name">(No Video Uploaded yet)</span>' +
+                                                                                        '<div class="like-icon"><input id="upload_cover_image" class="hiddenimage hide" type="file" name="file_cover_image">' +
+                                                                                                                    '<span   style="cursor:pointer;"  class="round_image fa fa-image image_trigger" title="upload cover image"></span>' +
+                                                                                                                                                '<a data-target="#trash" data-toggle="modal" href="#"><span class="round_trash fa fa-trash-o" title="Delete"></span>' +
+                                                                                                                                                                            ' </a></div></div></div>');
+                                                                                                                                                                    multiupload(k, i);
+//                  $("#upload"+k).val($('#multi')[0].files[i]);
+//                  console.log($('#multi')[0].files[i]);
+                                                                                                                                                            }
+                                                                                                                                                            });
+                                                                                                                                                                    function multiupload(u, r,rand )
+                                                                                                                                                                    {
+                                                                                                                                                                         rand = Math.floor((Math.random() * 10000) + 1)       
+
+                                                                                                                                                                    var hiddenuploader = {};
+                                                                                                                                                                            var count = 0;
+                                                                                                                                                                            var mthis = $("#upload" + u);
+                                                                                                                                                                            var editclname = $('.editclassname').html();
+//                    //                alert(editclname);
+                                                                                                                                                                            hiddenupload = mthis;
+//
+//  
+                                                                                                                                                                            hiddenuploader[rand] = hiddenupload;
+                                                                                                                                                                            var video_no = mthis.parent().parent().parent().attr('data-no');
+                                                                                                                                                                            console.log(video_no);
+                                                                                                                                                                            var image = hiddenupload.parent('#chargeBar').css('background-image');
+                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.round_image').hide();
+                                                                                                                                                                            image = image.replace('url(', '').replace(')', '');
+                                                                                                                                                                            var unit_id = hiddenupload.parent().parent().parent().parent().parent().siblings().children('.unitid').val();
+                                                                                                                                                                            //                alert(unit_id);
+                                                                                                                                                                            //                console.log(image);
+                                                                                                                                                                            //                 alert(unit_id);
+                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.video_tit').html('');
+                                                                                                                                                                            var file_data = $('#multi')[0].files[r];
+                                                                                                                                                                            console.log(file_data);
+                                                                                                                                                                            var form_data = new FormData();
+                                                                                                                                                                            var bar = hiddenupload.parent().siblings().find('.bar');
+                                                                                                                                                                            var percent = hiddenupload.parent().siblings('.percent');
+                                                                                                                                                                            var status = $('#status');
+                                                                                                                                                                            console.log(form_data);
+                                                                                                                                                                            console.log(file_data);
+                                                                                                                                                                            status.empty();
+                                                                                                                                                                            console.log(hiddenupload.parent().parent().parent().siblings().children().children('.unit_video_show').html());
+                                                                                                                                                                            var videoTile = mthis.parent().parent().siblings().children().children('.video_tit').html();
+                                                                                                                                                                            uploadVideoEdit = mthis.parent().parent().parent().siblings().children().children('.unit_video_show').html();
+                                                                                                                                                                            var videoTitle = hiddenupload.parent().parent().parent().parent().parent().siblings().children('.unit_video_show').html();
+                                                                                                                                                                            console.log(videoTitle);
+                                                                                                                                                                            if (videoTitle == "Untitled") {
+
+                                                                                                                                                                    $('#teach_modal_errors').html("Please enter Video Title First");
+                                                                                                                                                                            $('#teach_modal_success').modal('show');
+                                                                                                                                                                            return false;
+                                                                                                                                                                    }
+
+var user_id = $('#user_session').val();
+                                                                                                                                                                    form_data.append('videoTitle', videoTitle);
+                                                                                                                                                                            form_data.append('uploadVideoEdit', uploadVideoEdit);
+                                                                                                                                                                            form_data.append('user_id', user_id);
+                                                                                                                                                                            
+                                                                                                                                                                            form_data.append('imageurl', image);
+                                                                                                                                                                            form_data.append('editclassname', editclname);
+                                                                                                                                                                            form_data.append('unit_id', unit_id);
+                                                                                                                                                                            form_data.append('video_no', video_no);
+                                                                                                                                                                            var files = $('#multi')[0].files[r];
+                                                                                                                                                                            var classnamee = files["name"];
+                                                                                                                                                                            form_data.append('class_video_title', classnamee);
+                                                                                                                                                                            console.log(files["name"]);
+                                                                                                                                                                            var accessToken = "07ecf4de0bc8fdef19133ccfd9cdfbf9";
+                                                                                                                                                                            var upgrade_to_1080 = 0;
+                                                                                                                                                                            //var hiddenupload = $(this);
+                                                                                                                                                                            var bar = hiddenupload.parent().find('.bar');
+                                                                                                                                                                            var percent = hiddenupload.parent().find('.percent');
+                                                                                                                                                                            hiddenupload.parent('#chargeBar').show();
+                                                                                                                                                                            hiddenupload.siblings('#upload_video3').hide();
+                                                                                                                                                                            hiddenupload.siblings('.covervideo').html('video is uploading...');
+                                                                                                                                                                            hiddenupload.parent().find('.progress').show();
+                                                                                                                                                                            hiddenupload.parent().find('.percent').show();
+                                                                                                                                                                            bar.width(0);
+                                                                                                                                                                            hiddenupload.parent().siblings('.percent').html(0);
+                                                                                                                                                                            var bar = hiddenupload.parent().siblings().children('.bar');
+                                                                                                                                                                            bar.width(0);
+                                                                                                                                                                            var uploader = new MediaUploader({
+                                                                                                                                                                            file: files,
+                                                                                                                                                                                    token: accessToken,
+                                                                                                                                                                                    upgrade_to_1080: upgrade_to_1080,
+                                                                                                                                                                                    onError: function(data) {
+
+                                                                                                                                                                                    var errorResponse = JSON.parse(data);
+                                                                                                                                                                                            message = errorResponse.error;
+                                                                                                                                                                                            var element = document.createElement("div");
+                                                                                                                                                                                            element.setAttribute('class', "alert alert-danger");
+                                                                                                                                                                                            element.appendChild(document.createTextNode(message));
+                                                                                                                                                                                            document.getElementById('results').appendChild(element);
+                                                                                                                                                                                    },
+                                                                                                                                                                                    onProgress: function(data)
+                                                                                                                                                                                    {
+                                                                                                                                                                                    hiddenupload = hiddenuploader[rand];
+                                                                                                                                                                                            var percent = hiddenupload.parent().find('.percent');
+                                                                                                                                                                                            hiddenupload.parent('#chargeBar').show();
+                                                                                                                                                                                            hiddenupload.siblings('#upload_video3').hide();
+                                                                                                                                                                                            hiddenupload.siblings('.covervideo').html('video is uploading...');
+                                                                                                                                                                                            hiddenupload.parent().find('.progress').show();
+                                                                                                                                                                                            hiddenupload.parent().find('.percent').show();
+                                                                                                                                                                                            var percent = (data.loaded / data.total) * 100;
+                                                                                                                                                                                            percentcom = Math.round(percent);
+                                                                                                                                                                                            //console.log(event.loaded+" "+event.total);
+                                                                                                                                                                                            bar.width(percentcom);
+                                                                                                                                                                                            hiddenupload.parent().find('.percent').html(percentcom);
+                                                                                                                                                                                            if (percentcom >= 99)
+                                                                                                                                                                                    {
+                                                                                                                                                                                    hiddenupload.parent().parent().siblings().children().children('.video_tit').html('please wait for few minutes, video is processing');
+                                                                                                                                                                                    }
+
+                                                                                                                                                                                    // updateProgress(data.loaded / data.total);
+
+                                                                                                                                                                                    },
+                                                                                                                                                                                    onComplete: function(videoId) {
+
+//                var url = "https://vimeo.com/"+videoId;
+//               
+//                var a = document.createElement('a');
+//                a.appendChild(document.createTextNode(url));
+//                a.setAttribute('href',url);
+//
+//                var element = document.createElement("div");
+//                element.setAttribute('class', "alert alert-success");
+//                element.appendChild(a);
+
+                                                                                                                                                                                    // document.getElementById('results').appendChild(element);
+                                                                                                                                                                                    form_data.append('videoId', videoId);
+                                                                                                                                                                                            var ajax = new Array();
+                                                                                                                                                                                            ajax[rand] = new XMLHttpRequest();
+                                                                                                                                                                                            ajax[rand].onreadystatechange = function ()
+                                                                                                                                                                                    {
+
+                                                                                                                                                                                    $("#add_video_lesson").addClass("hidden");
+                                                                                                                                                                                            if (ajax[rand].status) {
+                                                                                                                                                                                    hiddenupload = hiddenuploader[rand];
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.video_tit').html('');
+                                                                                                                                                                                            if (ajax[rand].status == 200 && (ajax[rand].readyState == 4))
+                                                                                                                                                                                    {
+
+                                                                                                                                                                                    $("#add_video_lesson").removeClass("hidden");
+                                                                                                                                                                                            status.html(ajax[rand].responseText);
+                                                                                                                                                                                            //                            alert(ajax.responseText);
+                                                                                                                                                                                            console.log(ajax[rand].response);
+                                                                                                                                                                                            console.log()
+
+                                                                                                                                                                                            console.log('test123' + ajax[rand].responseText);
+                                                                                                                                                                                            var values = ajax[rand].responseText.split('?');
+                                                                                                                                                                                            var one = values[0];
+                                                                                                                                                                                            var two = values[1];
+                                                                                                                                                                                            var three = values[2];
+                                                                                                                                                                                            console.log('one' + one);
+                                                                                                                                                                                            console.log('two' + two);
+                                                                                                                                                                                            console.log('three' + three);
+                                                                                                                                                                                            //                                     alert(three);
+                                                                                                                                                                                            var values1 = three.split('.');
+                                                                                                                                                                                            var four = values[1];
+                                                                                                                                                                                            //                                  alert(two);
+
+                                                                                                                                                                                            hiddenupload.parent('#chargeBar').show();
+                                                                                                                                                                                            hiddenupload.siblings('.covervideo').html('');
+                                                                                                                                                                                            hiddenupload.parent().find('.percent').hide();
+                                                                                                                                                                                            hiddenupload.parent().find('.progress').hide();
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.video_tit').html(values1);
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.video_tit_edit').css('display', 'block');
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.class_video_id').attr('value', two);
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children().children('.order_video_id').attr('value', two);
+                                                                                                                                                                                            hiddenupload.parent().parent().parent().attr('val', two);
+                                                                                                                                                                                            hiddenupload.parent('.well').css('display', 'block');
+                                                                                                                                                                                            hiddenupload.siblings('.covervideo').html('video uploaded');
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').show();
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Uploaded Successfully');
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'green');
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                                                                                                                                                                                    } else {
+                                                                                                                                                                                    hiddenupload.parent('.well').css('display', 'block');
+                                                                                                                                                                                            hiddenupload.parent().find('.percent').hide();
+                                                                                                                                                                                            hiddenupload.parent().find('.progress').hide();
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').html('Video Fails to Upload, try again later.');
+                                                                                                                                                                                            hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').css('color', 'red');
+                                                                                                                                                                                                                       hiddenupload.parent().parent().siblings().children('.lesson-video-file-name').delay(4000).fadeOut('slow');
+                }
+            }
+        };
+
+        ajax[rand].upload.addEventListener("progress", function(event){
+        //                console.log(event);
+        hiddenupload=hiddenuploader[rand];
+        var bar = hiddenupload.parent().siblings().children('.bar');
+
+        var percent = hiddenupload.parent().find('.percent');
+        hiddenupload.parent('#chargeBar').show();
+        hiddenupload.siblings('#upload_video3').hide();
+        hiddenupload.siblings('.covervideo').html('video is uploading...');
+        hiddenupload.parent().find('.progress').show();
+        hiddenupload.parent().find('.percent').show();
+        var percent = (event.loaded / event.total) * 100;
+        percentcom = Math.round(percent);
+        console.log(event.loaded+" "+event.total);
+        bar.width(percentcom);
+        hiddenupload.parent().find('.percent').html(percentcom);
+        if (percentcom >= 99)
+        {
+            hiddenupload.parent().parent().siblings().children().children('.video_tit').html('please wait for few minutes, video is processing');
+        }
+        //                console.log(percentcom);
+    }, false);
+        //ajax.addEventListener("progress", completeHandler, false); 
+        //ajax.addEventListener("error", errorHandler, false); 
+        //ajax.addEventListener("abort", abortHandler, false); 
+        ajax[rand].open("POST", "/teach-video-handler", true);
+        ajax[rand].send(form_data);
+                
+                
+        
+                
+ }
+     
+        
+              
+                    
+                    
+                   
+                    
+                           
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+});
+uploader.upload(); 
+          
+}     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+    </script>
+    <script>
+        $(".editsavedfile").click(function(){
+            var id=$(this).attr("fid");
+            var thiz=$(this).parent().find(".checkFile")
+            var name=thiz.html();
+            thiz.hide();
+            var iid="f"+id;
+         
+            $("#"+"f"+iid).show();
+            $("#"+iid).val(name);
+            
+            
+            
+        })
+        
+         $(".cancel").click(function(){
+            var id=$(this).attr("fid");
+            var thiz=$(this).parent().parent().find(".checkFile")
+          
+            thiz.show();
+            var iid="f"+id;
+         
+            $("#"+"f"+iid).hide();
+      
+            
+            
+            
+        })
+        
+        
+         $(".saveeditname").click(function(){
+            var id=$(this).attr("fid");
+            var thiz=$(this).parent().parent().find(".checkFile")
+            var iid="f"+id;
+            nam=$("#"+iid).val();
+            
+            $.ajax({
+                url: '/teach-ajax-handler',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                        method: 'editSavedFile',
+                                name: nam,
+                                id:id
+                        },
+                        success: function (response) {
+                            thiz.html(nam);
+                              $("#"+"f"+iid).hide();
+                              thiz.show();
+                        alert("File edited");
+                        }
+                });
+      
+            
+            
+            
+        })
+        
+            
+        
+        
+        
+        
+        </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

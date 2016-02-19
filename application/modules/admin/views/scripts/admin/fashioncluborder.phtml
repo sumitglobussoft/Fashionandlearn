@@ -1,0 +1,71 @@
+<script> 
+</script>
+<div class="main-container">
+    <div class="padding-md">
+        <ul class="breadcrumb">
+            <li><span class="primary-font"><i class="icon-home"></i></span><a href="#"> <?php echo $this->translate("Gamification Panel") ?></a></li>
+            <li><?php echo $this->translate("Fashionclub Orders") ?></li>
+        </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title header-text no-m-bottom">
+                    <?php echo $this->translate("Gamification Panel") ?>
+                </div>
+            </div>
+        </div
+        <div class="row m-top-md">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4><?php echo $this->translate("Fashionclub Orders") ?></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="table123" class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo $this->translate("SL no") ?></th>
+                                        <th><?php echo $this->translate("Order Id") ?></th>
+                                        <th><?php echo $this->translate("Order Name") ?></th>
+                                        <th><?php echo $this->translate("User Id") ?></th>
+                                        <th><?php echo $this->translate("User Name") ?></th>
+                                        <th><?php echo $this->translate("Order Cost") ?></th>
+                                        <th><?php echo $this->translate("User Mail") ?></th>
+                                        <th><?php echo $this->translate("Status") ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if(isset($this->cluborder)){ $count = 1; foreach($this->cluborder as $value){ ?>
+                                    <tr>
+                                        <td><?php echo $count; ?></td>
+                                        <td><p><?php echo $value['order_id'] ?></p></td>
+                                        <td><p><?php echo $value['order_name'] ?></p></td>
+                                        <td><p><?php echo $value['user_id'] ?></p></td>
+                                        <td><p><?php echo $value['user_name'] ?></p></td>
+                                        <td><p><?php echo $value['order_cost'] ?></p></td>
+                                        <td><p><?php echo $value['useer_mail'] ?></p></td>
+                                        <td><button class="btn btn-success btn-sm changestsatus"><?php if($value['status']){ echo $this->translate("Delereved"); }else{echo $this->translate("Pending"); } ?></button></td>
+                                    </tr>
+                                    <?php $count++;} } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./padding-md -->
+<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<script>
+    $("#Gamificationpanalli").addClass("active");
+        $("#Gamificationpanalli").addClass("openable active open");
+        $("#gamificationpanelul").show();
+        $("#fashioncluborderli").addClass("active");
+$('#table123').dataTable();
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $('.opennotificationGreen').fadeOut("slow");
+        }, 500);
+    });
+</script>

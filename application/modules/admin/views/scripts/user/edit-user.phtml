@@ -1,0 +1,46 @@
+<div>
+<section class="panel panel-default">
+    <header class="panel-heading font-bold"><?php echo $this->translate("User Details") ?>  </header>
+    <div class="panel-body">
+        <form class="form-horizontal" method="POST">
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $this->translate("Name") ?></label>
+                <div class="col-sm-5">
+                     <input class="form-control rectangle" name="user_name" id="user_name" value="<?php if(isset($this->user['user_name'])){echo $this->user['user_name']; } ?>" readonly="true">
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $this->translate("Email") ?></label>
+                <div class="col-sm-5">
+                     <input class="form-control rectangle" name="email" id="email" value="<?php if(isset($this->user['email'])){echo $this->user['email']; } ?>" readonly="true">
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $this->translate("Status") ?></label>
+                 <?php if($this->user['status']==1){ ?>
+                <div class="col-sm-5">
+                     <input class="form-control rectangled" type="Active"  name="status" id="status" value="active" readonly="true">
+                    </div>
+                <?php }else{ ?>
+                    <div class="col-sm-5">
+                     <input class="form-control rectangle" type="deactive"  name="status" id="status" value="suspended" readonly="true">
+                    </div>
+              <?php  }?>
+           </div>
+             <div class="form-group">
+                <label class="col-sm-2 control-label"><?php echo $this->translate("New Password") ?></label>
+                <div class="col-sm-5">
+                     <input class="form-control rectangle" type="password" id="new_password" name="new_password" value="">
+                    </div>
+            </div>
+            <div class="form-group">
+                  <div class="col-sm-4 col-sm-offset-2">
+                       <button class="btn btn-primary" type="submit"><?php echo $this->translate("Save changes") ?></button>
+                       <a href="<?php $this->baseUrl(); ?>/admin/user-details"><button class="btn btn-default" type="button" ><i></i><?php echo $this->translate("Cancel") ?></button></a>
+                       
+                        </div>
+                    </div>
+        </form>
+</div>
+</section>
+</div>
